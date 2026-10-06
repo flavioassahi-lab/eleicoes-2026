@@ -1,10 +1,11 @@
+```css
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #f5f6f8;
+  background: #f4f6f8;
   color: #111827;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -29,8 +30,8 @@ body {
 }
 
 .logo-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   border-radius: 8px;
@@ -81,23 +82,27 @@ main {
 }
 
 .hero h1 {
-  font-size: 38px;
+  font-size: 40px;
+  line-height: 1.05;
   margin: 8px 0;
 }
 
 .hero h1 span {
   color: #6b7280;
+  display: block;
 }
 
 .hero p {
   color: #6b7280;
   font-size: 13px;
+  max-width: 520px;
+  line-height: 1.6;
 }
 
 .demo {
   display: inline-block;
   margin-top: 8px;
-  padding: 6px 9px;
+  padding: 7px 10px;
   border-radius: 6px;
   background: #fff7ed;
   border: 1px solid #fed7aa;
@@ -130,7 +135,7 @@ main {
 }
 
 .counted strong {
-  font-size: 26px;
+  font-size: 27px;
 }
 
 .candidates {
@@ -141,7 +146,7 @@ main {
 }
 
 .candidate {
-  padding: 14px;
+  padding: 15px;
   border-radius: 12px;
 }
 
@@ -178,7 +183,7 @@ main {
 
 .candidate strong {
   display: block;
-  font-size: 29px;
+  font-size: 30px;
   margin-bottom: 5px;
 }
 
@@ -248,41 +253,88 @@ select {
   font-size: 10px;
 }
 
-.map {
-  height: 330px;
-  border-radius: 12px;
-  background: #eef2f7;
-  overflow: hidden;
-}
+/* MAPA */
 
-.map-placeholder {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.map-container {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 18px;
   align-items: center;
-  gap: 8px;
-  color: #6b7280;
 }
 
 .brazil-map {
-  font-size: 70px;
+  min-height: 430px;
+  border-radius: 14px;
+  background: #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.map-placeholder strong {
-  color: #374151;
-  font-size: 13px;
+.map-svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
 }
 
-.map-placeholder small {
-  font-size: 9px;
+.map-state {
+  stroke: white;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: opacity .15s, transform .15s;
+}
+
+.map-state:hover {
+  opacity: .75;
+}
+
+.map-state.red {
+  fill: #dc2626;
+}
+
+.map-state.blue {
+  fill: #2563eb;
+}
+
+.state-info {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.state-info small {
+  font-size: 8px;
+  font-weight: bold;
+  color: #9ca3af;
+}
+
+.state-info strong {
+  font-size: 17px;
+}
+
+.state-info span {
+  color: #6b7280;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.state-info .state-percent {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .legend {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 9px;
   color: #6b7280;
 }
@@ -303,9 +355,11 @@ select {
   background: #2563eb;
 }
 
+/* ESTADOS */
+
 .states {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
@@ -313,11 +367,18 @@ select {
   padding: 11px;
   border: 1px solid #edf0f3;
   border-radius: 10px;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.state:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,.06);
 }
 
 .state-name {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
   font-size: 10px;
   font-weight: bold;
 }
@@ -342,6 +403,8 @@ select {
 .state-bar .blue {
   background: #2563eb;
 }
+
+/* GRÁFICO */
 
 .chart {
   height: 230px;
@@ -378,6 +441,8 @@ select {
   background: #2563eb;
   transform: rotate(5deg);
 }
+
+/* PESQUISAS */
 
 .polls {
   display: grid;
@@ -434,19 +499,46 @@ footer p {
   text-decoration: none;
 }
 
+/* TABLET / DESKTOP */
+
 @media (min-width: 700px) {
-  .states {
-    grid-template-columns: repeat(4, 1fr);
-  }
 
   .hero {
     padding-top: 50px;
   }
+
+}
+
+/* CELULAR */
+
+@media (max-width: 750px) {
+
+  .map-container {
+    grid-template-columns: 1fr;
+  }
+
+  .brazil-map {
+    min-height: 350px;
+  }
+
+  .state-info {
+    min-height: 120px;
+  }
+
+  .states {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }
 
 @media (max-width: 600px) {
+
   .hero h1 {
     font-size: 34px;
+  }
+
+  .candidates {
+    grid-template-columns: 1fr 1fr;
   }
 
   .polls {
@@ -456,4 +548,11 @@ footer p {
   .section-title {
     align-items: flex-start;
   }
+
+  .brazil-map {
+    min-height: 300px;
+    padding: 10px;
+  }
+
 }
+```
