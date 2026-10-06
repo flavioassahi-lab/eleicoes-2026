@@ -228,8 +228,7 @@ const estados = [
 
 function formatarPercentual(valor) {
 
-  return Number(valor)
-    .toFixed(0) + "%";
+  return Math.round(valor) + "%";
 
 }
 
@@ -480,7 +479,7 @@ function renderEstados(lista = estados) {
         <div class="state-counted">
 
           ${estado.apurado}%
-          das seções totalizadas
+          das urnas apuradas
 
         </div>
 
@@ -588,7 +587,7 @@ function atualizarEstado(uf) {
 
     <span>
       ${estado.apurado}%
-      das seções totalizadas
+      das urnas apuradas
     </span>
 
 
@@ -1214,9 +1213,15 @@ function mostrarNotificacao(
 
 async function configurarAlertas() {
 
-  const botao =
+  const botaoAtivar =
     document.getElementById(
       "enableAlerts"
+    );
+
+
+  const botaoDesativar =
+    document.getElementById(
+      "disableAlerts"
     );
 
 
@@ -1233,7 +1238,8 @@ async function configurarAlertas() {
 
 
   if (
-    !botao ||
+    !botaoAtivar ||
+    !botaoDesativar ||
     !select ||
     !status
   ) {
@@ -1243,7 +1249,7 @@ async function configurarAlertas() {
   }
 
 
-  botao.addEventListener(
+  botaoAtivar.addEventListener(
     "click",
     async function() {
 
@@ -1290,6 +1296,12 @@ async function configurarAlertas() {
       );
 
 
+      localStorage.setItem(
+        "alertasAtivos",
+        "true"
+      );
+
+
       status.textContent =
         `Alertas ativados para ${local}.`;
 
@@ -1303,9 +1315,36 @@ async function configurarAlertas() {
   );
 
 
+  botaoDesativar.addEventListener(
+    "click",
+    function() {
+
+      localStorage.removeItem(
+        "alertasAtivos"
+      );
+
+
+      localStorage.removeItem(
+        "alertaLocal"
+      );
+
+
+      status.textContent =
+        "Alertas desativados.";
+
+    }
+  );
+
+
   const salvo =
     localStorage.getItem(
       "alertaLocal"
+    );
+
+
+  const ativos =
+    localStorage.getItem(
+      "alertasAtivos"
     );
 
 
@@ -1313,6 +1352,24 @@ async function configurarAlertas() {
 
     select.value =
       salvo;
+
+  }
+
+
+  if (
+    ativos === "true"
+  ) {
+
+    const local =
+      select.value === "BR"
+        ? "Brasil"
+        : select.options[
+            select.selectedIndex
+          ].text;
+
+
+    status.textContent =
+      `Alertas ativos para ${local}.`;
 
   }
 
@@ -1325,6 +1382,22 @@ async function configurarAlertas() {
 
 function verificarMudancaLideranca() {
 
+  const alertasAtivos =
+    localStorage.getItem(
+      "alertasAtivos"
+    );
+
+
+  if (
+    alertasAtivos !==
+    "true"
+  ) {
+
+    return;
+
+  }
+
+
   const local =
     localStorage.getItem(
       "alertaLocal"
@@ -1336,12 +1409,12 @@ function verificarMudancaLideranca() {
 
 
   /*
-   * Temporariamente utiliza os dados
-   * do 1º turno.
+   * Estes dados ainda representam
+   * o resultado do 1º turno.
    *
-   * Na próxima etapa esta função será
-   * alimentada automaticamente pelos
-   * dados do 2º turno do TSE.
+   * Durante o 2º turno esta função
+   * será alimentada pelos dados
+   * atualizados do TSE.
    */
 
 
