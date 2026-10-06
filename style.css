@@ -81,6 +81,63 @@ main {
   padding: 30px 20px 60px;
 }
 
+
+/* =========================
+   AVISO DO 2º TURNO
+========================= */
+
+.second-round-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 15px 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #eff6ff;
+}
+
+.notice-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.second-round-notice strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #1e3a8a;
+  font-size: 13px;
+}
+
+.second-round-notice p {
+  margin: 0;
+  color: #374151;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.second-round-notice small {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
 .hero {
   padding: 10px 0 28px;
 }
@@ -121,6 +178,11 @@ main {
   font-size: 9px;
   font-weight: 700;
 }
+
+
+/* =========================
+   RESULTADO NACIONAL
+========================= */
 
 .result-card {
   padding: 20px;
@@ -238,6 +300,11 @@ main {
   color: #111827;
 }
 
+
+/* =========================
+   ALERTAS
+========================= */
+
 .alerts-card {
   margin: 18px 0;
   padding: 18px;
@@ -298,11 +365,26 @@ main {
   opacity: .9;
 }
 
+#disableAlerts {
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+#disableAlerts:hover {
+  background: #f3f4f6;
+}
+
 #alertStatus {
   margin-top: 9px;
   color: #16a34a;
   font-size: 11px;
 }
+
+
+/* =========================
+   ANÚNCIOS
+========================= */
 
 .advertisement {
   display: flex;
@@ -317,6 +399,11 @@ main {
   font-weight: 700;
   letter-spacing: .4px;
 }
+
+
+/* =========================
+   SEÇÕES
+========================= */
 
 .section {
   margin-top: 34px;
@@ -348,6 +435,11 @@ main {
   background: #ffffff;
   font-size: 11px;
 }
+
+
+/* =========================
+   MAPA
+========================= */
 
 .map-container {
   display: grid;
@@ -466,6 +558,11 @@ main {
   background: #2563eb;
 }
 
+
+/* =========================
+   ESTADOS
+========================= */
+
 .states {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -520,6 +617,11 @@ main {
   font-size: 9px;
 }
 
+
+/* =========================
+   GRÁFICO
+========================= */
+
 .chart {
   min-height: 180px;
   display: flex;
@@ -537,6 +639,11 @@ main {
   font-size: 11px;
   line-height: 1.5;
 }
+
+
+/* =========================
+   PESQUISAS
+========================= */
 
 .polls {
   display: grid;
@@ -588,6 +695,11 @@ main {
   line-height: 1.55;
 }
 
+
+/* =========================
+   RODAPÉ
+========================= */
+
 footer {
   padding: 30px 20px;
   border-top: 1px solid #e5e7eb;
@@ -617,6 +729,11 @@ footer p {
   font-size: 10px;
 }
 
+
+/* =========================
+   RESPONSIVO
+========================= */
+
 @media (max-width: 700px) {
 
   .header {
@@ -645,6 +762,15 @@ footer p {
 
   .candidate-name {
     font-size: 11px;
+  }
+
+  .second-round-notice {
+    padding: 13px;
+  }
+
+  .notice-icon {
+    width: 30px;
+    height: 30px;
   }
 
   .map-container {
@@ -693,4 +819,5 @@ footer p {
   .footer-links {
     flex-wrap: wrap;
   }
+
 }
