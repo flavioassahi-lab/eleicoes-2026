@@ -32,29 +32,22 @@ const estados = [
 ];
 
 
-function formatarNumero(numero) {
+function renderEstados() {
 
-  return numero.toLocaleString("pt-BR");
+  const container = document.getElementById("states");
 
-}
-
-
-function renderEstados(lista = estados) {
-
-  const container =
-    document.getElementById("states");
+  if (!container) return;
 
   container.innerHTML = "";
 
-  lista.forEach(estado => {
+  estados.forEach(estado => {
 
     const lider =
       estado.vermelho > estado.azul
-        ? "red"
-        : "blue";
+        ? "C1"
+        : "C2";
 
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
 
     card.className = "state";
 
@@ -67,7 +60,7 @@ function renderEstados(lista = estados) {
         </span>
 
         <span>
-          ${lider === "red" ? "C1" : "C2"}
+          ${lider}
         </span>
 
       </div>
@@ -87,16 +80,8 @@ function renderEstados(lista = estados) {
       </div>
 
       <small>
-
-        ${estado.vermelho}%
-        ×
-        ${estado.azul}%
-
-        ·
-
-        ${estado.apurado}%
-        apurado
-
+        ${estado.vermelho}% × ${estado.azul}%
+        · ${estado.apurado}% apurado
       </small>
 
     `;
@@ -108,21 +93,20 @@ function renderEstados(lista = estados) {
 }
 
 
-function atualizarInformacaoEstado(estado) {
+function atualizarEstado(uf) {
+
+  const estado =
+    estados.find(item => item.uf === uf);
 
   const info =
     document.getElementById("stateInfo");
+
+  if (!estado || !info) return;
 
   const lider =
     estado.vermelho > estado.azul
       ? "Candidato 1"
       : "Candidato 2";
-
-  const porcentagem =
-    Math.max(
-      estado.vermelho,
-      estado.azul
-    );
 
   info.innerHTML = `
 
@@ -139,7 +123,10 @@ function atualizarInformacaoEstado(estado) {
     </span>
 
     <div class="state-percent">
-      ${porcentagem}%
+      ${Math.max(
+        estado.vermelho,
+        estado.azul
+      )}%
     </div>
 
     <span>
@@ -160,52 +147,53 @@ function criarMapa() {
   const container =
     document.getElementById("brazilMap");
 
-  /*
-    O mapa visual abaixo é uma representação
-    simplificada dos estados brasileiros.
-    Os dados continuam sendo fictícios.
-  */
+  if (!container) return;
+
+
+  const largura = 900;
+  const altura = 650;
+
 
   const posicoes = {
 
-    AC: [5, 60],
-    AM: [18, 38],
-    RR: [28, 10],
-    AP: [53, 12],
+    RR: [420, 40],
+    AP: [650, 65],
 
-    RO: [20, 72],
-    PA: [48, 34],
-    TO: [53, 58],
+    AM: [260, 130],
+    PA: [500, 160],
+    AC: [120, 270],
+    RO: [250, 300],
 
-    MA: [70, 28],
-    PI: [73, 42],
-    CE: [86, 27],
-    RN: [95, 25],
-    PB: [94, 37],
-    PE: [89, 48],
-    AL: [96, 50],
-    SE: [94, 61],
-    BA: [78, 64],
+    MT: [380, 330],
+    TO: [540, 300],
+    MA: [650, 230],
 
-    MT: [39, 76],
-    GO: [57, 78],
-    DF: [62, 70],
-    MS: [47, 94],
+    PI: [690, 310],
+    CE: [770, 250],
+    RN: [835, 245],
 
-    MG: [70, 83],
-    ES: [87, 78],
-    RJ: [88, 92],
+    PB: [830, 300],
+    PE: [790, 350],
+    AL: [830, 405],
+    SE: [800, 445],
+    BA: [650, 410],
 
-    SP: [67, 94],
-    PR: [55, 105],
-    SC: [59, 116],
-    RS: [51, 128]
+    GO: [500, 400],
+    DF: [555, 385],
+
+    MG: [600, 500],
+    ES: [760, 490],
+    RJ: [735, 560],
+
+    SP: [500, 555],
+    MS: [390, 505],
+
+    PR: [470, 610],
+    SC: [520, 650],
+    RS: [440, 700]
 
   };
 
-
-  const largura = 600;
-  const altura = 150;
 
   let svg = `
 
@@ -225,37 +213,35 @@ function criarMapa() {
 
     if (!posicao) return;
 
-    const x = posicao[0] * 6;
-    const y = posicao[1];
-
     const lider =
       estado.vermelho > estado.azul
         ? "red"
         : "blue";
 
+
     svg += `
 
-      <rect
+      <g
         class="map-state ${lider}"
-        x="${x}"
-        y="${y}"
-        width="34"
-        height="18"
-        rx="4"
         data-uf="${estado.uf}"
-      />
-
-      <text
-        x="${x + 17}"
-        y="${y + 12}"
-        text-anchor="middle"
-        font-size="7"
-        fill="white"
-        pointer-events="none"
-        font-weight="bold"
+        transform="translate(${posicao[0]},${posicao[1]})"
       >
-        ${estado.uf}
-      </text>
+
+        <rect
+          width="68"
+          height="42"
+          rx="8"
+        />
+
+        <text
+          x="34"
+          y="27"
+          text-anchor="middle"
+        >
+          ${estado.uf}
+        </text>
+
+      </g>
 
     `;
 
@@ -264,34 +250,23 @@ function criarMapa() {
 
   svg += `</svg>`;
 
+
   container.innerHTML = svg;
 
 
-  const estadosMapa =
+  const elementos =
     container.querySelectorAll(".map-state");
 
 
-  estadosMapa.forEach(elemento => {
+  elementos.forEach(elemento => {
 
     elemento.addEventListener(
       "click",
-      () => {
+      function() {
 
-        const uf =
-          elemento.dataset.uf;
-
-        const estado =
-          estados.find(
-            item => item.uf === uf
-          );
-
-        if (estado) {
-
-          atualizarInformacaoEstado(
-            estado
-          );
-
-        }
+        atualizarEstado(
+          this.dataset.uf
+        );
 
       }
     );
@@ -301,32 +276,23 @@ function criarMapa() {
 }
 
 
-renderEstados();
+function configurarOrdenacao() {
 
-criarMapa();
+  const select =
+    document.getElementById("sort");
 
-
-document.getElementById("redBar")
-  .style.width = "52.4%";
-
-
-document.getElementById("blueBar")
-  .style.width = "47.6%";
+  if (!select) return;
 
 
-document.getElementById("sort")
-  .addEventListener(
+  select.addEventListener(
     "change",
-    function () {
-
-      const tipo =
-        this.value;
+    function() {
 
       let lista =
         [...estados];
 
 
-      if (tipo === "name") {
+      if (this.value === "name") {
 
         lista.sort(
           (a, b) =>
@@ -339,7 +305,7 @@ document.getElementById("sort")
       }
 
 
-      if (tipo === "margin") {
+      if (this.value === "margin") {
 
         lista.sort(
           (a, b) =>
@@ -355,7 +321,7 @@ document.getElementById("sort")
       }
 
 
-      if (tipo === "counted") {
+      if (this.value === "counted") {
 
         lista.sort(
           (a, b) =>
@@ -365,8 +331,103 @@ document.getElementById("sort")
       }
 
 
-      renderEstados(lista);
+      renderEstadosLista(lista);
 
     }
   );
+
+}
+
+
+function renderEstadosLista(lista) {
+
+  const container =
+    document.getElementById("states");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  lista.forEach(estado => {
+
+    const lider =
+      estado.vermelho > estado.azul
+        ? "C1"
+        : "C2";
+
+    const card =
+      document.createElement("div");
+
+    card.className = "state";
+
+    card.innerHTML = `
+
+      <div class="state-name">
+
+        <span>
+          ${estado.uf} · ${estado.nome}
+        </span>
+
+        <span>
+          ${lider}
+        </span>
+
+      </div>
+
+      <div class="state-bar">
+
+        <div
+          class="red"
+          style="width:${estado.vermelho}%">
+        </div>
+
+        <div
+          class="blue"
+          style="width:${estado.azul}%">
+        </div>
+
+      </div>
+
+      <small>
+        ${estado.vermelho}% × ${estado.azul}%
+        · ${estado.apurado}% apurado
+      </small>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function iniciar() {
+
+  renderEstados();
+
+  criarMapa();
+
+  configurarOrdenacao();
+
+
+  const redBar =
+    document.getElementById("redBar");
+
+  const blueBar =
+    document.getElementById("blueBar");
+
+
+  if (redBar) {
+    redBar.style.width = "52.4%";
+  }
+
+  if (blueBar) {
+    blueBar.style.width = "47.6%";
+  }
+
+}
+
+
+iniciar();
 ```
