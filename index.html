@@ -13,13 +13,10 @@
 
   <meta
     name="description"
-    content="Acompanhe os resultados oficiais da eleição presidencial de 2026."
+    content="Acompanhe a apuração do 2º turno das eleições presidenciais de 2026."
   >
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -46,13 +43,44 @@
 
   <div class="live">
     <span></span>
-    APURAÇÃO AO VIVO
+    ACOMPANHAMENTO AO VIVO
   </div>
 
 </header>
 
 
 <main>
+
+  <!-- AVISO SOBRE O 2º TURNO -->
+
+  <section class="second-round-notice">
+
+    <div class="notice-icon">
+      2º
+    </div>
+
+    <div>
+
+      <strong>
+        Acompanhamento do 2º turno
+      </strong>
+
+      <p>
+        Este site foi preparado para acompanhar
+        a apuração do 2º turno das eleições
+        presidenciais de 2026.
+      </p>
+
+      <small>
+        Enquanto o 2º turno não começa,
+        os dados exibidos abaixo correspondem
+        aos resultados oficiais do 1º turno.
+      </small>
+
+    </div>
+
+  </section>
+
 
   <!-- HERO -->
 
@@ -74,7 +102,7 @@
     </p>
 
     <div class="demo">
-      RESULTADOS OFICIAIS DO 1º TURNO
+      DADOS ATUAIS: RESULTADO OFICIAL DO 1º TURNO
     </div>
 
   </section>
@@ -101,7 +129,7 @@
 
       <div>
         <small>
-          SEÇÕES APURADAS
+          URNAS APURADAS
         </small>
       </div>
 
@@ -240,6 +268,13 @@
 
       <button id="enableAlerts">
         🔔 Ativar alertas
+      </button>
+
+      <button
+        id="disableAlerts"
+        type="button"
+      >
+        🔕 Desativar alertas
       </button>
 
     </div>
@@ -503,8 +538,8 @@
         Elas estão sujeitas à margem de erro,
         ao período de coleta e às características
         da metodologia utilizada. Na reta final,
-        a disputa estava muito próxima e ainda
-        havia eleitores que poderiam mudar de voto,
+        a disputa estava próxima e ainda havia
+        eleitores que poderiam mudar de voto,
         o que ajuda a explicar diferenças entre
         os levantamentos e o resultado das urnas.
       </p>
