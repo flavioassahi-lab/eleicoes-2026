@@ -1,9 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Eleições 2026 | Apuração ao Vivo</title>
 
@@ -12,101 +17,166 @@
     content="Acompanhe a apuração das eleições presidenciais de 2026, estado por estado."
   >
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
   <div class="logo">
-    <div class="logo-icon">E</div>
+
+    <div class="logo-icon">
+      E
+    </div>
 
     <div>
-      <strong>ELEIÇÕES 2026</strong>
-      <span>2º TURNO</span>
+
+      <strong>
+        ELEIÇÕES 2026
+      </strong>
+
+      <span>
+        2º TURNO
+      </span>
+
     </div>
+
   </div>
 
+
   <div class="live">
+
     <span></span>
+
     APURAÇÃO AO VIVO
+
   </div>
 
 </header>
 
 
+
 <main>
+
 
 <section class="hero">
 
-  <small>ELEIÇÃO PRESIDENCIAL • BRASIL</small>
+  <small>
+    ELEIÇÃO PRESIDENCIAL • BRASIL
+  </small>
 
   <h1>
+
     Apuração
-    <span>em tempo real</span>
+
+    <span>
+      em tempo real
+    </span>
+
   </h1>
 
   <p>
-    Acompanhe os resultados da eleição presidencial,
-    estado por estado.
+
+    Acompanhe os resultados da eleição
+    presidencial, estado por estado.
+
   </p>
 
+
   <div class="demo">
+
     DEMONSTRAÇÃO — DADOS FICTÍCIOS
+
   </div>
 
 </section>
 
 
+
 <section class="result-card">
+
 
   <div class="counted">
 
     <div>
-      <small>SEÇÕES APURADAS</small>
+
+      <small>
+        SEÇÕES APURADAS
+      </small>
+
     </div>
 
+
     <strong id="counted">
+
       42,8%
+
     </strong>
 
   </div>
 
 
+
   <div class="candidates">
+
 
     <div class="candidate candidate-red">
 
       <div class="candidate-name">
+
         <span></span>
+
         CANDIDATO 1
+
       </div>
 
+
       <strong id="redPercentage">
+
         52,4%
+
       </strong>
 
+
       <small id="redVotes">
+
         48.521.234 votos
+
       </small>
 
     </div>
+
 
 
     <div class="candidate candidate-blue">
 
       <div class="candidate-name">
+
         <span></span>
+
         CANDIDATO 2
+
       </div>
 
+
       <strong id="bluePercentage">
+
         47,6%
+
       </strong>
 
+
       <small id="blueVotes">
+
         44.102.876 votos
+
       </small>
 
     </div>
@@ -114,53 +184,93 @@
   </div>
 
 
+
   <div class="vote-bar">
 
     <div id="redBar"></div>
+
     <div id="blueBar"></div>
 
   </div>
 
 
+
   <div class="difference">
 
-    <span>Diferença</span>
+    <span>
+      Diferença
+    </span>
 
     <strong id="difference">
+
       4.418.358 votos
+
     </strong>
 
   </div>
 
+
 </section>
 
 
+
 <div class="advertisement">
+
   ESPAÇO PARA PATROCINADOR
+
 </div>
+
 
 
 <section class="section">
 
+
   <div class="section-title">
 
     <div>
-      <small>BRASIL</small>
-      <h2>Mapa da apuração</h2>
+
+      <small>
+        BRASIL
+      </small>
+
+      <h2>
+        Mapa da apuração
+      </h2>
+
     </div>
 
   </div>
 
 
+
   <div class="map-container">
 
-    <div id="brazilMap" class="brazil-map">
-      <!-- mapa será inserido pelo JavaScript -->
+
+    <div
+      id="brazilMap"
+      class="brazil-map"
+    >
+
+      <object
+        id="mapSvg"
+        data="map.svg"
+        type="image/svg+xml"
+        aria-label="Mapa do Brasil"
+      >
+      </object>
+
     </div>
 
-    <div id="stateInfo" class="state-info">
 
-      <small>SELECIONE UM ESTADO</small>
+
+    <div
+      id="stateInfo"
+      class="state-info"
+    >
+
+      <small>
+        SELECIONE UM ESTADO
+      </small>
 
       <strong>
         Clique em um estado do mapa
@@ -172,34 +282,57 @@
 
     </div>
 
+
   </div>
+
 
 
   <div class="legend">
 
-    <span>
-      <i class="red"></i>
-      Candidato 1
-    </span>
 
     <span>
-      <i class="blue"></i>
-      Candidato 2
+
+      <i class="red"></i>
+
+      Candidato 1
+
     </span>
+
+
+    <span>
+
+      <i class="blue"></i>
+
+      Candidato 2
+
+    </span>
+
 
   </div>
+
 
 </section>
 
 
+
 <section class="section">
+
 
   <div class="section-title">
 
+
     <div>
-      <small>RESULTADOS</small>
-      <h2>Por estado</h2>
+
+      <small>
+        RESULTADOS
+      </small>
+
+      <h2>
+        Por estado
+      </h2>
+
     </div>
+
 
     <select id="sort">
 
@@ -217,57 +350,96 @@
 
     </select>
 
+
   </div>
 
 
-  <div id="states" class="states"></div>
+
+  <div
+    id="states"
+    class="states"
+  ></div>
+
 
 </section>
 
 
+
 <div class="advertisement">
+
   ESPAÇO PARA PATROCINADOR
+
 </div>
+
 
 
 <section class="section">
 
+
   <div class="section-title">
 
+
     <div>
-      <small>EVOLUÇÃO</small>
-      <h2>Apuração ao longo do tempo</h2>
+
+      <small>
+        EVOLUÇÃO
+      </small>
+
+      <h2>
+        Apuração ao longo do tempo
+      </h2>
+
     </div>
 
+
   </div>
+
+
 
   <div class="chart">
 
     <div class="chart-line red-line"></div>
+
     <div class="chart-line blue-line"></div>
 
   </div>
 
+
 </section>
+
 
 
 <section class="section">
 
+
   <div class="section-title">
 
+
     <div>
-      <small>PESQUISAS</small>
-      <h2>Pesquisas × Resultado</h2>
+
+      <small>
+        PESQUISAS
+      </small>
+
+      <h2>
+        Pesquisas × Resultado
+      </h2>
+
     </div>
+
 
   </div>
 
 
+
   <div class="polls">
+
 
     <div class="poll">
 
-      <strong>Instituto A</strong>
+      <strong>
+        Instituto A
+      </strong>
 
       <small>
         Última pesquisa
@@ -275,4 +447,98 @@
 
       <b>
         51% × 49%
-```
+      </b>
+
+    </div>
+
+
+
+    <div class="poll">
+
+      <strong>
+        Instituto B
+      </strong>
+
+      <small>
+        Última pesquisa
+      </small>
+
+      <b>
+        50% × 50%
+      </b>
+
+    </div>
+
+
+
+    <div class="poll">
+
+      <strong>
+        Instituto C
+      </strong>
+
+      <small>
+        Última pesquisa
+      </small>
+
+      <b>
+        49% × 51%
+      </b>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+
+  <strong>
+    ELEIÇÕES 2026
+  </strong>
+
+
+  <p>
+    Projeto independente de acompanhamento eleitoral.
+  </p>
+
+
+  <div class="footer-links">
+
+    <a href="#">
+      Metodologia
+    </a>
+
+    <a href="#">
+      Fontes
+    </a>
+
+    <a href="#">
+      Privacidade
+    </a>
+
+    <a href="#">
+      Contato
+    </a>
+
+  </div>
+
+
+</footer>
+
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
