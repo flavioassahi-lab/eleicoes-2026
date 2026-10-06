@@ -62,53 +62,23 @@ function calcularCor(estado) {
 }
 
 function atualizarPainelPrimeiroTurno() {
-  const redPercentage =
-    document.getElementById("redPercentage");
+  const redPercentage = document.getElementById("redPercentage");
+  const bluePercentage = document.getElementById("bluePercentage");
+  const redVotes = document.getElementById("redVotes");
+  const blueVotes = document.getElementById("blueVotes");
+  const redBar = document.getElementById("redBar");
+  const blueBar = document.getElementById("blueBar");
+  const diferenca = document.getElementById("difference");
+  const contado = document.getElementById("counted");
 
-  const bluePercentage =
-    document.getElementById("bluePercentage");
-
-  const redVotes =
-    document.getElementById("redVotes");
-
-  const blueVotes =
-    document.getElementById("blueVotes");
-
-  const redBar =
-    document.getElementById("redBar");
-
-  const blueBar =
-    document.getElementById("blueBar");
-
-  const diferenca =
-    document.getElementById("difference");
-
-  const contado =
-    document.getElementById("counted");
-
-  if (redPercentage)
-    redPercentage.textContent = "45,16%";
-
-  if (bluePercentage)
-    bluePercentage.textContent = "47,03%";
-
-  if (redVotes)
-    redVotes.textContent = "53.876.617 votos";
-
-  if (blueVotes)
-    blueVotes.textContent = "56.104.268 votos";
-
-  if (redBar)
-    redBar.style.width = "45.16%";
-
-  if (blueBar)
-    blueBar.style.width = "47.03%";
-
-  if (diferenca)
-    diferenca.textContent = "2.227.651 votos";
-
-  if (contado)
-    contado.textContent = "100%";
+  if (redPercentage) redPercentage.textContent = "45,16%";
+  if (bluePercentage) bluePercentage.textContent = "47,03%";
+  if (redVotes) redVotes.textContent = "53.876.617 votos";
+  if (blueVotes) blueVotes.textContent = "56.104.268 votos";
+  if (redBar) redBar.style.width = "45.16%";
+  if (blueBar) blueBar.style.width = "47.03%";
+  if (diferenca) diferenca.textContent = "2.227.651 votos";
+  if (contado) contado.textContent = "100%";
 
   criarStatusAtualizacao(
     "Resultado final oficial do 1º turno — TSE"
@@ -116,60 +86,40 @@ function atualizarPainelPrimeiroTurno() {
 }
 
 function renderEstados(lista = estados) {
-  const container =
-    document.getElementById("states");
-
+  const container = document.getElementById("states");
   if (!container) return;
 
   container.innerHTML = "";
 
   lista.forEach(estado => {
-    const azulVence =
-      estado.azul > estado.vermelho;
+    const azulVence = estado.azul > estado.vermelho;
+    const vencedor = azulVence
+      ? CANDIDATO_AZUL
+      : CANDIDATO_VERMELHO;
 
-    const vencedor =
-      azulVence
-        ? CANDIDATO_AZUL
-        : CANDIDATO_VERMELHO;
+    const cor = azulVence
+      ? "#2563eb"
+      : "#dc2626";
 
-    const cor =
-      azulVence
-        ? "#2563eb"
-        : "#dc2626";
-
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
 
     card.className = "state";
 
     card.innerHTML = `
       <div class="state-name">
-        <span>
-          ${estado.uf} · ${estado.nome}
-        </span>
-
-        <strong style="color:${cor};">
-          ${vencedor}
-        </strong>
+        <span>${estado.uf} · ${estado.nome}</span>
+        <strong style="color:${cor};">${vencedor}</strong>
       </div>
 
       <div class="state-bar">
-        <div
-          class="red"
-          style="width:${estado.vermelho}%"
-        ></div>
-
-        <div
-          class="blue"
-          style="width:${estado.azul}%"
-        ></div>
+        <div class="red" style="width:${estado.vermelho}%"></div>
+        <div class="blue" style="width:${estado.azul}%"></div>
       </div>
 
       <small>
         Lula ${formatarPercentual(estado.vermelho)}
         ·
-        Flávio Bolsonaro
-        ${formatarPercentual(estado.azul)}
+        Flávio Bolsonaro ${formatarPercentual(estado.azul)}
       </small>
     `;
 
@@ -178,21 +128,22 @@ function renderEstados(lista = estados) {
 }
 
 function atualizarEstado(uf) {
-  const estado =
-    estados.find(item => item.uf === uf);
+  const estado = estados.find(
+    item => item.uf === uf
+  );
 
-  const info =
-    document.getElementById("stateInfo");
+  const info = document.getElementById(
+    "stateInfo"
+  );
 
   if (!estado || !info) return;
 
   const azulVence =
     estado.azul > estado.vermelho;
 
-  const vencedor =
-    azulVence
-      ? CANDIDATO_AZUL
-      : CANDIDATO_VERMELHO;
+  const vencedor = azulVence
+    ? CANDIDATO_AZUL
+    : CANDIDATO_VERMELHO;
 
   const percentualVencedor =
     Math.max(
@@ -201,17 +152,11 @@ function atualizarEstado(uf) {
     );
 
   info.innerHTML = `
-    <small>
-      ${estado.uf} · ${estado.nome}
-    </small>
+    <small>${estado.uf} · ${estado.nome}</small>
 
-    <strong>
-      ${vencedor}
-    </strong>
+    <strong>${vencedor}</strong>
 
-    <span>
-      Resultado final do 1º turno
-    </span>
+    <span>Resultado final do 1º turno</span>
 
     <div class="state-percent">
       ${formatarPercentual(
@@ -235,11 +180,6 @@ function atualizarEstado(uf) {
   `;
 }
 
-
-/* =========================================================
-   RÓTULOS DINÂMICOS DO MAPA
-   ========================================================= */
-
 function criarRotulosMapa() {
   const objeto =
     document.getElementById("mapSvg");
@@ -256,10 +196,9 @@ function criarRotulosMapa() {
 
   svgRoot
     .querySelectorAll(".map-label-layer")
-    .forEach(
-      elemento => elemento.remove()
+    .forEach(elemento =>
+      elemento.remove()
     );
-
 
   const camada =
     svg.createElementNS(
@@ -272,9 +211,7 @@ function criarRotulosMapa() {
     "map-label-layer"
   );
 
-
   const labels = [];
-
 
   estados.forEach(estado => {
     const elemento =
@@ -300,11 +237,9 @@ function criarRotulosMapa() {
       return;
     }
 
-
     const azulVence =
       estado.azul >
       estado.vermelho;
-
 
     const percentual =
       Math.max(
@@ -312,13 +247,16 @@ function criarRotulosMapa() {
         estado.vermelho
       );
 
-
     labels.push({
       estado,
       elemento,
       caixa,
-      x: caixa.x + caixa.width / 2,
-      y: caixa.y + caixa.height / 2,
+      x:
+        caixa.x +
+        caixa.width / 2,
+      y:
+        caixa.y +
+        caixa.height / 2,
       largura: 28,
       altura: 10,
       azulVence,
@@ -326,33 +264,29 @@ function criarRotulosMapa() {
     });
   });
 
-
-  /*
-   * Primeiro colocamos todos no centro
-   * real dos respectivos estados.
-   */
-
   labels.forEach(label => {
+    label.labelX =
+      label.x;
 
-    label.labelX = label.x;
-    label.labelY = label.y;
-
+    label.labelY =
+      label.y;
   });
 
+  for (
+    let i = 0;
+    i < labels.length;
+    i++
+  ) {
+    const atual =
+      labels[i];
 
-  /*
-   * Detecta sobreposição entre rótulos.
-   * Quando acontece, desloca o segundo
-   * rótulo automaticamente.
-   */
-
-  for (let i = 0; i < labels.length; i++) {
-
-    const atual = labels[i];
-
-    for (let j = 0; j < i; j++) {
-
-      const anterior = labels[j];
+    for (
+      let j = 0;
+      j < i;
+      j++
+    ) {
+      const anterior =
+        labels[j];
 
       const distanciaX =
         Math.abs(
@@ -366,14 +300,11 @@ function criarRotulosMapa() {
           anterior.labelY
         );
 
-
       const sobreposto =
         distanciaX < 32 &&
         distanciaY < 13;
 
-
       if (sobreposto) {
-
         const direcao =
           atual.labelX >=
           anterior.labelX
@@ -385,15 +316,13 @@ function criarRotulosMapa() {
 
         atual.labelY += 14;
 
-        atual.deslocado = true;
-
+        atual.deslocado =
+          true;
       }
     }
   }
 
-
   labels.forEach(label => {
-
     const grupo =
       svg.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -416,15 +345,7 @@ function criarRotulosMapa() {
     grupo.style.cursor =
       "pointer";
 
-
-    /*
-     * Linha indicadora somente
-     * quando o rótulo precisou
-     * sair do centro do estado.
-     */
-
     if (label.deslocado) {
-
       const linha =
         svg.createElementNS(
           "http://www.w3.org/2000/svg",
@@ -455,9 +376,7 @@ function criarRotulosMapa() {
 
       linha.setAttribute(
         "stroke",
-        label.azulVence
-          ? "#2563eb"
-          : "#dc2626"
+        "#111111"
       );
 
       linha.setAttribute(
@@ -474,13 +393,6 @@ function criarRotulosMapa() {
         linha
       );
     }
-
-
-    /*
-     * Texto principal:
-     *
-     * MG 48%
-     */
 
     const texto =
       svg.createElementNS(
@@ -525,35 +437,13 @@ function criarRotulosMapa() {
 
     texto.setAttribute(
       "fill",
-      label.azulVence
-        ? "#1d4ed8"
-        : "#b91c1c"
-    );
-
-    texto.setAttribute(
-      "paint-order",
-      "stroke"
-    );
-
-    texto.setAttribute(
-      "stroke",
-      "rgba(255,255,255,0.85)"
-    );
-
-    texto.setAttribute(
-      "stroke-width",
-      "2"
+      "#111111"
     );
 
     texto.textContent =
       `${label.estado.uf} ${formatarPercentual(
         label.percentual
       )}`;
-
-
-    /*
-     * Tooltip.
-     */
 
     const titulo =
       svg.createElementNS(
@@ -570,7 +460,6 @@ function criarRotulosMapa() {
         label.estado.azul
       )}`;
 
-
     grupo.appendChild(
       texto
     );
@@ -578,7 +467,6 @@ function criarRotulosMapa() {
     grupo.appendChild(
       titulo
     );
-
 
     grupo.addEventListener(
       "click",
@@ -588,7 +476,6 @@ function criarRotulosMapa() {
         );
       }
     );
-
 
     grupo.addEventListener(
       "mouseenter",
@@ -600,7 +487,6 @@ function criarRotulosMapa() {
       }
     );
 
-
     grupo.addEventListener(
       "mouseleave",
       function() {
@@ -611,13 +497,10 @@ function criarRotulosMapa() {
       }
     );
 
-
     camada.appendChild(
       grupo
     );
-
   });
-
 
   svgRoot.appendChild(
     camada
@@ -635,35 +518,30 @@ function conectarMapa() {
   objeto.addEventListener(
     "load",
     function() {
-
       const svg =
         objeto.contentDocument;
 
       if (!svg) return;
 
-
       estados.forEach(
         estado => {
-
           const elemento =
             svg.getElementById(
               estado.uf
             );
 
-          if (!elemento) return;
-
+          if (!elemento)
+            return;
 
           const cor =
             calcularCor(
               estado
             );
 
-
           elemento.setAttribute(
             "fill",
             cor
           );
-
 
           elemento.style.setProperty(
             "fill",
@@ -671,14 +549,11 @@ function conectarMapa() {
             "important"
           );
 
-
           elemento.style.cursor =
             "pointer";
 
-
           elemento.style.transition =
             "opacity .2s";
-
 
           elemento.addEventListener(
             "mouseenter",
@@ -688,7 +563,6 @@ function conectarMapa() {
             }
           );
 
-
           elemento.addEventListener(
             "mouseleave",
             function() {
@@ -696,7 +570,6 @@ function conectarMapa() {
                 "1";
             }
           );
-
 
           elemento.addEventListener(
             "click",
@@ -706,13 +579,10 @@ function conectarMapa() {
               );
             }
           );
-
         }
       );
 
-
       criarRotulosMapa();
-
     }
   );
 }
@@ -728,15 +598,12 @@ function configurarOrdenacao() {
   select.addEventListener(
     "change",
     function() {
-
       const lista =
         [...estados];
-
 
       if (
         this.value === "name"
       ) {
-
         lista.sort(
           (a, b) =>
             a.nome.localeCompare(
@@ -744,14 +611,11 @@ function configurarOrdenacao() {
               "pt-BR"
             )
         );
-
       }
-
 
       renderEstados(
         lista
       );
-
     }
   );
 }
@@ -766,15 +630,12 @@ function criarStatusAtualizacao(
 
   if (!painel) return;
 
-
   const existente =
     document.getElementById(
       "demoUpdate"
     );
 
-
   if (existente) {
-
     existente.innerHTML = `
       <strong
         style="
@@ -790,16 +651,13 @@ function criarStatusAtualizacao(
     return;
   }
 
-
   const status =
     document.createElement(
       "div"
     );
 
-
   status.id =
     "demoUpdate";
-
 
   status.style.marginTop =
     "14px";
@@ -816,7 +674,6 @@ function criarStatusAtualizacao(
   status.style.color =
     "#6b7280";
 
-
   status.innerHTML = `
     <strong
       style="
@@ -828,7 +685,6 @@ function criarStatusAtualizacao(
     </strong>
     ${mensagem}
   `;
-
 
   painel.appendChild(
     status
