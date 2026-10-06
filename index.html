@@ -4,12 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Eleições 2026 | Apuração</title>
 
@@ -34,13 +29,8 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 </div>
 
 <div>
-  <strong>
-    ELEIÇÕES 2026
-  </strong>
-
-  <span>
-    2º TURNO
-  </span>
+  <strong>ELEIÇÕES 2026</strong>
+  <span>2º TURNO</span>
 </div>
 ```
 
@@ -55,8 +45,6 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 
 <main>
 
-  <!-- AVISO SOBRE O 2º TURNO -->
-
   <section class="second-round-notice">
 
 ```
@@ -66,9 +54,7 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 
 <div>
 
-  <strong>
-    Acompanhamento do 2º turno
-  </strong>
+  <strong>Acompanhamento do 2º turno</strong>
 
   <p>
     Este site foi preparado para acompanhar
@@ -77,17 +63,15 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
   </p>
 
   <small>
-    Enquanto o 2º turno não começa,
-    os dados exibidos abaixo correspondem
-    aos resultados oficiais do 1º turno.
+    Enquanto o 2º turno não começa, os dados
+    exibidos abaixo correspondem aos resultados
+    oficiais do 1º turno.
   </small>
 
 </div>
 ```
 
   </section>
-
-  <!-- HERO -->
 
   <section class="hero">
 
@@ -102,9 +86,8 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 </h1>
 
 <p>
-  Acompanhe os resultados oficiais
-  da eleição presidencial,
-  estado por estado.
+  Acompanhe os resultados oficiais da eleição
+  presidencial, estado por estado.
 </p>
 
 <div class="demo">
@@ -113,8 +96,6 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 ```
 
   </section>
-
-  <!-- RESULTADO NACIONAL -->
 
   <section class="result-card">
 
@@ -135,9 +116,7 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 <div class="counted">
 
   <div>
-    <small>
-      URNAS APURADAS
-    </small>
+    <small>URNAS APURADAS</small>
   </div>
 
   <strong id="counted">
@@ -190,7 +169,6 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 <div class="vote-bar">
 
   <div id="redBar"></div>
-
   <div id="blueBar"></div>
 
 </div>
@@ -198,453 +176,5 @@ content="Acompanhe a apuração do 2º turno das eleições presidenciais de 202
 
 <div class="difference">
 
-  <span>
-    Diferença
-  </span>
-
-  <strong id="difference">
-    2.227.651 votos
-  </strong>
-
-</div>
+  <span
 ```
-
-  </section>
-
-  <!-- ANÚNCIO -->
-
-  <div class="advertisement">
-    ESPAÇO PARA PATROCINADOR
-  </div>
-
-  <!-- MAPA -->
-
-  <section class="section">
-
-```
-<div class="section-title">
-
-  <div>
-
-    <small>
-      BRASIL
-    </small>
-
-    <h2>
-      Mapa da apuração
-    </h2>
-
-    <p>
-      Selecione um estado para acompanhar
-      seus resultados.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="map-container">
-
-  <div
-    id="brazilMap"
-    class="brazil-map"
-  >
-
-    <object
-      id="mapSvg"
-      data="map.svg"
-      type="image/svg+xml"
-      aria-label="Mapa do Brasil"
-    ></object>
-
-  </div>
-
-
-  <!-- RESULTADO DO ESTADO SELECIONADO -->
-
-  <div
-    id="stateInfo"
-    class="state-info"
-  >
-
-    <small>
-      RESULTADOS ESTADUAIS
-    </small>
-
-    <strong>
-      Selecione um estado
-    </strong>
-
-    <span>
-      Consulte os dados oficiais do TSE.
-    </span>
-
-  </div>
-
-</div>
-
-
-<div class="legend">
-
-  <span>
-    <i class="red"></i>
-    Lula
-  </span>
-
-  <span>
-    <i class="blue"></i>
-    Flávio Bolsonaro
-  </span>
-
-</div>
-```
-
-  </section>
-
-  <!-- ALERTA DO ESTADO SELECIONADO -->
-
-  <section
-    class="alerts-card"
-    id="alertsCard"
-  >
-
-```
-<div>
-
-  <small>
-    ACOMPANHE A APURAÇÃO
-  </small>
-
-  <h3>
-    Receba alertas de liderança
-  </h3>
-
-  <p id="alertDescription">
-    Selecione um estado no mapa para
-    ativar ou desativar os alertas.
-  </p>
-
-</div>
-
-
-<div class="alerts-controls">
-
-  <button
-    id="enableAlerts"
-    type="button"
-  >
-    🔔 Ativar alerta
-  </button>
-
-</div>
-
-
-<div
-  id="alertStatus"
-  aria-live="polite"
-></div>
-```
-
-  </section>
-
-  <!-- EVOLUÇÃO DO ESTADO SELECIONADO -->
-
-  <section
-    class="section state-evolution-section"
-    id="stateEvolution"
-  >
-
-```
-<div class="section-title">
-
-  <div>
-
-    <small>
-      EVOLUÇÃO
-    </small>
-
-    <h2 id="evolutionTitle">
-      Apuração ao longo do tempo
-    </h2>
-
-    <p id="evolutionDescription">
-      Selecione um estado para visualizar
-      a evolução da apuração.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="chart">
-
-  <div
-    id="chartContent"
-    class="chart-empty"
-  >
-    A evolução da apuração será exibida
-    conforme os resultados forem divulgados.
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <!-- POR ESTADO -->
-
-  <section class="section">
-
-```
-<details class="states-collapsible">
-
-  <summary>
-
-    <div>
-
-      <small>
-        RESULTADOS OFICIAIS
-      </small>
-
-      <h2>
-        Por estado
-      </h2>
-
-    </div>
-
-    <span class="collapse-icon">
-      +
-    </span>
-
-  </summary>
-
-
-  <div class="states-content">
-
-    <div class="section-title states-toolbar">
-
-      <div>
-        <p>
-          Consulte o resultado de cada estado.
-        </p>
-      </div>
-
-
-      <select id="sort">
-
-        <option value="name">
-          A–Z
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div
-      id="states"
-      class="states"
-    ></div>
-
-  </div>
-
-</details>
-```
-
-  </section>
-
-  <!-- ANÚNCIO -->
-
-  <div class="advertisement">
-    ESPAÇO PARA PATROCINADOR
-  </div>
-
-  <!-- PESQUISAS -->
-
-  <section class="section">
-
-```
-<div class="section-title">
-
-  <div>
-
-    <small>
-      PESQUISAS
-    </small>
-
-    <h2>
-      Pesquisas × Resultado
-    </h2>
-
-  </div>
-
-</div>
-
-
-<!-- 1º TURNO -->
-
-<div class="poll-round">
-
-  <div class="poll-round-title">
-
-    <h3>
-      1º turno
-    </h3>
-
-    <span>
-      Pesquisas e resultado oficial
-    </span>
-
-  </div>
-
-
-  <div class="polls">
-
-    <div class="poll">
-
-      <strong>
-        Datafolha
-      </strong>
-
-      <small>
-        Pesquisas do 1º turno
-      </small>
-
-      <b>
-        Consulte os levantamentos realizados
-        antes do 1º turno.
-      </b>
-
-    </div>
-
-
-    <div class="poll">
-
-      <strong>
-        Resultado oficial
-      </strong>
-
-      <small>
-        1º turno · TSE
-      </small>
-
-      <b>
-        Lula 45,16% · Flávio 47,03%
-      </b>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- 2º TURNO -->
-
-<div class="poll-round">
-
-  <div class="poll-round-title">
-
-    <h3>
-      2º turno
-    </h3>
-
-    <span>
-      Pesquisas divulgadas até hoje
-    </span>
-
-  </div>
-
-
-  <div
-    id="secondRoundPolls"
-    class="polls"
-  >
-
-    <div class="poll">
-
-      <strong>
-        Pesquisas do 2º turno
-      </strong>
-
-      <small>
-        Atualizado até 06/10/2026
-      </small>
-
-      <b>
-        Os levantamentos mais recentes
-        serão apresentados aqui.
-      </b>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div class="poll-explanation">
-
-  <strong>
-    Como interpretar as pesquisas?
-  </strong>
-
-  <p>
-    Pesquisas eleitorais representam
-    um retrato das intenções de voto
-    no momento em que são realizadas.
-    Elas estão sujeitas à margem de erro,
-    ao período de coleta e às características
-    da metodologia utilizada.
-  </p>
-
-</div>
-```
-
-  </section>
-
-</main>
-
-<!-- RODAPÉ -->
-
-<footer>
-
-  <strong>
-    ELEIÇÕES 2026
-  </strong>
-
-  <p>
-    Projeto independente de acompanhamento eleitoral.
-  </p>
-
-  <div class="footer-links">
-
-```
-<a href="#">
-  Metodologia
-</a>
-
-<a href="#">
-  Fontes
-</a>
-
-<a href="#">
-  Privacidade
-</a>
-
-<a href="#">
-  Contato
-</a>
-```
-
-  </div>
-
-</footer>
-
-<script src="app.js"></script>
-
-</body>
-
-</html>
