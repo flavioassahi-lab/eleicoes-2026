@@ -1,23 +1,23 @@
 export default async function handler(req, res) {
   try {
-    const configUrl =
-      "https://resultados.tse.jus.br/oficial/comum/config/ele-c.json";
+    const url =
+      "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-e006258-ab.json";
 
-    const resposta = await fetch(configUrl);
+    const resposta = await fetch(url);
 
     if (!resposta.ok) {
       throw new Error(
-        `Arquivo de configuração do TSE respondeu com status ${resposta.status}`
+        `Arquivo de resultados do TSE respondeu com status ${resposta.status}`
       );
     }
 
-    const configuracao = await resposta.json();
+    const dados = await resposta.json();
 
     res.status(200).json({
       sucesso: true,
       fonte: "Tribunal Superior Eleitoral",
-      mensagem: "Conexão com a configuração oficial estabelecida.",
-      configuracao
+      eleicao: "Eleições 2026 - Presidente - 2º Turno",
+      dados
     });
 
   } catch (erro) {
