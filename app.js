@@ -1,10 +1,8 @@
 function criarRotulosMapa() {
   const objeto = document.getElementById("mapSvg");
-
   if (!objeto) return;
 
   const svg = objeto.contentDocument;
-
   if (!svg) return;
 
   const svgRoot = svg.documentElement;
@@ -27,7 +25,6 @@ function criarRotulosMapa() {
 
   estados.forEach(estado => {
     const elemento = svg.getElementById(estado.uf);
-
     if (!elemento) return;
 
     let caixa;
@@ -47,25 +44,17 @@ function criarRotulosMapa() {
 
     labels.push({
       estado,
-      elemento,
-      caixa,
-
       x: caixa.x + caixa.width / 2,
       y: caixa.y + caixa.height / 2,
-
       labelX: caixa.x + caixa.width / 2,
       labelY: caixa.y + caixa.height / 2,
-
       percentual,
-
       deslocado: false
     });
   });
 
   /*
-   * Evita que etiquetas fiquem sobrepostas.
-   * Quando necessário, empurra a etiqueta para
-   * fora da região central do estado.
+   * Afasta etiquetas que estejam muito próximas.
    */
   for (let i = 0; i < labels.length; i++) {
     const atual = labels[i];
@@ -73,123 +62,34 @@ function criarRotulosMapa() {
     for (let j = 0; j < i; j++) {
       const anterior = labels[j];
 
-      let tentativas = 0;
-
-      while (
+      const distanciaX =
         Math.abs(
           atual.labelX - anterior.labelX
-        ) < 32 &&
+        );
+
+      const distanciaY =
         Math.abs(
           atual.labelY - anterior.labelY
-        ) < 13 &&
-        tentativas < 8
+        );
+
+      if (
+        distanciaX < 32 &&
+        distanciaY < 13
       ) {
-        const dx =
-          atual.labelX -
-          anterior.labelX;
-
-        const dy =
-          atual.labelY -
-          anterior.labelY;
+        /*
+         * Primeiro tenta jogar para a direita.
+         */
+        atual.labelX += 35;
 
         /*
-         * Direção usada para afastar
-         * a etiqueta da anterior.
+         * Depois joga um pouco para baixo.
          */
-        let distancia =
-          Math.sqrt(
-            dx * dx +
-            dy * dy
-          );
-
-        if (distancia < 1) {
-          distancia = 1;
-        }
-
-        let direcaoX =
-          dx / distancia;
-
-        let direcaoY =
-          dy / distancia;
-
-        /*
-         * Quando os pontos estão praticamente
-         * na mesma posição, empurra para baixo
-         * e para a direita.
-         */
-        if (
-          Math.abs(dx) < 2 &&
-          Math.abs(dy) < 2
-        ) {
-          direcaoX = 0.7;
-          direcaoY = 0.7;
-        }
-
-        atual.labelX +=
-          direcaoX * 28;
-
-        atual.labelY +=
-          direcaoY * 18;
+        atual.labelY += 18;
 
         atual.deslocado = true;
-
-        tentativas++;
       }
     }
   }
-
-  /*
-   * Limites do próprio mapa.
-   */
-  const viewBox =
-    svgRoot.viewBox &&
-    svgRoot.viewBox.baseVal;
-
-  let limiteX = {
-    min: 0,
-    max: 1000
-  };
-
-  let limiteY = {
-    min: 0,
-    max: 1000
-  };
-
-  if (viewBox && viewBox.width) {
-    limiteX.min = viewBox.x;
-    limiteX.max =
-      viewBox.x +
-      viewBox.width;
-
-    limiteY.min = viewBox.y;
-    limiteY.max =
-      viewBox.y +
-      viewBox.height;
-  }
-
-  labels.forEach(label => {
-    /*
-     * Mantém uma pequena margem das bordas
-     * para que a etiqueta não seja cortada.
-     */
-    const margem = 8;
-
-    label.labelX = Math.max(
-      limiteX.min + margem,
-      Math.min(
-        limiteX.max - margem,
-        label.labelX
-      )
-    );
-
-    label.labelY = Math.max(
-      limiteY.min + margem,
-      Math.min(
-        limiteY.max - margem,
-        label.labelY
-      )
-    );
-  });
 
   labels.forEach(label => {
     const grupo = svg.createElementNS(
@@ -210,12 +110,10 @@ function criarRotulosMapa() {
       )`
     );
 
-    grupo.style.cursor =
-      "pointer";
+    grupo.style.cursor = "pointer";
 
     /*
-     * Linha de ligação quando a etiqueta
-     * foi afastada do estado.
+     * Linha ligando a etiqueta ao estado.
      */
     if (label.deslocado) {
       const linha = svg.createElementNS(
@@ -258,9 +156,7 @@ function criarRotulosMapa() {
         "0.65"
       );
 
-      grupo.appendChild(
-        linha
-      );
+      grupo.appendChild(linha);
     }
 
     const texto = svg.createElementNS(
@@ -268,15 +164,8 @@ function criarRotulosMapa() {
       "text"
     );
 
-    texto.setAttribute(
-      "x",
-      "0"
-    );
-
-    texto.setAttribute(
-      "y",
-      "0"
-    );
+    texto.setAttribute("x", "0");
+    texto.setAttribute("y", "0");
 
     texto.setAttribute(
       "text-anchor",
@@ -327,13 +216,8 @@ function criarRotulosMapa() {
         label.estado.azul
       )}`;
 
-    grupo.appendChild(
-      texto
-    );
-
-    grupo.appendChild(
-      titulo
-    );
+    grupo.appendChild(texto);
+    grupo.appendChild(titulo);
 
     grupo.addEventListener(
       "click",
@@ -364,12 +248,8 @@ function criarRotulosMapa() {
       }
     );
 
-    camada.appendChild(
-      grupo
-    );
+    camada.appendChild(grupo);
   });
 
-  svgRoot.appendChild(
-    camada
-  );
+  svgRoot.appendChild(camada);
 }
