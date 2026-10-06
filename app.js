@@ -1,466 +1,1527 @@
-```javascript
-/* =====================================================
-   DADOS DOS ESTADOS
-   ===================================================== */
+const CANDIDATO_VERMELHO = "Lula";
+const CANDIDATO_AZUL = "Flávio Bolsonaro";
 
-const estados = {
-    AC: { nome: "Acre", c1: 52.4, c2: 47.6, urnas: 36.8 },
-    AL: { nome: "Alagoas", c1: 51.2, c2: 48.8, urnas: 42.1 },
-    AP: { nome: "Amapá", c1: 54.3, c2: 45.7, urnas: 39.4 },
-    AM: { nome: "Amazonas", c1: 50.8, c2: 49.2, urnas: 31.5 },
-    BA: { nome: "Bahia", c1: 53.1, c2: 46.9, urnas: 44.7 },
-    CE: { nome: "Ceará", c1: 55.2, c2: 44.8, urnas: 41.9 },
-    DF: { nome: "Distrito Federal", c1: 49.6, c2: 50.4, urnas: 52.2 },
-    ES: { nome: "Espírito Santo", c1: 51.7, c2: 48.3, urnas: 38.6 },
-    GO: { nome: "Goiás", c1: 48.9, c2: 51.1, urnas: 46.3 },
-    MA: { nome: "Maranhão", c1: 56.2, c2: 43.8, urnas: 37.4 },
-    MT: { nome: "Mato Grosso", c1: 47.5, c2: 52.5, urnas: 43.9 },
-    MS: { nome: "Mato Grosso do Sul", c1: 49.2, c2: 50.8, urnas: 45.1 },
-    MG: { nome: "Minas Gerais", c1: 52.4, c2: 47.6, urnas: 36.8 },
-    PA: { nome: "Pará", c1: 54.1, c2: 45.9, urnas: 39.8 },
-    PB: { nome: "Paraíba", c1: 55.4, c2: 44.6, urnas: 40.2 },
-    PR: { nome: "Paraná", c1: 46.8, c2: 53.2, urnas: 48.7 },
-    PE: { nome: "Pernambuco", c1: 53.6, c2: 46.4, urnas: 42.8 },
-    PI: { nome: "Piauí", c1: 57.1, c2: 42.9, urnas: 35.6 },
-    RJ: { nome: "Rio de Janeiro", c1: 47.3, c2: 52.7, urnas: 50.1 },
-    RN: { nome: "Rio Grande do Norte", c1: 54.7, c2: 45.3, urnas: 37.2 },
-    RS: { nome: "Rio Grande do Sul", c1: 49.1, c2: 50.9, urnas: 47.4 },
-    RO: { nome: "Rondônia", c1: 46.7, c2: 53.3, urnas: 41.8 },
-    RR: { nome: "Roraima", c1: 45.9, c2: 54.1, urnas: 44.6 },
-    SC: { nome: "Santa Catarina", c1: 44.8, c2: 55.2, urnas: 49.3 },
-    SP: { nome: "São Paulo", c1: 48.2, c2: 51.8, urnas: 51.4 },
-    SE: { nome: "Sergipe", c1: 52.8, c2: 47.2, urnas: 38.9 },
-    TO: { nome: "Tocantins", c1: 50.7, c2: 49.3, urnas: 40.7 }
-};
+const ultimaAtualizacao =
+  "05/10/2026 às 18:54";
 
 
-/* =====================================================
-   CONFIGURAÇÃO DOS CANDIDATOS
-   ===================================================== */
+const estados = [
 
-const candidato1 = "Candidato 1";
-const candidato2 = "Candidato 2";
+  {
+    uf: "AC",
+    nome: "Acre",
+    vermelho: 28.73,
+    azul: 64.56,
+    apurado: 100
+  },
 
+  {
+    uf: "AL",
+    nome: "Alagoas",
+    vermelho: 54.73,
+    azul: 40.45,
+    apurado: 100
+  },
 
-/* =====================================================
-   VARIÁVEIS
-   ===================================================== */
+  {
+    uf: "AP",
+    nome: "Amapá",
+    vermelho: 45.71,
+    azul: 45.67,
+    apurado: 100
+  },
 
-let estadoSelecionado = null;
-let alertaAtivo = false;
-let grafico = null;
+  {
+    uf: "AM",
+    nome: "Amazonas",
+    vermelho: 48.23,
+    azul: 45.08,
+    apurado: 100
+  },
 
+  {
+    uf: "BA",
+    nome: "Bahia",
+    vermelho: 66.17,
+    azul: 28.58,
+    apurado: 100
+  },
 
-/* =====================================================
-   SELEÇÃO DO ESTADO
-   ===================================================== */
+  {
+    uf: "CE",
+    nome: "Ceará",
+    vermelho: 63.29,
+    azul: 31.29,
+    apurado: 100
+  },
 
-document.querySelectorAll(".estado").forEach(botao => {
+  {
+    uf: "DF",
+    nome: "Distrito Federal",
+    vermelho: 38.11,
+    azul: 51.31,
+    apurado: 100
+  },
 
-    botao.addEventListener("click", () => {
+  {
+    uf: "ES",
+    nome: "Espírito Santo",
+    vermelho: 37.76,
+    azul: 54.78,
+    apurado: 100
+  },
 
-        const sigla = botao.dataset.estado;
+  {
+    uf: "GO",
+    nome: "Goiás",
+    vermelho: 31.06,
+    azul: 53.60,
+    apurado: 100
+  },
 
-        selecionarEstado(sigla);
+  {
+    uf: "MA",
+    nome: "Maranhão",
+    vermelho: 63.99,
+    azul: 30.93,
+    apurado: 100
+  },
 
-    });
+  {
+    uf: "MT",
+    nome: "Mato Grosso",
+    vermelho: 29.18,
+    azul: 65.15,
+    apurado: 100
+  },
 
-});
+  {
+    uf: "MS",
+    nome: "Mato Grosso do Sul",
+    vermelho: 34.68,
+    azul: 58.60,
+    apurado: 100
+  },
 
+  {
+    uf: "MG",
+    nome: "Minas Gerais",
+    vermelho: 43.33,
+    azul: 48.24,
+    apurado: 100
+  },
 
-function selecionarEstado(sigla) {
+  {
+    uf: "PA",
+    nome: "Pará",
+    vermelho: 49.91,
+    azul: 44.51,
+    apurado: 100
+  },
 
-    const dados = estados[sigla];
+  {
+    uf: "PB",
+    nome: "Paraíba",
+    vermelho: 61.31,
+    azul: 33.07,
+    apurado: 100
+  },
 
-    if (!dados) return;
+  {
+    uf: "PR",
+    nome: "Paraná",
+    vermelho: 31.20,
+    azul: 59.91,
+    apurado: 100
+  },
 
-    estadoSelecionado = sigla;
+  {
+    uf: "PE",
+    nome: "Pernambuco",
+    vermelho: 63.45,
+    azul: 31.03,
+    apurado: 100
+  },
 
-    /* Destaque no mapa */
+  {
+    uf: "PI",
+    nome: "Piauí",
+    vermelho: 70.99,
+    azul: 24.10,
+    apurado: 100
+  },
 
-    document.querySelectorAll(".estado").forEach(item => {
-        item.classList.remove("selecionado");
-    });
+  {
+    uf: "RJ",
+    nome: "Rio de Janeiro",
+    vermelho: 39.41,
+    azul: 53.01,
+    apurado: 100
+  },
 
-    const botao = document.querySelector(
-        `.estado[data-estado="${sigla}"]`
-    );
+  {
+    uf: "RN",
+    nome: "Rio Grande do Norte",
+    vermelho: 59.75,
+    azul: 34.77,
+    apurado: 100
+  },
 
-    if (botao) {
-        botao.classList.add("selecionado");
-    }
+  {
+    uf: "RS",
+    nome: "Rio Grande do Sul",
+    vermelho: 35.73,
+    azul: 55.64,
+    apurado: 100
+  },
 
+  {
+    uf: "RO",
+    nome: "Rondônia",
+    vermelho: 25.89,
+    azul: 67.45,
+    apurado: 100
+  },
 
-    /* Estado */
+  {
+    uf: "RR",
+    nome: "Roraima",
+    vermelho: 22.86,
+    azul: 71.06,
+    apurado: 100
+  },
 
-    document.getElementById("painelEstado")
-        .classList.remove("hidden");
+  {
+    uf: "SC",
+    nome: "Santa Catarina",
+    vermelho: 25.04,
+    azul: 66.65,
+    apurado: 100
+  },
 
-    document.getElementById("secaoTempo")
-        .classList.remove("hidden");
+  {
+    uf: "SP",
+    nome: "São Paulo",
+    vermelho: 38.20,
+    azul: 51.93,
+    apurado: 100
+  },
 
-    document.getElementById("secaoAlerta")
-        .classList.remove("hidden");
+  {
+    uf: "SE",
+    nome: "Sergipe",
+    vermelho: 62.75,
+    azul: 30.63,
+    apurado: 100
+  },
 
+  {
+    uf: "TO",
+    nome: "Tocantins",
+    vermelho: 43.42,
+    azul: 50.44,
+    apurado: 100
+  }
 
-    document.getElementById("nomeEstado").textContent =
-        dados.nome;
+];
 
-    document.getElementById("alertaEstado").textContent =
-        dados.nome;
-
-
-    /* Candidatos */
-
-    document.getElementById("nomeCandidato1").textContent =
-        candidato1;
-
-    document.getElementById("nomeCandidato2").textContent =
-        candidato2;
-
-    document.getElementById("percentualCandidato1").textContent =
-        formatarPercentual(dados.c1);
-
-    document.getElementById("percentualCandidato2").textContent =
-        formatarPercentual(dados.c2);
-
-
-    /* Somente aqui aparece a porcentagem das urnas.
-       Ela fica separada e com menor destaque. */
-
-    document.getElementById("urnasApuradas").textContent =
-        formatarPercentual(dados.urnas);
-
-
-    /* Atualiza gráfico */
-
-    criarGrafico(sigla);
-
-}
-
-
-/* =====================================================
-   FORMATAÇÃO
-   ===================================================== */
 
 function formatarPercentual(valor) {
 
-    return valor.toFixed(1).replace(".", ",") + "%";
+  return Math.round(valor) + "%";
 
 }
 
 
-/* =====================================================
-   GRÁFICO DE APURAÇÃO
-   ===================================================== */
+function formatarPercentualExato(valor) {
 
-function criarGrafico(sigla) {
+  return Number(valor)
+    .toFixed(2)
+    .replace(".", ",") + "%";
 
-    const dados = estados[sigla];
+}
 
-    const canvas = document.getElementById("graficoApuracao");
 
-    if (grafico) {
-        grafico.destroy();
-    }
+function calcularCor(estado) {
 
-    /*
-       Dados de exemplo.
-       Substitua pelos horários/dados reais da sua apuração.
-    */
+  const azulVence =
+    estado.azul >
+    estado.vermelho;
 
-    const labels = [
-        "18:00",
-        "18:15",
-        "18:30",
-        "18:45",
-        "19:00"
-    ];
+  const maior =
+    Math.max(
+      estado.azul,
+      estado.vermelho
+    );
 
-    const candidato1Dados = [
-        dados.c1 - 2.4,
-        dados.c1 - 1.7,
-        dados.c1 - 1.1,
-        dados.c1 - 0.5,
-        dados.c1
-    ];
+  const menor =
+    Math.min(
+      estado.azul,
+      estado.vermelho
+    );
 
-    const candidato2Dados = candidato1Dados.map(
-        valor => 100 - valor
+  const margem =
+    maior - menor;
+
+  const intensidade =
+    Math.min(
+      1,
+      0.16 + margem / 55
     );
 
 
-    grafico = new Chart(canvas, {
+  if (azulVence) {
 
-        type: "line",
+    const r =
+      Math.round(
+        219 -
+        180 * intensidade
+      );
 
-        data: {
+    const g =
+      Math.round(
+        234 -
+        105 * intensidade
+      );
 
-            labels: labels,
+    return `rgb(${r}, ${g}, 255)`;
 
-            datasets: [
+  }
 
-                {
-                    label: candidato1,
-                    data: candidato1Dados,
-                    tension: 0.3
-                },
 
-                {
-                    label: candidato2,
-                    data: candidato2Dados,
-                    tension: 0.3
-                }
+  const g =
+    Math.round(
+      225 -
+      125 * intensidade
+    );
 
-            ]
+  const b =
+    Math.round(
+      225 -
+      125 * intensidade
+    );
 
-        },
+  return `rgb(255, ${g}, ${b})`;
 
-        options: {
+}
 
-            responsive: true,
 
-            maintainAspectRatio: false,
+/* =========================
+   PAINEL PRINCIPAL
+========================= */
 
-            scales: {
+function atualizarPainelPrimeiroTurno() {
 
-                y: {
-                    beginAtZero: false,
-                    max: 100,
+  const redPercentage =
+    document.getElementById(
+      "redPercentage"
+    );
 
-                    ticks: {
-                        callback: function(valor) {
-                            return valor + "%";
-                        }
-                    }
+  const bluePercentage =
+    document.getElementById(
+      "bluePercentage"
+    );
 
-                }
+  const redVotes =
+    document.getElementById(
+      "redVotes"
+    );
 
-            },
+  const blueVotes =
+    document.getElementById(
+      "blueVotes"
+    );
 
-            plugins: {
+  const redBar =
+    document.getElementById(
+      "redBar"
+    );
 
-                tooltip: {
+  const blueBar =
+    document.getElementById(
+      "blueBar"
+    );
 
-                    callbacks: {
+  const diferenca =
+    document.getElementById(
+      "difference"
+    );
 
-                        label: function(context) {
+  const contado =
+    document.getElementById(
+      "counted"
+    );
 
-                            return context.dataset.label +
-                                ": " +
-                                context.parsed.y.toFixed(1) +
-                                "%";
+  const update =
+    document.getElementById(
+      "lastUpdate"
+    );
 
-                        }
 
-                    }
+  if (redPercentage)
+    redPercentage.textContent =
+      "45,16%";
 
-                }
 
-            }
+  if (bluePercentage)
+    bluePercentage.textContent =
+      "47,03%";
+
+
+  if (redVotes)
+    redVotes.textContent =
+      "53.876.617 votos";
+
+
+  if (blueVotes)
+    blueVotes.textContent =
+      "56.104.268 votos";
+
+
+  if (redBar)
+    redBar.style.width =
+      "45.16%";
+
+
+  if (blueBar)
+    blueBar.style.width =
+      "47.03%";
+
+
+  if (diferenca)
+    diferenca.textContent =
+      "2.227.651 votos";
+
+
+  if (contado)
+    contado.textContent =
+      "100%";
+
+
+  if (update)
+    update.textContent =
+      ultimaAtualizacao;
+
+
+  criarStatusAtualizacao(
+    "Resultado final oficial do 1º turno — TSE"
+  );
+
+}
+
+
+/* =========================
+   POR ESTADO
+========================= */
+
+function renderEstados(lista = estados) {
+
+  const container =
+    document.getElementById(
+      "states"
+    );
+
+  if (!container)
+    return;
+
+
+  container.innerHTML = "";
+
+
+  lista.forEach(
+    estado => {
+
+      const azulVence =
+        estado.azul >
+        estado.vermelho;
+
+
+      const vencedor =
+        azulVence
+          ? CANDIDATO_AZUL
+          : CANDIDATO_VERMELHO;
+
+
+      const cor =
+        azulVence
+          ? "#2563eb"
+          : "#dc2626";
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "state";
+
+
+      card.innerHTML = `
+
+        <div class="state-name">
+
+          <span>
+            ${estado.uf} ·
+            ${estado.nome}
+          </span>
+
+          <strong
+            style="color:${cor};"
+          >
+            ${vencedor}
+          </strong>
+
+        </div>
+
+
+        <div class="state-counted">
+
+          ${estado.apurado}%
+          das urnas apuradas
+
+        </div>
+
+
+        <div class="state-bar">
+
+          <div
+            class="red"
+            style="width:${estado.vermelho}%"
+          ></div>
+
+          <div
+            class="blue"
+            style="width:${estado.azul}%"
+          ></div>
+
+        </div>
+
+
+        <small>
+
+          Lula
+          ${formatarPercentualExato(
+            estado.vermelho
+          )}
+
+          ·
+
+          Flávio Bolsonaro
+          ${formatarPercentualExato(
+            estado.azul
+          )}
+
+        </small>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   INFORMAÇÕES DO ESTADO
+========================= */
+
+function atualizarEstado(uf) {
+
+  const estado =
+    estados.find(
+      item =>
+        item.uf === uf
+    );
+
+
+  const info =
+    document.getElementById(
+      "stateInfo"
+    );
+
+
+  if (
+    !estado ||
+    !info
+  )
+    return;
+
+
+  const azulVence =
+    estado.azul >
+    estado.vermelho;
+
+
+  const vencedor =
+    azulVence
+      ? CANDIDATO_AZUL
+      : CANDIDATO_VERMELHO;
+
+
+  const percentualVencedor =
+    Math.max(
+      estado.azul,
+      estado.vermelho
+    );
+
+
+  info.innerHTML = `
+
+    <small>
+      ${estado.uf} ·
+      ${estado.nome}
+    </small>
+
+
+    <strong>
+      ${vencedor}
+    </strong>
+
+
+    <span>
+      ${estado.apurado}%
+      das urnas apuradas
+    </span>
+
+
+    <div class="state-percent">
+
+      ${formatarPercentualExato(
+        percentualVencedor
+      )}
+
+    </div>
+
+
+    <span>
+      Votos válidos:
+      <strong>100%</strong>
+    </span>
+
+
+    <span>
+      Lula:
+      ${formatarPercentualExato(
+        estado.vermelho
+      )}
+    </span>
+
+
+    <span>
+      Flávio Bolsonaro:
+      ${formatarPercentualExato(
+        estado.azul
+      )}
+    </span>
+
+  `;
+
+}
+
+
+/* =========================
+   RÓTULOS DO MAPA
+========================= */
+
+function criarRotulosMapa() {
+
+  const objeto =
+    document.getElementById(
+      "mapSvg"
+    );
+
+
+  if (!objeto)
+    return;
+
+
+  const svg =
+    objeto.contentDocument;
+
+
+  if (!svg)
+    return;
+
+
+  const svgRoot =
+    svg.documentElement;
+
+
+  svgRoot
+    .querySelectorAll(
+      ".map-label-layer"
+    )
+    .forEach(
+      elemento =>
+        elemento.remove()
+    );
+
+
+  const camada =
+    svg.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g"
+    );
+
+
+  camada.setAttribute(
+    "class",
+    "map-label-layer"
+  );
+
+
+  estados.forEach(
+    estado => {
+
+      const elemento =
+        svg.getElementById(
+          estado.uf
+        );
+
+
+      if (!elemento)
+        return;
+
+
+      let caixa;
+
+
+      try {
+
+        caixa =
+          elemento.getBBox();
+
+      } catch {
+
+        return;
+
+      }
+
+
+      if (
+        !caixa.width ||
+        !caixa.height
+      ) {
+
+        return;
+
+      }
+
+
+      const x =
+        caixa.x +
+        caixa.width / 2;
+
+
+      const y =
+        caixa.y +
+        caixa.height / 2;
+
+
+      const grupo =
+        svg.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "g"
+        );
+
+
+      grupo.setAttribute(
+        "class",
+        "map-label"
+      );
+
+
+      grupo.setAttribute(
+        "transform",
+        `translate(${x} ${y})`
+      );
+
+
+      grupo.style.cursor =
+        "pointer";
+
+
+      const texto =
+        svg.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "text"
+        );
+
+
+      texto.setAttribute(
+        "x",
+        "0"
+      );
+
+
+      texto.setAttribute(
+        "y",
+        "0"
+      );
+
+
+      texto.setAttribute(
+        "text-anchor",
+        "middle"
+      );
+
+
+      texto.setAttribute(
+        "dominant-baseline",
+        "middle"
+      );
+
+
+      texto.setAttribute(
+        "font-family",
+        "Inter, Segoe UI, Arial, sans-serif"
+      );
+
+
+      texto.setAttribute(
+        "font-size",
+        "8"
+      );
+
+
+      texto.setAttribute(
+        "font-weight",
+        "700"
+      );
+
+
+      texto.setAttribute(
+        "fill",
+        "#111111"
+      );
+
+
+      texto.textContent =
+        `${estado.uf} ${formatarPercentual(
+          Math.max(
+            estado.azul,
+            estado.vermelho
+          )
+        )}`;
+
+
+      const titulo =
+        svg.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "title"
+        );
+
+
+      titulo.textContent =
+        `${estado.nome}: ` +
+        `Lula ${formatarPercentualExato(
+          estado.vermelho
+        )} · ` +
+        `Flávio Bolsonaro ${formatarPercentualExato(
+          estado.azul
+        )}`;
+
+
+      grupo.appendChild(
+        texto
+      );
+
+
+      grupo.appendChild(
+        titulo
+      );
+
+
+      grupo.addEventListener(
+        "click",
+        function() {
+
+          atualizarEstado(
+            estado.uf
+          );
 
         }
+      );
 
-    });
+
+      grupo.addEventListener(
+        "mouseenter",
+        function() {
+
+          texto.setAttribute(
+            "font-size",
+            "9"
+          );
+
+        }
+      );
+
+
+      grupo.addEventListener(
+        "mouseleave",
+        function() {
+
+          texto.setAttribute(
+            "font-size",
+            "8"
+          );
+
+        }
+      );
+
+
+      camada.appendChild(
+        grupo
+      );
+
+    }
+  );
+
+
+  svgRoot.appendChild(
+    camada
+  );
 
 }
 
 
-/* =====================================================
-   ALERTA
-   ===================================================== */
+/* =========================
+   MAPA
+========================= */
 
-document.getElementById("btnAlerta")
-    .addEventListener("click", () => {
+function conectarMapa() {
 
-        if (!estadoSelecionado) return;
-
-        alertaAtivo = !alertaAtivo;
-
-        atualizarBotaoAlerta();
-
-    });
+  const objeto =
+    document.getElementById(
+      "mapSvg"
+    );
 
 
-function atualizarBotaoAlerta() {
+  if (!objeto)
+    return;
 
-    const botao = document.getElementById("btnAlerta");
 
-    if (alertaAtivo) {
+  objeto.addEventListener(
+    "load",
+    function() {
 
-        botao.textContent = "🔕 Desativar alerta";
+      const svg =
+        objeto.contentDocument;
 
-        botao.classList.add("ativo");
 
-        document.getElementById("textoAlerta").textContent =
-            "Alerta ativado para este estado.";
+      if (!svg)
+        return;
 
-    } else {
 
-        botao.textContent = "🔔 Ativar alerta";
+      estados.forEach(
+        estado => {
 
-        botao.classList.remove("ativo");
+          const elemento =
+            svg.getElementById(
+              estado.uf
+            );
 
-        document.getElementById("textoAlerta").textContent =
-            "Receba um alerta quando houver atualização importante.";
+
+          if (!elemento)
+            return;
+
+
+          const cor =
+            calcularCor(
+              estado
+            );
+
+
+          elemento.setAttribute(
+            "fill",
+            cor
+          );
+
+
+          elemento.style.setProperty(
+            "fill",
+            cor,
+            "important"
+          );
+
+
+          elemento.style.cursor =
+            "pointer";
+
+
+          elemento.style.transition =
+            "opacity .2s";
+
+
+          elemento.addEventListener(
+            "mouseenter",
+            function() {
+
+              this.style.opacity =
+                "0.7";
+
+            }
+          );
+
+
+          elemento.addEventListener(
+            "mouseleave",
+            function() {
+
+              this.style.opacity =
+                "1";
+
+            }
+          );
+
+
+          elemento.addEventListener(
+            "click",
+            function() {
+
+              atualizarEstado(
+                estado.uf
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      criarRotulosMapa();
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ORDENAÇÃO
+========================= */
+
+function configurarOrdenacao() {
+
+  const select =
+    document.getElementById(
+      "sort"
+    );
+
+
+  if (!select)
+    return;
+
+
+  select.addEventListener(
+    "change",
+    function() {
+
+      const lista =
+        [...estados];
+
+
+      if (
+        this.value === "name"
+      ) {
+
+        lista.sort(
+          (a, b) =>
+            a.nome.localeCompare(
+              b.nome,
+              "pt-BR"
+            )
+        );
+
+      }
+
+
+      renderEstados(
+        lista
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   STATUS TSE
+========================= */
+
+function criarStatusAtualizacao(
+  mensagem
+) {
+
+  const painel =
+    document.querySelector(
+      ".result-card"
+    );
+
+
+  if (!painel)
+    return;
+
+
+  const existente =
+    document.getElementById(
+      "demoUpdate"
+    );
+
+
+  if (existente) {
+
+    existente.innerHTML = `
+
+      <strong
+        style="
+          color:#c2410c;
+          margin-right:6px;
+        "
+      >
+        TSE
+      </strong>
+
+      ${mensagem}
+
+    `;
+
+    return;
+
+  }
+
+
+  const status =
+    document.createElement(
+      "div"
+    );
+
+
+  status.id =
+    "demoUpdate";
+
+
+  status.style.marginTop =
+    "14px";
+
+
+  status.style.paddingTop =
+    "12px";
+
+
+  status.style.borderTop =
+    "1px solid #eee";
+
+
+  status.style.fontSize =
+    "9px";
+
+
+  status.style.color =
+    "#6b7280";
+
+
+  status.innerHTML = `
+
+    <strong
+      style="
+        color:#c2410c;
+        margin-right:6px;
+      "
+    >
+      TSE
+    </strong>
+
+    ${mensagem}
+
+  `;
+
+
+  painel.appendChild(
+    status
+  );
+
+}
+
+
+/* =========================
+   ALERTAS
+========================= */
+
+let ultimaLiderancaBrasil =
+  CANDIDATO_AZUL;
+
+
+const ultimaLiderancaEstado =
+  {};
+
+
+estados.forEach(
+  estado => {
+
+    ultimaLiderancaEstado[
+      estado.uf
+    ] =
+      estado.azul >
+      estado.vermelho
+        ? CANDIDATO_AZUL
+        : CANDIDATO_VERMELHO;
+
+  }
+);
+
+
+function mostrarNotificacao(
+  titulo,
+  mensagem
+) {
+
+  if (
+    !("Notification" in window)
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    Notification.permission ===
+    "granted"
+  ) {
+
+    new Notification(
+      titulo,
+      {
+        body: mensagem
+      }
+    );
+
+  }
+
+}
+
+
+async function configurarAlertas() {
+
+  const botaoAtivar =
+    document.getElementById(
+      "enableAlerts"
+    );
+
+
+  const botaoDesativar =
+    document.getElementById(
+      "disableAlerts"
+    );
+
+
+  const select =
+    document.getElementById(
+      "alertState"
+    );
+
+
+  const status =
+    document.getElementById(
+      "alertStatus"
+    );
+
+
+  if (
+    !botaoAtivar ||
+    !botaoDesativar ||
+    !select ||
+    !status
+  ) {
+
+    return;
+
+  }
+
+
+  botaoAtivar.addEventListener(
+    "click",
+    async function() {
+
+      if (
+        !("Notification" in window)
+      ) {
+
+        status.textContent =
+          "Seu navegador não oferece suporte a notificações.";
+
+        return;
+
+      }
+
+
+      const permissao =
+        await Notification.requestPermission();
+
+
+      if (
+        permissao !==
+        "granted"
+      ) {
+
+        status.textContent =
+          "As notificações não foram autorizadas.";
+
+        return;
+
+      }
+
+
+      const local =
+        select.value === "BR"
+          ? "Brasil"
+          : select.options[
+              select.selectedIndex
+            ].text;
+
+
+      localStorage.setItem(
+        "alertaLocal",
+        select.value
+      );
+
+
+      localStorage.setItem(
+        "alertasAtivos",
+        "true"
+      );
+
+
+      status.textContent =
+        `Alertas ativados para ${local}.`;
+
+
+      mostrarNotificacao(
+        "Alertas ativados",
+        `Você está acompanhando ${local}.`
+      );
+
+    }
+  );
+
+
+  botaoDesativar.addEventListener(
+    "click",
+    function() {
+
+      localStorage.removeItem(
+        "alertasAtivos"
+      );
+
+
+      localStorage.removeItem(
+        "alertaLocal"
+      );
+
+
+      status.textContent =
+        "Alertas desativados.";
+
+    }
+  );
+
+
+  const salvo =
+    localStorage.getItem(
+      "alertaLocal"
+    );
+
+
+  const ativos =
+    localStorage.getItem(
+      "alertasAtivos"
+    );
+
+
+  if (salvo) {
+
+    select.value =
+      salvo;
+
+  }
+
+
+  if (
+    ativos === "true"
+  ) {
+
+    const local =
+      select.value === "BR"
+        ? "Brasil"
+        : select.options[
+            select.selectedIndex
+          ].text;
+
+
+    status.textContent =
+      `Alertas ativos para ${local}.`;
+
+  }
+
+}
+
+
+/* =========================
+   VERIFICAÇÃO DE LIDERANÇA
+========================= */
+
+function verificarMudancaLideranca() {
+
+  const alertasAtivos =
+    localStorage.getItem(
+      "alertasAtivos"
+    );
+
+
+  if (
+    alertasAtivos !==
+    "true"
+  ) {
+
+    return;
+
+  }
+
+
+  const local =
+    localStorage.getItem(
+      "alertaLocal"
+    );
+
+
+  if (!local)
+    return;
+
+
+  /*
+   * Estes dados ainda representam
+   * o resultado do 1º turno.
+   *
+   * Durante o 2º turno esta função
+   * será alimentada pelos dados
+   * atualizados do TSE.
+   */
+
+
+  if (
+    local === "BR"
+  ) {
+
+    const azul =
+      47.03;
+
+
+    const vermelho =
+      45.16;
+
+
+    const novaLideranca =
+      azul >
+      vermelho
+        ? CANDIDATO_AZUL
+        : CANDIDATO_VERMELHO;
+
+
+    if (
+      novaLideranca !==
+      ultimaLiderancaBrasil
+    ) {
+
+      mostrarNotificacao(
+        "Mudança de liderança",
+        `${novaLideranca} passou a liderar a apuração nacional.`
+      );
+
+
+      ultimaLiderancaBrasil =
+        novaLideranca;
 
     }
 
-}
+
+    return;
+
+  }
 
 
-/* =====================================================
-   LISTA RECOLHÍVEL DE ESTADOS
-   ===================================================== */
-
-const btnEstados = document.getElementById("btnEstados");
-const listaEstados = document.getElementById("listaEstados");
-const iconeEstados = document.getElementById("iconeEstados");
+  const estado =
+    estados.find(
+      item =>
+        item.uf === local
+    );
 
 
-btnEstados.addEventListener("click", () => {
-
-    listaEstados.classList.toggle("hidden");
-
-    if (listaEstados.classList.contains("hidden")) {
-
-        iconeEstados.textContent = "＋";
-
-    } else {
-
-        iconeEstados.textContent = "−";
-
-    }
-
-});
+  if (!estado)
+    return;
 
 
-/* Cria lista */
-
-Object.keys(estados)
-    .sort()
-    .forEach(sigla => {
-
-        const dados = estados[sigla];
-
-        const item = document.createElement("div");
-
-        item.className = "item-estado";
-
-        item.innerHTML = `
-            <span>${sigla} — ${dados.nome}</span>
-            <strong>${formatarPercentual(
-                Math.max(dados.c1, dados.c2)
-            )}</strong>
-        `;
-
-        item.addEventListener("click", () => {
-
-            selecionarEstado(sigla);
-
-            listaEstados.classList.add("hidden");
-
-            iconeEstados.textContent = "＋";
-
-            window.scrollTo({
-                top: document.getElementById("painelEstado").offsetTop - 20,
-                behavior: "smooth"
-            });
-
-        });
-
-        listaEstados.appendChild(item);
-
-    });
+  const novaLideranca =
+    estado.azul >
+    estado.vermelho
+      ? CANDIDATO_AZUL
+      : CANDIDATO_VERMELHO;
 
 
-/* =====================================================
-   PESQUISAS
-   ===================================================== */
+  if (
+    novaLideranca !==
+    ultimaLiderancaEstado[
+      estado.uf
+    ]
+  ) {
 
-document.querySelectorAll(".tab").forEach(tab => {
-
-    tab.addEventListener("click", () => {
-
-        document.querySelectorAll(".tab")
-            .forEach(item => item.classList.remove("active"));
-
-        document.querySelectorAll(".pesquisas-conteudo")
-            .forEach(item => item.classList.remove("active"));
+    mostrarNotificacao(
+      "Mudança de liderança",
+      `${novaLideranca} passou a liderar em ${estado.nome}.`
+    );
 
 
-        tab.classList.add("active");
+    ultimaLiderancaEstado[
+      estado.uf
+    ] =
+      novaLideranca;
 
-        const alvo = tab.dataset.tab;
-
-        document.getElementById(alvo)
-            .classList.add("active");
-
-    });
-
-});
-
-
-/* =====================================================
-   PESQUISAS — EXEMPLO DE ESTRUTURA
-   ===================================================== */
-
-const pesquisasPrimeiroTurno = [
-    // {
-    //     instituto: "Instituto",
-    //     data: "01/10/2026",
-    //     resultado: "Candidato 1 45% x Candidato 2 40%"
-    // }
-];
-
-
-const pesquisasSegundoTurno = [
-    // Inserir aqui somente pesquisas do 2º turno
-    // até a data atual.
-];
-
-
-function carregarPesquisas() {
-
-    const primeiro =
-        document.getElementById("pesquisasPrimeiroTurno");
-
-    const segundo =
-        document.getElementById("pesquisasSegundoTurno");
-
-
-    primeiro.innerHTML = "";
-
-    segundo.innerHTML = "";
-
-
-    pesquisasPrimeiroTurno.forEach(pesquisa => {
-
-        primeiro.innerHTML += `
-            <div class="pesquisa-item">
-                <strong>${pesquisa.instituto}</strong>
-                <span>${pesquisa.data}</span>
-                <p>${pesquisa.resultado}</p>
-            </div>
-        `;
-
-    });
-
-
-    pesquisasSegundoTurno.forEach(pesquisa => {
-
-        segundo.innerHTML += `
-            <div class="pesquisa-item">
-                <strong>${pesquisa.instituto}</strong>
-                <span>${pesquisa.data}</span>
-                <p>${pesquisa.resultado}</p>
-            </div>
-        `;
-
-    });
+  }
 
 }
 
 
-carregarPesquisas();
-```
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+function iniciar() {
+
+  renderEstados();
+
+  conectarMapa();
+
+  configurarOrdenacao();
+
+  atualizarPainelPrimeiroTurno();
+
+  configurarAlertas();
+
+  setInterval(
+    verificarMudancaLideranca,
+    60000
+  );
+
+}
+
+
+iniciar();
