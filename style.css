@@ -1,316 +1,823 @@
-```css
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
-    color: #1f2937;
+  margin: 0;
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background: #ffffff;
+  color: #111827;
 }
 
 .header {
-    background: #111827;
-    color: white;
-    padding: 24px 20px;
+  min-height: 70px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
 }
 
-.header h1 {
-    font-size: 28px;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.header p {
-    margin-top: 4px;
-    opacity: .75;
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111827;
+  color: white;
+  font-weight: 800;
+}
+
+.logo strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .4px;
+}
+
+.logo span {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  color: #6b7280;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+.live span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
 }
 
 main {
-    width: min(1100px, 94%);
-    margin: 25px auto;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
 }
 
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+
+/* =========================
+   AVISO DO 2º TURNO
+========================= */
+
+.second-round-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 15px 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #eff6ff;
+}
+
+.notice-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.second-round-notice strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #1e3a8a;
+  font-size: 13px;
+}
+
+.second-round-notice p {
+  margin: 0;
+  color: #374151;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.second-round-notice small {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  padding: 10px 0 28px;
+}
+
+.hero small {
+  font-size: 10px;
+  color: #6b7280;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
+
+.hero h1 {
+  margin: 8px 0 8px;
+  font-size: clamp(32px, 5vw, 50px);
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+
+.hero h1 span {
+  color: #2563eb;
+}
+
+.hero p {
+  max-width: 620px;
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.demo {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   RESULTADO NACIONAL
+========================= */
+
+.result-card {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .04);
+}
+
+.last-update {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 15px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.last-update span {
+  color: #16a34a;
+  font-size: 8px;
+}
+
+.last-update strong {
+  color: #374151;
+}
+
+.counted {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+}
+
+.counted small {
+  font-size: 9px;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.counted strong {
+  font-size: 16px;
+}
+
+.candidates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.candidate {
+  min-width: 0;
+}
+
+.candidate-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.candidate-name span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.candidate-red .candidate-name span {
+  background: #dc2626;
+}
+
+.candidate-blue .candidate-name span {
+  background: #2563eb;
+}
+
+.candidate strong {
+  display: block;
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+
+.candidate small {
+  color: #6b7280;
+  font-size: 10px;
+}
+
+.vote-bar {
+  display: flex;
+  height: 8px;
+  margin-top: 18px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.vote-bar #redBar {
+  background: #dc2626;
+}
+
+.vote-bar #blueBar {
+  background: #2563eb;
+}
+
+.difference {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.difference strong {
+  color: #111827;
+}
+
+
+/* =========================
+   ALERTAS
+========================= */
+
+.alerts-card {
+  margin: 18px 0;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.alerts-card small {
+  font-size: 10px;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.alerts-card h3 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.alerts-card p {
+  margin: 0;
+  max-width: 650px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.alerts-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.alerts-controls select,
+.alerts-controls button {
+  height: 40px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.alerts-controls select {
+  min-width: 180px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+.alerts-controls button {
+  padding: 0 15px;
+  border: 0;
+  background: #111827;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alerts-controls button:hover {
+  opacity: .9;
+}
+
+#disableAlerts {
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+#disableAlerts:hover {
+  background: #f3f4f6;
+}
+
+#alertStatus {
+  margin-top: 9px;
+  color: #16a34a;
+  font-size: 11px;
+}
+
+
+/* =========================
+   ANÚNCIOS
+========================= */
+
+.advertisement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+  margin: 24px 0;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  color: #9ca3af;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+
+
+/* =========================
+   SEÇÕES
+========================= */
+
+.section {
+  margin-top: 34px;
 }
 
 .section-title {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.section-title small {
+  color: #6b7280;
+  font-size: 9px;
+  font-weight: 700;
 }
 
 .section-title h2 {
-    font-size: 21px;
+  margin: 4px 0 0;
+  font-size: 24px;
+  letter-spacing: -.6px;
 }
 
-.section-title p {
-    color: #6b7280;
-    margin-top: 5px;
-    font-size: 14px;
-}
-
-.label {
-    font-size: 12px;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: .05em;
+.section-title select {
+  padding: 7px 9px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: #ffffff;
+  font-size: 11px;
 }
 
 
-/* MAPA */
+/* =========================
+   MAPA
+========================= */
 
-.mapa {
-    min-height: 500px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    align-items: center;
-    justify-items: center;
-    padding: 20px;
+.map-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(220px, .8fr);
+  gap: 14px;
+  align-items: stretch;
 }
 
-.estado {
-    width: 55px;
-    height: 45px;
-    border: 0;
-    border-radius: 8px;
-    background: #e5e7eb;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
+.brazil-map {
+  min-height: 430px;
+  border-radius: 14px;
+  background: #f4f6f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
 }
 
-.estado:hover {
-    transform: scale(1.06);
-    background: #d1d5db;
+.brazil-map object {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
 }
 
-.estado.selecionado {
-    outline: 3px solid #111827;
-    transform: scale(1.05);
+.map-label {
+  pointer-events: auto;
 }
 
-
-/* ESTADO */
-
-.estado-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.map-label text {
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  letter-spacing: -.2px;
+  transition: font-size .15s ease;
 }
 
-.estado-header h2 {
-    margin-top: 5px;
+.map-state {
+  stroke: white;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: opacity .15s, transform .15s;
 }
 
-.status {
-    background: #f3f4f6;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+.map-state.red {
+  fill: #dc2626;
 }
 
-.candidatos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.map-state.blue {
+  fill: #2563eb;
 }
 
-.candidato {
-    padding: 20px;
-    border-radius: 10px;
-    background: #f3f4f6;
+.state-info {
+  min-height: 180px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
 }
 
-.candidato span {
-    display: block;
-    font-size: 14px;
+.state-info small {
+  color: #6b7280;
+  font-size: 9px;
+  font-weight: 700;
 }
 
-.candidato strong {
-    display: block;
-    font-size: 30px;
-    margin-top: 8px;
+.state-info strong {
+  margin: 5px 0;
+  font-size: 21px;
 }
 
-.urnas {
-    margin-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 14px;
-    border-top: 1px solid #e5e7eb;
-    color: #6b7280;
+.state-info span {
+  color: #6b7280;
+  font-size: 11px;
+  line-height: 1.5;
 }
 
-.urnas strong {
-    font-size: 15px;
-    color: #6b7280;
+.state-percent {
+  margin: 9px 0;
+  font-size: 27px;
+  font-weight: 800;
 }
 
-
-/* GRÁFICO */
-
-.grafico-container {
-    height: 320px;
+.legend {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 10px;
+  color: #6b7280;
 }
 
-
-/* ALERTA */
-
-.alerta-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.alerta-card h2 {
-    margin-top: 5px;
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
 }
 
-.alerta-card p {
-    color: #6b7280;
-    margin-top: 5px;
-    font-size: 14px;
+.legend .red {
+  background: #dc2626;
 }
 
-.btn-alerta {
-    border: 0;
-    border-radius: 9px;
-    padding: 13px 20px;
-    cursor: pointer;
-    background: #111827;
-    color: white;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.btn-alerta.ativo {
-    background: #374151;
+.legend .blue {
+  background: #2563eb;
 }
 
 
-/* ACORDEÃO */
+/* =========================
+   ESTADOS
+========================= */
 
-.accordion {
-    width: 100%;
-    background: none;
-    border: 0;
-    display: flex;
-    justify-content: space-between;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 4px;
+.states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.lista-estados {
-    margin-top: 18px;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 15px;
+.state {
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
 }
 
-.item-estado {
-    display: flex;
-    justify-content: space-between;
-    padding: 13px 5px;
-    border-bottom: 1px solid #f0f0f0;
-    cursor: pointer;
+.state-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
 }
 
-.item-estado:hover {
-    background: #f9fafb;
+.state-name strong {
+  font-size: 11px;
 }
 
-
-/* PESQUISAS */
-
-.pesquisas-tabs {
-    display: flex;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 20px;
+.state-counted {
+  margin-top: 5px;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 9px;
 }
 
-.tab {
-    background: none;
-    border: 0;
-    padding: 12px 18px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #6b7280;
+.state-bar {
+  display: flex;
+  height: 6px;
+  margin: 8px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f3f4f6;
 }
 
-.tab.active {
-    color: #111827;
-    border-bottom: 2px solid #111827;
+.state-bar .red {
+  background: #dc2626;
 }
 
-.pesquisas-conteudo {
-    display: none;
+.state-bar .blue {
+  background: #2563eb;
 }
 
-.pesquisas-conteudo.active {
-    display: block;
-}
-
-.pesquisa-item {
-    padding: 14px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.pesquisa-item strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.pesquisa-item span {
-    color: #6b7280;
-    font-size: 13px;
+.state small {
+  color: #6b7280;
+  font-size: 9px;
 }
 
 
-/* UTILITÁRIOS */
+/* =========================
+   GRÁFICO
+========================= */
 
-.hidden {
-    display: none !important;
+.chart {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fafafa;
 }
+
+.chart-empty {
+  max-width: 400px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   PESQUISAS
+========================= */
+
+.polls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.poll {
+  min-height: 120px;
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.poll strong {
+  display: block;
+  font-size: 13px;
+}
+
+.poll small {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 9px;
+}
+
+.poll b {
+  display: block;
+  margin-top: 18px;
+  font-size: 12px;
+}
+
+.poll-explanation {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f4f6f8;
+}
+
+.poll-explanation strong {
+  font-size: 12px;
+}
+
+.poll-explanation p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+
+/* =========================
+   RODAPÉ
+========================= */
 
 footer {
-    text-align: center;
-    padding: 30px;
-    color: #6b7280;
-    font-size: 13px;
+  padding: 30px 20px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  color: #6b7280;
+}
+
+footer strong {
+  color: #111827;
+  font-size: 12px;
+}
+
+footer p {
+  margin: 5px 0 15px;
+  font-size: 10px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer-links a {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 10px;
 }
 
 
-/* CELULAR */
+/* =========================
+   RESPONSIVO
+========================= */
 
 @media (max-width: 700px) {
 
-    .mapa {
-        grid-template-columns: repeat(4, 1fr);
-        min-height: 400px;
-    }
+  .header {
+    padding: 0 14px;
+  }
 
-    .candidatos {
-        grid-template-columns: 1fr;
-    }
+  .live {
+    font-size: 8px;
+  }
 
-    .alerta-card {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  main {
+    padding: 22px 12px 45px;
+  }
 
-    .btn-alerta {
-        width: 100%;
-    }
+  .hero h1 {
+    font-size: 35px;
+  }
+
+  .candidates {
+    gap: 10px;
+  }
+
+  .candidate strong {
+    font-size: 24px;
+  }
+
+  .candidate-name {
+    font-size: 11px;
+  }
+
+  .second-round-notice {
+    padding: 13px;
+  }
+
+  .notice-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .map-container {
+    grid-template-columns: 1fr;
+  }
+
+  .brazil-map {
+    min-height: 0;
+    padding: 2px;
+  }
+
+  .brazil-map object {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .state-info {
+    min-height: 150px;
+  }
+
+  .states {
+    grid-template-columns: 1fr;
+  }
+
+  .polls {
+    grid-template-columns: 1fr;
+  }
+
+  .alerts-controls {
+    flex-direction: column;
+  }
+
+  .alerts-controls select,
+  .alerts-controls button {
+    width: 100%;
+  }
+
+  .section-title h2 {
+    font-size: 21px;
+  }
+
+  .advertisement {
+    min-height: 70px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+
 }
-```
