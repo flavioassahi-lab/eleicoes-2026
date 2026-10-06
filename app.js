@@ -31,9 +31,132 @@ const estados = [
   { uf: "TO", nome: "Tocantins", vermelho: 43.42, azul: 50.44 }
 ];
 
+
+/* =========================================================
+   POSIÇÃO DOS RÓTULOS NO MAPA
+   ========================================================= */
+
+const posicoesMapa = {
+  AC: { x: 15, y: 60 },
+  RO: { x: 28, y: 67 },
+  AM: { x: 30, y: 35 },
+  RR: { x: 35, y: 15 },
+  PA: { x: 52, y: 35 },
+  AP: { x: 67, y: 23 },
+  TO: { x: 54, y: 55 },
+
+  MA: { x: 68, y: 43 },
+  PI: { x: 66, y: 55 },
+  CE: { x: 79, y: 43 },
+  RN: { x: 89, y: 39 },
+  PB: { x: 88, y: 49 },
+  PE: { x: 86, y: 56 },
+  AL: { x: 91, y: 62 },
+  SE: { x: 88, y: 68 },
+  BA: { x: 76, y: 69 },
+
+  MT: { x: 48, y: 69 },
+  GO: { x: 61, y: 72 },
+  DF: { x: 64, y: 67 },
+  MS: { x: 54, y: 84 },
+
+  MG: { x: 68, y: 82 },
+  ES: { x: 82, y: 81 },
+  RJ: { x: 78, y: 90 },
+  SP: { x: 63, y: 91 },
+
+  PR: { x: 53, y: 96 },
+  SC: { x: 57, y: 103 },
+  RS: { x: 49, y: 111 }
+};
+
+
+/* =========================================================
+   FORMATAÇÃO
+   ========================================================= */
+
 function formatarPercentual(valor) {
-  return valor.toFixed(2).replace(".", ",") + "%";
+
+  return valor
+    .toFixed(2)
+    .replace(".", ",") + "%";
+
 }
+
+
+/* =========================================================
+   COR DO ESTADO
+   ========================================================= */
+
+function calcularCor(estado) {
+
+  const azulVence =
+    estado.azul > estado.vermelho;
+
+  const maior =
+    Math.max(
+      estado.azul,
+      estado.vermelho
+    );
+
+  const menor =
+    Math.min(
+      estado.azul,
+      estado.vermelho
+    );
+
+  const margem =
+    maior - menor;
+
+  /*
+   * Quanto maior a margem,
+   * mais intensa fica a cor.
+   */
+
+  const intensidade =
+    Math.min(
+      1,
+      0.18 + margem / 55
+    );
+
+  if (azulVence) {
+
+    const r =
+      Math.round(
+        219 - 180 * intensidade
+      );
+
+    const g =
+      Math.round(
+        234 - 105 * intensidade
+      );
+
+    const b = 255;
+
+    return `rgb(${r}, ${g}, ${b})`;
+
+  }
+
+  const r = 255;
+
+  const g =
+    Math.round(
+      225 - 125 * intensidade
+    );
+
+  const b =
+    Math.round(
+      225 - 125 * intensidade
+    );
+
+  return `rgb(${r}, ${g}, ${b})`;
+
+}
+
+
+/* =========================================================
+   PAINEL NACIONAL
+   ========================================================= */
 
 function atualizarPainelPrimeiroTurno() {
 
@@ -61,6 +184,7 @@ function atualizarPainelPrimeiroTurno() {
   const contado =
     document.getElementById("counted");
 
+
   if (redPercentage)
     redPercentage.textContent = "45,16%";
 
@@ -68,27 +192,40 @@ function atualizarPainelPrimeiroTurno() {
     bluePercentage.textContent = "47,03%";
 
   if (redVotes)
-    redVotes.textContent = "53.876.617 votos";
+    redVotes.textContent =
+      "53.876.617 votos";
 
   if (blueVotes)
-    blueVotes.textContent = "56.104.268 votos";
+    blueVotes.textContent =
+      "56.104.268 votos";
 
   if (redBar)
-    redBar.style.width = "45.16%";
+    redBar.style.width =
+      "45.16%";
 
   if (blueBar)
-    blueBar.style.width = "47.03%";
+    blueBar.style.width =
+      "47.03%";
 
   if (diferenca)
-    diferenca.textContent = "2.227.651 votos";
+    diferenca.textContent =
+      "2.227.651 votos";
 
   if (contado)
-    contado.textContent = "100%";
+    contado.textContent =
+      "100%";
+
 
   criarStatusAtualizacao(
     "Resultado final oficial do 1º turno — TSE"
   );
+
 }
+
+
+/* =========================================================
+   CARDS DOS ESTADOS
+   ========================================================= */
 
 function renderEstados(lista = estados) {
 
@@ -99,61 +236,95 @@ function renderEstados(lista = estados) {
 
   container.innerHTML = "";
 
+
   lista.forEach(estado => {
 
+    const azulVence =
+      estado.azul > estado.vermelho;
+
     const vencedor =
-      estado.azul > estado.vermelho
+      azulVence
         ? CANDIDATO_AZUL
         : CANDIDATO_VERMELHO;
 
     const cor =
-      estado.azul > estado.vermelho
+      azulVence
         ? "#2563eb"
         : "#dc2626";
+
 
     const card =
       document.createElement("div");
 
-    card.className = "state";
+    card.className =
+      "state";
+
 
     card.innerHTML = `
+
       <div class="state-name">
 
         <span>
           ${estado.uf} · ${estado.nome}
         </span>
 
-        <strong style="color:${cor};">
+        <strong
+          style="color:${cor};"
+        >
           ${vencedor}
         </strong>
 
       </div>
 
+
       <div class="state-bar">
 
         <div
           class="red"
-          style="width:${estado.vermelho}%"
+          style="
+            width:${estado.vermelho}%;
+          "
         ></div>
 
         <div
           class="blue"
-          style="width:${estado.azul}%"
+          style="
+            width:${estado.azul}%;
+          "
         ></div>
 
       </div>
 
+
       <small>
-        Lula ${formatarPercentual(estado.vermelho)}
+
+        Lula
+        ${formatarPercentual(
+          estado.vermelho
+        )}
+
         ·
-        Flávio Bolsonaro ${formatarPercentual(estado.azul)}
+
+        Flávio Bolsonaro
+        ${formatarPercentual(
+          estado.azul
+        )}
+
       </small>
+
     `;
+
 
     container.appendChild(card);
 
   });
+
 }
+
+
+/* =========================================================
+   INFORMAÇÕES DO ESTADO
+   ========================================================= */
 
 function atualizarEstado(uf) {
 
@@ -163,14 +334,23 @@ function atualizarEstado(uf) {
     );
 
   const info =
-    document.getElementById("stateInfo");
+    document.getElementById(
+      "stateInfo"
+    );
 
-  if (!estado || !info) return;
+
+  if (!estado || !info)
+    return;
+
+
+  const azulVence =
+    estado.azul > estado.vermelho;
 
   const vencedor =
-    estado.azul > estado.vermelho
+    azulVence
       ? CANDIDATO_AZUL
       : CANDIDATO_VERMELHO;
+
 
   const percentualVencedor =
     Math.max(
@@ -178,7 +358,9 @@ function atualizarEstado(uf) {
       estado.vermelho
     );
 
+
   info.innerHTML = `
+
     <small>
       ${estado.uf} · ${estado.nome}
     </small>
@@ -192,27 +374,174 @@ function atualizarEstado(uf) {
     </span>
 
     <div class="state-percent">
-      ${formatarPercentual(percentualVencedor)}
+
+      ${formatarPercentual(
+        percentualVencedor
+      )}
+
     </div>
 
     <span>
+
       ${CANDIDATO_VERMELHO}:
-      ${formatarPercentual(estado.vermelho)}
+      ${formatarPercentual(
+        estado.vermelho
+      )}
+
     </span>
 
     <span>
+
       ${CANDIDATO_AZUL}:
-      ${formatarPercentual(estado.azul)}
+      ${formatarPercentual(
+        estado.azul
+      )}
+
     </span>
+
   `;
+
 }
+
+
+/* =========================================================
+   RÓTULOS DO MAPA
+   ========================================================= */
+
+function criarRotulosMapa() {
+
+  const container =
+    document.getElementById(
+      "brazilMap"
+    );
+
+  if (!container) return;
+
+
+  /*
+   * Remove rótulos antigos.
+   */
+
+  const antigos =
+    container.querySelectorAll(
+      ".map-label"
+    );
+
+  antigos.forEach(
+    elemento =>
+      elemento.remove()
+  );
+
+
+  estados.forEach(estado => {
+
+    const posicao =
+      posicoesMapa[
+        estado.uf
+      ];
+
+    if (!posicao) return;
+
+
+    const azulVence =
+      estado.azul >
+      estado.vermelho;
+
+
+    const percentual =
+      Math.max(
+        estado.azul,
+        estado.vermelho
+      );
+
+
+    const label =
+      document.createElement(
+        "button"
+      );
+
+
+    label.className =
+      "map-label";
+
+
+    label.type =
+      "button";
+
+
+    label.style.left =
+      `${posicao.x}%`;
+
+
+    label.style.top =
+      `${posicao.y}%`;
+
+
+    label.style.color =
+      azulVence
+        ? "#1d4ed8"
+        : "#b91c1c";
+
+
+    label.innerHTML = `
+
+      <span>
+        ${estado.uf}
+      </span>
+
+      <strong>
+        ${formatarPercentual(
+          percentual
+        )}
+      </strong>
+
+    `;
+
+
+    label.title =
+      `${estado.nome}: ` +
+      `Lula ${formatarPercentual(
+        estado.vermelho
+      )} · ` +
+      `Flávio Bolsonaro ${formatarPercentual(
+        estado.azul
+      )}`;
+
+
+    label.addEventListener(
+      "click",
+      function() {
+
+        atualizarEstado(
+          estado.uf
+        );
+
+      }
+    );
+
+
+    container.appendChild(
+      label
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   MAPA
+   ========================================================= */
 
 function conectarMapa() {
 
   const objeto =
-    document.getElementById("mapSvg");
+    document.getElementById(
+      "mapSvg"
+    );
 
   if (!objeto) return;
+
 
   objeto.addEventListener(
     "load",
@@ -223,73 +552,107 @@ function conectarMapa() {
 
       if (!svg) return;
 
-      estados.forEach(estado => {
 
-        const elemento =
-          svg.getElementById(estado.uf);
+      estados.forEach(
+        estado => {
 
-        if (!elemento) return;
+          const elemento =
+            svg.getElementById(
+              estado.uf
+            );
 
-        const vencedorAzul =
-          estado.azul > estado.vermelho;
 
-        const cor =
-          vencedorAzul
-            ? "#2563eb"
-            : "#dc2626";
+          if (!elemento)
+            return;
 
-        /*
-         * Define a cor diretamente
-         * no elemento SVG.
-         */
 
-        elemento.setAttribute(
-          "fill",
-          cor
-        );
+          const azulVence =
+            estado.azul >
+            estado.vermelho;
 
-        elemento.style.fill =
-          cor;
 
-        elemento.style.cursor =
-          "pointer";
+          const cor =
+            calcularCor(
+              estado
+            );
 
-        elemento.style.transition =
-          "opacity 0.2s";
 
-        elemento.addEventListener(
-          "mouseenter",
-          function() {
-            this.style.opacity = "0.7";
-          }
-        );
+          elemento.setAttribute(
+            "fill",
+            cor
+          );
 
-        elemento.addEventListener(
-          "mouseleave",
-          function() {
-            this.style.opacity = "1";
-          }
-        );
 
-        elemento.addEventListener(
-          "click",
-          function() {
-            atualizarEstado(estado.uf);
-          }
-        );
+          elemento.style.fill =
+            cor;
 
-      });
+
+          elemento.style.cursor =
+            "pointer";
+
+
+          elemento.style.transition =
+            "opacity .2s";
+
+
+          elemento.addEventListener(
+            "mouseenter",
+            function() {
+
+              this.style.opacity =
+                "0.7";
+
+            }
+          );
+
+
+          elemento.addEventListener(
+            "mouseleave",
+            function() {
+
+              this.style.opacity =
+                "1";
+
+            }
+          );
+
+
+          elemento.addEventListener(
+            "click",
+            function() {
+
+              atualizarEstado(
+                estado.uf
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      criarRotulosMapa();
 
     }
   );
+
 }
+
+
+/* =========================================================
+   ORDENAÇÃO
+   ========================================================= */
 
 function configurarOrdenacao() {
 
   const select =
-    document.getElementById("sort");
+    document.getElementById(
+      "sort"
+    );
 
   if (!select) return;
+
 
   select.addEventListener(
     "change",
@@ -298,7 +661,10 @@ function configurarOrdenacao() {
       const lista =
         [...estados];
 
-      if (this.value === "name") {
+
+      if (
+        this.value === "name"
+      ) {
 
         lista.sort(
           (a, b) =>
@@ -310,13 +676,24 @@ function configurarOrdenacao() {
 
       }
 
-      renderEstados(lista);
+
+      renderEstados(
+        lista
+      );
 
     }
   );
+
 }
 
-function criarStatusAtualizacao(mensagem) {
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function criarStatusAtualizacao(
+  mensagem
+) {
 
   const painel =
     document.querySelector(
@@ -325,14 +702,17 @@ function criarStatusAtualizacao(mensagem) {
 
   if (!painel) return;
 
+
   const existente =
     document.getElementById(
       "demoUpdate"
     );
 
+
   if (existente) {
 
     existente.innerHTML = `
+
       <strong
         style="
           color:#c2410c;
@@ -343,34 +723,46 @@ function criarStatusAtualizacao(mensagem) {
       </strong>
 
       ${mensagem}
+
     `;
 
     return;
+
   }
+
 
   const status =
     document.createElement(
       "div"
     );
 
-  status.id = "demoUpdate";
+
+  status.id =
+    "demoUpdate";
+
 
   status.style.marginTop =
     "14px";
 
+
   status.style.paddingTop =
     "12px";
+
 
   status.style.borderTop =
     "1px solid #eee";
 
+
   status.style.fontSize =
     "9px";
+
 
   status.style.color =
     "#6b7280";
 
+
   status.innerHTML = `
+
     <strong
       style="
         color:#c2410c;
@@ -381,10 +773,20 @@ function criarStatusAtualizacao(mensagem) {
     </strong>
 
     ${mensagem}
+
   `;
 
-  painel.appendChild(status);
+
+  painel.appendChild(
+    status
+  );
+
 }
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
 
 function iniciar() {
 
@@ -397,5 +799,6 @@ function iniciar() {
   atualizarPainelPrimeiroTurno();
 
 }
+
 
 iniciar();
