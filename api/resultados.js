@@ -1,22 +1,23 @@
 export default async function handler(req, res) {
   try {
-    const url =
-      "https://resultados.tse.jus.br/oficial/ele2026/3220/dados/br/br-c0001-e006257-u.json";
+    const configUrl =
+      "https://resultados.tse.jus.br/oficial/ele2026/comum/config/ele-c.json";
 
-    const resposta = await fetch(url);
+    const resposta = await fetch(configUrl);
 
     if (!resposta.ok) {
-      throw new Error(`TSE respondeu com status ${resposta.status}`);
+      throw new Error(
+        `Arquivo de configuração do TSE respondeu com status ${resposta.status}`
+      );
     }
 
-    const dados = await resposta.json();
+    const configuracao = await resposta.json();
 
     res.status(200).json({
       sucesso: true,
       fonte: "Tribunal Superior Eleitoral",
-      eleicao: "Eleições Gerais 2026",
-      abrangencia: "Brasil",
-      dados
+      mensagem: "Conexão com a configuração oficial estabelecida.",
+      configuracao
     });
 
   } catch (erro) {
