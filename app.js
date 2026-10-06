@@ -30,84 +30,42 @@ const estados = [
 
 ];
 
-
 function renderEstados(lista = estados) {
-
   const container = document.getElementById("states");
-
   if (!container) return;
 
   container.innerHTML = "";
 
   lista.forEach(estado => {
+    const lider = estado.vermelho > estado.azul ? "C1" : "C2";
 
-    const lider =
-      estado.vermelho > estado.azul
-        ? "C1"
-        : "C2";
-
-    const card =
-      document.createElement("div");
-
+    const card = document.createElement("div");
     card.className = "state";
 
     card.innerHTML = `
-
       <div class="state-name">
-
-        <span>
-          ${estado.uf} · ${estado.nome}
-        </span>
-
-        <span>
-          ${lider}
-        </span>
-
+        <span>${estado.uf} · ${estado.nome}</span>
+        <span>${lider}</span>
       </div>
 
       <div class="state-bar">
-
-        <div
-          class="red"
-          style="width:${estado.vermelho}%">
-        </div>
-
-        <div
-          class="blue"
-          style="width:${estado.azul}%">
-        </div>
-
+        <div class="red" style="width:${estado.vermelho}%"></div>
+        <div class="blue" style="width:${estado.azul}%"></div>
       </div>
 
       <small>
-
-        ${estado.vermelho}%
-        ×
-        ${estado.azul}%
-
-        ·
-
-        ${estado.apurado}%
-        apurado
-
+        ${estado.vermelho}% × ${estado.azul}%
+        · ${estado.apurado}% apurado
       </small>
-
     `;
 
     container.appendChild(card);
-
   });
-
 }
 
-
 function atualizarEstado(uf) {
-
-  const estado =
-    estados.find(item => item.uf === uf);
-
-  const info =
-    document.getElementById("stateInfo");
+  const estado = estados.find(item => item.uf === uf);
+  const info = document.getElementById("stateInfo");
 
   if (!estado || !info) return;
 
@@ -117,26 +75,15 @@ function atualizarEstado(uf) {
       : "Candidato 2";
 
   const porcentagem =
-    Math.max(
-      estado.vermelho,
-      estado.azul
-    );
+    Math.max(estado.vermelho, estado.azul);
 
   const diferenca =
-    Math.abs(
-      estado.vermelho -
-      estado.azul
-    );
+    Math.abs(estado.vermelho - estado.azul);
 
   info.innerHTML = `
+    <small>${estado.uf} · ${estado.nome}</small>
 
-    <small>
-      ${estado.uf} · ${estado.nome}
-    </small>
-
-    <strong>
-      ${lider} lidera
-    </strong>
+    <strong>${lider} lidera</strong>
 
     <span>
       ${estado.apurado}% das seções apuradas
@@ -147,98 +94,64 @@ function atualizarEstado(uf) {
     </div>
 
     <span>
-      Candidato 1:
-      ${estado.vermelho}%
+      Candidato 1: ${estado.vermelho}%
       ·
-      Candidato 2:
-      ${estado.azul}%
+      Candidato 2: ${estado.azul}%
     </span>
 
     <span>
-      Vantagem:
-      ${diferenca} ponto(s) percentuais
+      Vantagem: ${diferenca} ponto(s) percentuais
     </span>
-
   `;
-
 }
 
-
 function conectarMapa() {
-
-  const objeto =
-    document.getElementById("mapSvg");
+  const objeto = document.getElementById("mapSvg");
 
   if (!objeto) return;
 
-  objeto.addEventListener(
-    "load",
-    function() {
+  objeto.addEventListener("load", function() {
 
-      const svg =
-        objeto.contentDocument;
+    const svg = objeto.contentDocument;
 
-      if (!svg) return;
+    if (!svg) return;
 
-      estados.forEach(estado => {
+    estados.forEach(estado => {
 
-        const elemento =
-          svg.getElementById(estado.uf);
+      const elemento =
+        svg.getElementById(estado.uf);
 
-        if (!elemento) return;
+      if (!elemento) return;
 
-        const lider =
-          estado.vermelho > estado.azul
-            ? "red"
-            : "blue";
+      const lider =
+        estado.vermelho > estado.azul
+          ? "red"
+          : "blue";
 
-        elemento.style.fill =
-          lider === "red"
-            ? "#dc2626"
-            : "#2563eb";
+      elemento.style.fill =
+        lider === "red"
+          ? "#dc2626"
+          : "#2563eb";
 
-        elemento.style.cursor =
-          "pointer";
+      elemento.style.cursor = "pointer";
+      elemento.style.transition = "opacity 0.2s";
 
-        elemento.style.transition =
-          "opacity 0.2s";
-
-        elemento.addEventListener(
-          "mouseenter",
-          function() {
-
-            this.style.opacity = "0.7";
-
-          }
-        );
-
-        elemento.addEventListener(
-          "mouseleave",
-          function() {
-
-            this.style.opacity = "1";
-
-          }
-        );
-
-        elemento.addEventListener(
-          "click",
-          function() {
-
-            atualizarEstado(
-              estado.uf
-            );
-
-          }
-        );
-
+      elemento.addEventListener("mouseenter", function() {
+        this.style.opacity = "0.7";
       });
 
-    }
-  );
+      elemento.addEventListener("mouseleave", function() {
+        this.style.opacity = "1";
+      });
 
+      elemento.addEventListener("click", function() {
+        atualizarEstado(estado.uf);
+      });
+
+    });
+
+  });
 }
-
 
 function configurarOrdenacao() {
 
@@ -247,120 +160,156 @@ function configurarOrdenacao() {
 
   if (!select) return;
 
-  select.addEventListener(
-    "change",
-    function() {
+  select.addEventListener("change", function() {
 
-      let lista = [...estados];
+    let lista = [...estados];
 
-      if (this.value === "name") {
+    if (this.value === "name") {
 
-        lista.sort(
-          (a, b) =>
-            a.nome.localeCompare(
-              b.nome,
-              "pt-BR"
-            )
-        );
-
-      }
-
-      if (this.value === "margin") {
-
-        lista.sort(
-          (a, b) => {
-
-            const margemA =
-              Math.abs(
-                a.vermelho -
-                a.azul
-              );
-
-            const margemB =
-              Math.abs(
-                b.vermelho -
-                b.azul
-              );
-
-            return margemB - margemA;
-
-          }
-        );
-
-      }
-
-      if (this.value === "counted") {
-
-        lista.sort(
-          (a, b) =>
-            b.apurado -
-            a.apurado
-        );
-
-      }
-
-      renderEstados(lista);
+      lista.sort((a, b) =>
+        a.nome.localeCompare(
+          b.nome,
+          "pt-BR"
+        )
+      );
 
     }
-  );
+
+    if (this.value === "margin") {
+
+      lista.sort((a, b) => {
+
+        const margemA =
+          Math.abs(
+            a.vermelho - a.azul
+          );
+
+        const margemB =
+          Math.abs(
+            b.vermelho - b.azul
+          );
+
+        return margemB - margemA;
+
+      });
+
+    }
+
+    if (this.value === "counted") {
+
+      lista.sort(
+        (a, b) =>
+          b.apurado - a.apurado
+      );
+
+    }
+
+    renderEstados(lista);
+
+  });
+}
+
+
+async function atualizarPainelComTSE() {
+
+  try {
+
+    const resposta =
+      await fetch("/api/resultados");
+
+    const resultado =
+      await resposta.json();
+
+    const redBar =
+      document.getElementById("redBar");
+
+    const blueBar =
+      document.getElementById("blueBar");
+
+    const diferenca =
+      document.getElementById("difference");
+
+    const contado =
+      document.getElementById("counted");
+
+
+    if (!resultado.sucesso) {
+      return;
+    }
+
+
+    if (!resultado.disponivel) {
+
+      if (redBar)
+        redBar.style.width = "0%";
+
+      if (blueBar)
+        blueBar.style.width = "0%";
+
+      if (diferenca)
+        diferenca.textContent =
+          "Aguardando apuração";
+
+      if (contado)
+        contado.textContent =
+          "0%";
+
+      criarStatusAtualizacao(
+        "Aguardando divulgação dos resultados oficiais do 2º turno"
+      );
+
+      return;
+    }
+
+
+    /*
+      Quando o TSE disponibilizar os dados,
+      esta parte será usada para preencher
+      automaticamente o painel.
+    */
+
+    console.log(
+      "Dados oficiais recebidos:",
+      resultado.dados
+    );
+
+  } catch (erro) {
+
+    console.error(
+      "Erro ao consultar API:",
+      erro
+    );
+
+  }
 
 }
 
 
-function atualizarPainel() {
-
-  const redBar =
-    document.getElementById("redBar");
-
-  const blueBar =
-    document.getElementById("blueBar");
-
-  if (redBar) {
-    redBar.style.width = "52.4%";
-  }
-
-  if (blueBar) {
-    blueBar.style.width = "47.6%";
-  }
-
-
-  const diferenca =
-    document.getElementById("difference");
-
-  if (diferenca) {
-
-    diferenca.textContent =
-      "4.418.358 votos";
-
-  }
-
-
-  const contado =
-    document.getElementById("counted");
-
-  if (contado) {
-
-    contado.textContent =
-      "42,8%";
-
-  }
-
-}
-
-
-function criarStatusAtualizacao() {
+function criarStatusAtualizacao(
+  mensagem =
+    "Dados fictícios para desenvolvimento"
+) {
 
   const painel =
     document.querySelector(".result-card");
 
   if (!painel) return;
 
-  const existente =
-    document.getElementById(
-      "demoUpdate"
-    );
 
-  if (existente) return;
+  const existente =
+    document.getElementById("demoUpdate");
+
+  if (existente) {
+
+    existente.innerHTML = `
+      <strong style="color:#c2410c;margin-right:6px;">
+        TSE
+      </strong>
+      ${mensagem}
+    `;
+
+    return;
+  }
 
 
   const status =
@@ -368,7 +317,6 @@ function criarStatusAtualizacao() {
 
   status.id =
     "demoUpdate";
-
 
   status.style.marginTop =
     "14px";
@@ -385,19 +333,12 @@ function criarStatusAtualizacao() {
   status.style.color =
     "#6b7280";
 
+
   status.innerHTML = `
-
-    <strong
-      style="
-        color:#c2410c;
-        margin-right:6px;
-      "
-    >
-      DEMONSTRAÇÃO
+    <strong style="color:#c2410c;margin-right:6px;">
+      TSE
     </strong>
-
-    Dados fictícios para desenvolvimento
-
+    ${mensagem}
   `;
 
 
@@ -406,17 +347,62 @@ function criarStatusAtualizacao() {
 }
 
 
-function iniciar() {
+function atualizarPainelDemo() {
+
+  const redBar =
+    document.getElementById("redBar");
+
+  const blueBar =
+    document.getElementById("blueBar");
+
+  if (redBar)
+    redBar.style.width = "52.4%";
+
+  if (blueBar)
+    blueBar.style.width = "47.6%";
+
+
+  const diferenca =
+    document.getElementById("difference");
+
+  if (diferenca)
+    diferenca.textContent =
+      "4.418.358 votos";
+
+
+  const contado =
+    document.getElementById("counted");
+
+  if (contado)
+    contado.textContent =
+      "42,8%";
+
+
+  criarStatusAtualizacao();
+
+}
+
+
+async function iniciar() {
 
   renderEstados();
 
-  atualizarPainel();
+  conectarMapa();
 
   configurarOrdenacao();
 
-  conectarMapa();
+  /*
+    Mantém a demonstração visual até
+    que o TSE disponibilize os resultados.
+  */
 
-  criarStatusAtualizacao();
+  atualizarPainelDemo();
+
+  /*
+    Consulta a API oficial.
+  */
+
+  await atualizarPainelComTSE();
 
 }
 
