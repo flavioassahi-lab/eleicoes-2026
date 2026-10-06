@@ -13,6 +13,10 @@
   transition: font-size 0.15s ease;
 
   fill: #111111 !important;
+
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 2;
 }
 
 .map-label line {
