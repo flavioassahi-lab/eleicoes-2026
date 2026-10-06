@@ -77,7 +77,6 @@ function renderEstados(lista = estados) {
 
 }
 
-
 function atualizarEstado(uf) {
 
   const estado =
@@ -134,7 +133,6 @@ function atualizarEstado(uf) {
   `;
 
 }
-
 
 function conectarMapa() {
 
@@ -208,7 +206,6 @@ function conectarMapa() {
 
 }
 
-
 function configurarOrdenacao() {
 
   const select =
@@ -277,6 +274,100 @@ function configurarOrdenacao() {
 }
 
 
+/*
+=========================================================
+PAINEL NACIONAL — 1º TURNO
+Dados oficiais utilizados temporariamente
+enquanto o 2º turno ainda não possui apuração.
+=========================================================
+*/
+
+function atualizarPainelPrimeiroTurno() {
+
+  const redPercentage =
+    document.getElementById(
+      "redPercentage"
+    );
+
+  const bluePercentage =
+    document.getElementById(
+      "bluePercentage"
+    );
+
+  const redVotes =
+    document.getElementById(
+      "redVotes"
+    );
+
+  const blueVotes =
+    document.getElementById(
+      "blueVotes"
+    );
+
+  const redBar =
+    document.getElementById(
+      "redBar"
+    );
+
+  const blueBar =
+    document.getElementById(
+      "blueBar"
+    );
+
+  const diferenca =
+    document.getElementById(
+      "difference"
+    );
+
+  const contado =
+    document.getElementById(
+      "counted"
+    );
+
+
+  if (redPercentage)
+    redPercentage.textContent =
+      "45,16%";
+
+  if (bluePercentage)
+    bluePercentage.textContent =
+      "47,03%";
+
+
+  if (redVotes)
+    redVotes.textContent =
+      "53.876.617 votos";
+
+  if (blueVotes)
+    blueVotes.textContent =
+      "56.104.268 votos";
+
+
+  if (redBar)
+    redBar.style.width =
+      "45.16%";
+
+  if (blueBar)
+    blueBar.style.width =
+      "47.03%";
+
+
+  if (diferenca)
+    diferenca.textContent =
+      "2.227.651 votos";
+
+
+  if (contado)
+    contado.textContent =
+      "99,99%";
+
+
+  criarStatusAtualizacao(
+    "Resultado oficial do 1º turno — 2º turno aguardando apuração"
+  );
+
+}
+
 async function atualizarPainelComTSE() {
 
   try {
@@ -289,58 +380,40 @@ async function atualizarPainelComTSE() {
     const resultado =
       await resposta.json();
 
+
     if (!resultado.sucesso)
       return;
 
+
     if (!resultado.disponivel) {
 
-      const redBar =
-        document.getElementById(
-          "redBar"
-        );
+      /*
+      O 2º turno ainda não possui
+      resultados publicados.
 
-      const blueBar =
-        document.getElementById(
-          "blueBar"
-        );
+      Mantemos o resultado oficial
+      do 1º turno no painel.
+      */
 
-      const diferenca =
-        document.getElementById(
-          "difference"
-        );
-
-      const contado =
-        document.getElementById(
-          "counted"
-        );
-
-      if (redBar)
-        redBar.style.width =
-          "0%";
-
-      if (blueBar)
-        blueBar.style.width =
-          "0%";
-
-      if (diferenca)
-        diferenca.textContent =
-          "Aguardando apuração";
-
-      if (contado)
-        contado.textContent =
-          "0%";
-
-      criarStatusAtualizacao(
-        "Aguardando divulgação dos resultados oficiais do 2º turno"
-      );
+      atualizarPainelPrimeiroTurno();
 
       return;
+
     }
 
+
     console.log(
-      "Dados oficiais recebidos:",
+      "Dados oficiais do 2º turno recebidos:",
       resultado.dados
     );
+
+
+    /*
+    Quando o TSE publicar os dados
+    do 2º turno, faremos aqui a
+    substituição automática do
+    resultado do 1º turno.
+    */
 
   } catch (erro) {
 
@@ -349,6 +422,14 @@ async function atualizarPainelComTSE() {
       erro
     );
 
+    /*
+    Se a consulta falhar,
+    continuamos mostrando os
+    números oficiais do 1º turno.
+    */
+
+    atualizarPainelPrimeiroTurno();
+
   }
 
 }
@@ -356,7 +437,7 @@ async function atualizarPainelComTSE() {
 
 function criarStatusAtualizacao(
   mensagem =
-    "Dados fictícios para desenvolvimento"
+    "Resultado oficial do 1º turno"
 ) {
 
   const painel =
@@ -366,10 +447,12 @@ function criarStatusAtualizacao(
 
   if (!painel) return;
 
+
   const existente =
     document.getElementById(
       "demoUpdate"
     );
+
 
   if (existente) {
 
@@ -385,6 +468,7 @@ function criarStatusAtualizacao(
     return;
 
   }
+
 
   const status =
     document.createElement(
@@ -409,6 +493,7 @@ function criarStatusAtualizacao(
   status.style.color =
     "#6b7280";
 
+
   status.innerHTML = `
     <strong
       style="color:#c2410c;margin-right:6px;"
@@ -418,52 +503,10 @@ function criarStatusAtualizacao(
     ${mensagem}
   `;
 
+
   painel.appendChild(
     status
   );
-
-}
-
-
-function atualizarPainelDemo() {
-
-  const redBar =
-    document.getElementById(
-      "redBar"
-    );
-
-  const blueBar =
-    document.getElementById(
-      "blueBar"
-    );
-
-  if (redBar)
-    redBar.style.width =
-      "52.4%";
-
-  if (blueBar)
-    blueBar.style.width =
-      "47.6%";
-
-  const diferenca =
-    document.getElementById(
-      "difference"
-    );
-
-  if (diferenca)
-    diferenca.textContent =
-      "4.418.358 votos";
-
-  const contado =
-    document.getElementById(
-      "counted"
-    );
-
-  if (contado)
-    contado.textContent =
-      "42,8%";
-
-  criarStatusAtualizacao();
 
 }
 
@@ -476,7 +519,13 @@ async function iniciar() {
 
   configurarOrdenacao();
 
-  atualizarPainelDemo();
+  /*
+  Mostra imediatamente o resultado
+  oficial do 1º turno enquanto o
+  2º turno ainda não está disponível.
+  */
+
+  atualizarPainelPrimeiroTurno();
 
   await atualizarPainelComTSE();
 
