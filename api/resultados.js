@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     const url =
-      "https://resultados.tse.jus.br/oficial/ele2026/comum/config/ele-c.json";
+      "https://resultados.tse.jus.br/oficial/ele2026/3220/dados/br/br-c0001-e006257-u.json";
 
     const resposta = await fetch(url);
 
@@ -14,7 +14,8 @@ export default async function handler(req, res) {
     res.status(200).json({
       sucesso: true,
       fonte: "Tribunal Superior Eleitoral",
-      atualizadoEm: new Date().toISOString(),
+      eleicao: "Eleições Gerais 2026",
+      abrangencia: "Brasil",
       dados
     });
 
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
     res.status(500).json({
       sucesso: false,
       fonte: "Tribunal Superior Eleitoral",
-      erro: "Não foi possível consultar os dados do TSE."
+      erro: erro.message
     });
   }
 }
