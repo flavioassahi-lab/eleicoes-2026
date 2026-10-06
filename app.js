@@ -32,7 +32,7 @@ const estados = [
 ];
 
 function formatarPercentual(valor) {
-  return valor.toFixed(2).replace(".", ",") + "%";
+  return Math.round(valor) + "%";
 }
 
 function calcularCor(estado) {
@@ -41,7 +41,10 @@ function calcularCor(estado) {
   const menor = Math.min(estado.azul, estado.vermelho);
   const margem = maior - menor;
 
-  const intensidade = Math.min(1, 0.18 + margem / 55);
+  const intensidade = Math.min(
+    1,
+    0.16 + margem / 55
+  );
 
   if (azulVence) {
     const r = Math.round(219 - 180 * intensidade);
@@ -59,36 +62,53 @@ function calcularCor(estado) {
 }
 
 function atualizarPainelPrimeiroTurno() {
-  const redPercentage = document.getElementById("redPercentage");
-  const bluePercentage = document.getElementById("bluePercentage");
-  const redVotes = document.getElementById("redVotes");
-  const blueVotes = document.getElementById("blueVotes");
-  const redBar = document.getElementById("redBar");
-  const blueBar = document.getElementById("blueBar");
-  const diferenca = document.getElementById("difference");
-  const contado = document.getElementById("counted");
+  const redPercentage =
+    document.getElementById("redPercentage");
 
-  if (redPercentage) redPercentage.textContent = "45,16%";
-  if (bluePercentage) bluePercentage.textContent = "47,03%";
+  const bluePercentage =
+    document.getElementById("bluePercentage");
 
-  if (redVotes) {
+  const redVotes =
+    document.getElementById("redVotes");
+
+  const blueVotes =
+    document.getElementById("blueVotes");
+
+  const redBar =
+    document.getElementById("redBar");
+
+  const blueBar =
+    document.getElementById("blueBar");
+
+  const diferenca =
+    document.getElementById("difference");
+
+  const contado =
+    document.getElementById("counted");
+
+  if (redPercentage)
+    redPercentage.textContent = "45,16%";
+
+  if (bluePercentage)
+    bluePercentage.textContent = "47,03%";
+
+  if (redVotes)
     redVotes.textContent = "53.876.617 votos";
-  }
 
-  if (blueVotes) {
+  if (blueVotes)
     blueVotes.textContent = "56.104.268 votos";
-  }
 
-  if (redBar) redBar.style.width = "45.16%";
-  if (blueBar) blueBar.style.width = "47.03%";
+  if (redBar)
+    redBar.style.width = "45.16%";
 
-  if (diferenca) {
+  if (blueBar)
+    blueBar.style.width = "47.03%";
+
+  if (diferenca)
     diferenca.textContent = "2.227.651 votos";
-  }
 
-  if (contado) {
+  if (contado)
     contado.textContent = "100%";
-  }
 
   criarStatusAtualizacao(
     "Resultado final oficial do 1º turno — TSE"
@@ -96,30 +116,38 @@ function atualizarPainelPrimeiroTurno() {
 }
 
 function renderEstados(lista = estados) {
-  const container = document.getElementById("states");
+  const container =
+    document.getElementById("states");
 
   if (!container) return;
 
   container.innerHTML = "";
 
   lista.forEach(estado => {
-    const azulVence = estado.azul > estado.vermelho;
+    const azulVence =
+      estado.azul > estado.vermelho;
 
-    const vencedor = azulVence
-      ? CANDIDATO_AZUL
-      : CANDIDATO_VERMELHO;
+    const vencedor =
+      azulVence
+        ? CANDIDATO_AZUL
+        : CANDIDATO_VERMELHO;
 
-    const cor = azulVence
-      ? "#2563eb"
-      : "#dc2626";
+    const cor =
+      azulVence
+        ? "#2563eb"
+        : "#dc2626";
 
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
 
     card.className = "state";
 
     card.innerHTML = `
       <div class="state-name">
-        <span>${estado.uf} · ${estado.nome}</span>
+        <span>
+          ${estado.uf} · ${estado.nome}
+        </span>
+
         <strong style="color:${cor};">
           ${vencedor}
         </strong>
@@ -140,7 +168,8 @@ function renderEstados(lista = estados) {
       <small>
         Lula ${formatarPercentual(estado.vermelho)}
         ·
-        Flávio Bolsonaro ${formatarPercentual(estado.azul)}
+        Flávio Bolsonaro
+        ${formatarPercentual(estado.azul)}
       </small>
     `;
 
@@ -149,89 +178,227 @@ function renderEstados(lista = estados) {
 }
 
 function atualizarEstado(uf) {
-  const estado = estados.find(item => item.uf === uf);
-  const info = document.getElementById("stateInfo");
+  const estado =
+    estados.find(item => item.uf === uf);
+
+  const info =
+    document.getElementById("stateInfo");
 
   if (!estado || !info) return;
 
-  const azulVence = estado.azul > estado.vermelho;
+  const azulVence =
+    estado.azul > estado.vermelho;
 
-  const vencedor = azulVence
-    ? CANDIDATO_AZUL
-    : CANDIDATO_VERMELHO;
+  const vencedor =
+    azulVence
+      ? CANDIDATO_AZUL
+      : CANDIDATO_VERMELHO;
 
-  const percentualVencedor = Math.max(
-    estado.azul,
-    estado.vermelho
-  );
+  const percentualVencedor =
+    Math.max(
+      estado.azul,
+      estado.vermelho
+    );
 
   info.innerHTML = `
-    <small>${estado.uf} · ${estado.nome}</small>
+    <small>
+      ${estado.uf} · ${estado.nome}
+    </small>
 
-    <strong>${vencedor}</strong>
+    <strong>
+      ${vencedor}
+    </strong>
 
-    <span>Resultado final do 1º turno</span>
+    <span>
+      Resultado final do 1º turno
+    </span>
 
     <div class="state-percent">
-      ${formatarPercentual(percentualVencedor)}
+      ${formatarPercentual(
+        percentualVencedor
+      )}
     </div>
 
     <span>
       ${CANDIDATO_VERMELHO}:
-      ${formatarPercentual(estado.vermelho)}
+      ${formatarPercentual(
+        estado.vermelho
+      )}
     </span>
 
     <span>
       ${CANDIDATO_AZUL}:
-      ${formatarPercentual(estado.azul)}
+      ${formatarPercentual(
+        estado.azul
+      )}
     </span>
   `;
 }
 
+
+/* =========================================================
+   RÓTULOS DINÂMICOS DO MAPA
+   ========================================================= */
+
 function criarRotulosMapa() {
-  const objeto = document.getElementById("mapSvg");
+  const objeto =
+    document.getElementById("mapSvg");
 
   if (!objeto) return;
 
-  const svg = objeto.contentDocument;
+  const svg =
+    objeto.contentDocument;
 
   if (!svg) return;
 
-  const svgRoot = svg.documentElement;
+  const svgRoot =
+    svg.documentElement;
 
   svgRoot
-    .querySelectorAll(".map-label")
-    .forEach(label => label.remove());
+    .querySelectorAll(".map-label-layer")
+    .forEach(
+      elemento => elemento.remove()
+    );
+
+
+  const camada =
+    svg.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g"
+    );
+
+  camada.setAttribute(
+    "class",
+    "map-label-layer"
+  );
+
+
+  const labels = [];
+
 
   estados.forEach(estado => {
-    const elemento = svg.getElementById(estado.uf);
+    const elemento =
+      svg.getElementById(
+        estado.uf
+      );
 
     if (!elemento) return;
 
     let caixa;
 
     try {
-      caixa = elemento.getBBox();
-    } catch (erro) {
+      caixa =
+        elemento.getBBox();
+    } catch {
       return;
     }
 
-    if (!caixa.width || !caixa.height) return;
+    if (
+      !caixa.width ||
+      !caixa.height
+    ) {
+      return;
+    }
 
-    const azulVence = estado.azul > estado.vermelho;
 
-    const percentual = Math.max(
-      estado.azul,
-      estado.vermelho
-    );
+    const azulVence =
+      estado.azul >
+      estado.vermelho;
 
-    const x = caixa.x + caixa.width / 2;
-    const y = caixa.y + caixa.height / 2;
 
-    const grupo = svg.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g"
-    );
+    const percentual =
+      Math.max(
+        estado.azul,
+        estado.vermelho
+      );
+
+
+    labels.push({
+      estado,
+      elemento,
+      caixa,
+      x: caixa.x + caixa.width / 2,
+      y: caixa.y + caixa.height / 2,
+      largura: 28,
+      altura: 10,
+      azulVence,
+      percentual
+    });
+  });
+
+
+  /*
+   * Primeiro colocamos todos no centro
+   * real dos respectivos estados.
+   */
+
+  labels.forEach(label => {
+
+    label.labelX = label.x;
+    label.labelY = label.y;
+
+  });
+
+
+  /*
+   * Detecta sobreposição entre rótulos.
+   * Quando acontece, desloca o segundo
+   * rótulo automaticamente.
+   */
+
+  for (let i = 0; i < labels.length; i++) {
+
+    const atual = labels[i];
+
+    for (let j = 0; j < i; j++) {
+
+      const anterior = labels[j];
+
+      const distanciaX =
+        Math.abs(
+          atual.labelX -
+          anterior.labelX
+        );
+
+      const distanciaY =
+        Math.abs(
+          atual.labelY -
+          anterior.labelY
+        );
+
+
+      const sobreposto =
+        distanciaX < 32 &&
+        distanciaY < 13;
+
+
+      if (sobreposto) {
+
+        const direcao =
+          atual.labelX >=
+          anterior.labelX
+            ? 1
+            : -1;
+
+        atual.labelX +=
+          24 * direcao;
+
+        atual.labelY += 14;
+
+        atual.deslocado = true;
+
+      }
+    }
+  }
+
+
+  labels.forEach(label => {
+
+    const grupo =
+      svg.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "g"
+      );
 
     grupo.setAttribute(
       "class",
@@ -240,186 +407,374 @@ function criarRotulosMapa() {
 
     grupo.setAttribute(
       "transform",
-      `translate(${x} ${y})`
+      `translate(
+        ${label.labelX}
+        ${label.labelY}
+      )`
     );
 
-    grupo.style.cursor = "pointer";
+    grupo.style.cursor =
+      "pointer";
 
-    const fundo = svg.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "rect"
+
+    /*
+     * Linha indicadora somente
+     * quando o rótulo precisou
+     * sair do centro do estado.
+     */
+
+    if (label.deslocado) {
+
+      const linha =
+        svg.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
+
+      linha.setAttribute(
+        "x1",
+        label.x -
+        label.labelX
+      );
+
+      linha.setAttribute(
+        "y1",
+        label.y -
+        label.labelY
+      );
+
+      linha.setAttribute(
+        "x2",
+        "0"
+      );
+
+      linha.setAttribute(
+        "y2",
+        "0"
+      );
+
+      linha.setAttribute(
+        "stroke",
+        label.azulVence
+          ? "#2563eb"
+          : "#dc2626"
+      );
+
+      linha.setAttribute(
+        "stroke-width",
+        "1"
+      );
+
+      linha.setAttribute(
+        "opacity",
+        "0.8"
+      );
+
+      grupo.appendChild(
+        linha
+      );
+    }
+
+
+    /*
+     * Texto principal:
+     *
+     * MG 48%
+     */
+
+    const texto =
+      svg.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "text"
+      );
+
+    texto.setAttribute(
+      "x",
+      "0"
     );
 
-    fundo.setAttribute("x", "-17");
-    fundo.setAttribute("y", "-11");
-    fundo.setAttribute("width", "34");
-    fundo.setAttribute("height", "22");
-    fundo.setAttribute("rx", "4");
-    fundo.setAttribute("fill", "white");
-    fundo.setAttribute("fill-opacity", "0.88");
-    fundo.setAttribute(
-      "stroke",
-      azulVence ? "#2563eb" : "#dc2626"
-    );
-    fundo.setAttribute("stroke-width", "0.8");
-
-    const uf = svg.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
+    texto.setAttribute(
+      "y",
+      "0"
     );
 
-    uf.setAttribute("x", "0");
-    uf.setAttribute("y", "-2");
-    uf.setAttribute("text-anchor", "middle");
-    uf.setAttribute("font-size", "7");
-    uf.setAttribute("font-weight", "700");
-    uf.setAttribute("fill", "#111827");
-    uf.textContent = estado.uf;
-
-    const porcentagem = svg.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
+    texto.setAttribute(
+      "text-anchor",
+      "middle"
     );
 
-    porcentagem.setAttribute("x", "0");
-    porcentagem.setAttribute("y", "7");
-    porcentagem.setAttribute("text-anchor", "middle");
-    porcentagem.setAttribute("font-size", "7");
-    porcentagem.setAttribute("font-weight", "700");
+    texto.setAttribute(
+      "dominant-baseline",
+      "middle"
+    );
 
-    porcentagem.setAttribute(
+    texto.setAttribute(
+      "font-family",
+      "Inter, Segoe UI, Arial, sans-serif"
+    );
+
+    texto.setAttribute(
+      "font-size",
+      "8"
+    );
+
+    texto.setAttribute(
+      "font-weight",
+      "700"
+    );
+
+    texto.setAttribute(
       "fill",
-      azulVence ? "#1d4ed8" : "#b91c1c"
+      label.azulVence
+        ? "#1d4ed8"
+        : "#b91c1c"
     );
 
-    porcentagem.textContent =
-      formatarPercentual(percentual);
-
-    const titulo = svg.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "title"
+    texto.setAttribute(
+      "paint-order",
+      "stroke"
     );
+
+    texto.setAttribute(
+      "stroke",
+      "rgba(255,255,255,0.85)"
+    );
+
+    texto.setAttribute(
+      "stroke-width",
+      "2"
+    );
+
+    texto.textContent =
+      `${label.estado.uf} ${formatarPercentual(
+        label.percentual
+      )}`;
+
+
+    /*
+     * Tooltip.
+     */
+
+    const titulo =
+      svg.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "title"
+      );
 
     titulo.textContent =
-      `${estado.nome} — ` +
-      `Lula ${formatarPercentual(estado.vermelho)} · ` +
-      `Flávio Bolsonaro ${formatarPercentual(estado.azul)}`;
+      `${label.estado.nome}: ` +
+      `Lula ${formatarPercentual(
+        label.estado.vermelho
+      )} · ` +
+      `Flávio Bolsonaro ${formatarPercentual(
+        label.estado.azul
+      )}`;
 
-    grupo.appendChild(fundo);
-    grupo.appendChild(uf);
-    grupo.appendChild(porcentagem);
-    grupo.appendChild(titulo);
+
+    grupo.appendChild(
+      texto
+    );
+
+    grupo.appendChild(
+      titulo
+    );
+
 
     grupo.addEventListener(
       "click",
       function() {
-        atualizarEstado(estado.uf);
+        atualizarEstado(
+          label.estado.uf
+        );
       }
     );
+
 
     grupo.addEventListener(
       "mouseenter",
       function() {
-        grupo.style.opacity = "0.75";
+        texto.setAttribute(
+          "font-size",
+          "9"
+        );
       }
     );
+
 
     grupo.addEventListener(
       "mouseleave",
       function() {
-        grupo.style.opacity = "1";
+        texto.setAttribute(
+          "font-size",
+          "8"
+        );
       }
     );
 
-    svgRoot.appendChild(grupo);
+
+    camada.appendChild(
+      grupo
+    );
+
   });
+
+
+  svgRoot.appendChild(
+    camada
+  );
 }
 
 function conectarMapa() {
-  const objeto = document.getElementById("mapSvg");
+  const objeto =
+    document.getElementById(
+      "mapSvg"
+    );
 
   if (!objeto) return;
 
-  objeto.addEventListener("load", function() {
-    const svg = objeto.contentDocument;
+  objeto.addEventListener(
+    "load",
+    function() {
 
-    if (!svg) return;
+      const svg =
+        objeto.contentDocument;
 
-    estados.forEach(estado => {
-      const elemento = svg.getElementById(estado.uf);
+      if (!svg) return;
 
-      if (!elemento) return;
 
-      const cor = calcularCor(estado);
+      estados.forEach(
+        estado => {
 
-      elemento.setAttribute("fill", cor);
+          const elemento =
+            svg.getElementById(
+              estado.uf
+            );
 
-      elemento.style.setProperty(
-        "fill",
-        cor,
-        "important"
-      );
+          if (!elemento) return;
 
-      elemento.style.cursor = "pointer";
-      elemento.style.transition = "opacity 0.2s";
 
-      elemento.addEventListener(
-        "mouseenter",
-        function() {
-          this.style.opacity = "0.7";
+          const cor =
+            calcularCor(
+              estado
+            );
+
+
+          elemento.setAttribute(
+            "fill",
+            cor
+          );
+
+
+          elemento.style.setProperty(
+            "fill",
+            cor,
+            "important"
+          );
+
+
+          elemento.style.cursor =
+            "pointer";
+
+
+          elemento.style.transition =
+            "opacity .2s";
+
+
+          elemento.addEventListener(
+            "mouseenter",
+            function() {
+              this.style.opacity =
+                "0.7";
+            }
+          );
+
+
+          elemento.addEventListener(
+            "mouseleave",
+            function() {
+              this.style.opacity =
+                "1";
+            }
+          );
+
+
+          elemento.addEventListener(
+            "click",
+            function() {
+              atualizarEstado(
+                estado.uf
+              );
+            }
+          );
+
         }
       );
 
-      elemento.addEventListener(
-        "mouseleave",
-        function() {
-          this.style.opacity = "1";
-        }
-      );
 
-      elemento.addEventListener(
-        "click",
-        function() {
-          atualizarEstado(estado.uf);
-        }
-      );
-    });
+      criarRotulosMapa();
 
-    criarRotulosMapa();
-  });
+    }
+  );
 }
 
 function configurarOrdenacao() {
-  const select = document.getElementById("sort");
+  const select =
+    document.getElementById(
+      "sort"
+    );
 
   if (!select) return;
 
-  select.addEventListener("change", function() {
-    const lista = [...estados];
+  select.addEventListener(
+    "change",
+    function() {
 
-    if (this.value === "name") {
-      lista.sort(
-        (a, b) =>
-          a.nome.localeCompare(
-            b.nome,
-            "pt-BR"
-          )
+      const lista =
+        [...estados];
+
+
+      if (
+        this.value === "name"
+      ) {
+
+        lista.sort(
+          (a, b) =>
+            a.nome.localeCompare(
+              b.nome,
+              "pt-BR"
+            )
+        );
+
+      }
+
+
+      renderEstados(
+        lista
       );
-    }
 
-    renderEstados(lista);
-  });
+    }
+  );
 }
 
-function criarStatusAtualizacao(mensagem) {
-  const painel = document.querySelector(".result-card");
+function criarStatusAtualizacao(
+  mensagem
+) {
+  const painel =
+    document.querySelector(
+      ".result-card"
+    );
 
   if (!painel) return;
 
+
   const existente =
-    document.getElementById("demoUpdate");
+    document.getElementById(
+      "demoUpdate"
+    );
+
 
   if (existente) {
+
     existente.innerHTML = `
       <strong
         style="
@@ -435,15 +790,32 @@ function criarStatusAtualizacao(mensagem) {
     return;
   }
 
-  const status = document.createElement("div");
 
-  status.id = "demoUpdate";
+  const status =
+    document.createElement(
+      "div"
+    );
 
-  status.style.marginTop = "14px";
-  status.style.paddingTop = "12px";
-  status.style.borderTop = "1px solid #eee";
-  status.style.fontSize = "9px";
-  status.style.color = "#6b7280";
+
+  status.id =
+    "demoUpdate";
+
+
+  status.style.marginTop =
+    "14px";
+
+  status.style.paddingTop =
+    "12px";
+
+  status.style.borderTop =
+    "1px solid #eee";
+
+  status.style.fontSize =
+    "9px";
+
+  status.style.color =
+    "#6b7280";
+
 
   status.innerHTML = `
     <strong
@@ -457,7 +829,10 @@ function criarStatusAtualizacao(mensagem) {
     ${mensagem}
   `;
 
-  painel.appendChild(status);
+
+  painel.appendChild(
+    status
+  );
 }
 
 function iniciar() {
