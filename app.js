@@ -106,10 +106,10 @@ function renderEstados(lista = estados) {
         ? CANDIDATO_AZUL
         : CANDIDATO_VERMELHO;
 
-    const corVencedor =
+    const cor =
       estado.azul > estado.vermelho
-        ? "blue"
-        : "red";
+        ? "#2563eb"
+        : "#dc2626";
 
     const card =
       document.createElement("div");
@@ -118,21 +118,15 @@ function renderEstados(lista = estados) {
 
     card.innerHTML = `
       <div class="state-name">
+
         <span>
           ${estado.uf} · ${estado.nome}
         </span>
 
-        <strong
-          style="
-            color:${
-              corVencedor === "blue"
-                ? "#2563eb"
-                : "#dc2626"
-            };
-          "
-        >
+        <strong style="color:${cor};">
           ${vencedor}
         </strong>
+
       </div>
 
       <div class="state-bar">
@@ -239,10 +233,23 @@ function conectarMapa() {
         const vencedorAzul =
           estado.azul > estado.vermelho;
 
-        elemento.style.fill =
+        const cor =
           vencedorAzul
             ? "#2563eb"
             : "#dc2626";
+
+        /*
+         * Define a cor diretamente
+         * no elemento SVG.
+         */
+
+        elemento.setAttribute(
+          "fill",
+          cor
+        );
+
+        elemento.style.fill =
+          cor;
 
         elemento.style.cursor =
           "pointer";
@@ -334,6 +341,7 @@ function criarStatusAtualizacao(mensagem) {
       >
         TSE
       </strong>
+
       ${mensagem}
     `;
 
@@ -371,6 +379,7 @@ function criarStatusAtualizacao(mensagem) {
     >
       TSE
     </strong>
+
     ${mensagem}
   `;
 
