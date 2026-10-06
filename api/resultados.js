@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     const configUrl =
-      "https://resultados.tse.jus.br/oficial/ele2026/comum/config/ele-c.json";
+      "https://resultados.tse.jus.br/oficial/comum/config/ele-c.json";
 
     const resposta = await fetch(configUrl);
 
