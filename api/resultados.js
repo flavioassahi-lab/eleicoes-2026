@@ -19,61 +19,87 @@ export default async function handler(req, res) {
       const url =
         `${BASE}/${uf}/${uf}-c0001-e006257-u.jws`;
 
-      const resposta =
-        await fetch(url);
+      try {
 
-      if (!resposta.ok) {
+        const resposta =
+          await fetch(url);
+
+        if (!resposta.ok) {
+
+          console.log(
+            `TSE ${uf.toUpperCase()}: HTTP ${resposta.status}`
+          );
+
+          continue;
+
+        }
+
+        const texto =
+          await resposta.text();
+
+        /*
+         * Arquivo JWS:
+         *
+         * header.payload.signature
+         *
+         * O payload contém o JSON
+         * de resultado divulgado pelo TSE.
+         */
+
+        const partes =
+          texto.split(".");
+
+        if (partes.length < 2) {
+
+          console.log(
+            `TSE ${uf.toUpperCase()}: JWS inválido`
+          );
+
+          continue;
+
+        }
+
+        const payload =
+          partes[1]
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
+
+        const preenchimento =
+          payload.length % 4;
+
+        const payloadCompleto =
+          preenchimento
+            ? payload + "=".repeat(4 - preenchimento)
+            : payload;
+
+        const jsonTexto =
+          Buffer
+            .from(
+              payloadCompleto,
+              "base64"
+            )
+            .toString("utf8");
+
+        const dados =
+          JSON.parse(jsonTexto);
+
+        resultados.push({
+
+          uf:
+            uf.toUpperCase(),
+
+          dados
+
+        });
+
+      } catch (erroEstado) {
 
         console.log(
-          `TSE ${uf.toUpperCase()}: ${resposta.status}`
+          `Erro TSE ${uf.toUpperCase()}:`,
+          erroEstado.message
         );
 
-        continue;
-
       }
-
-      const texto =
-        await resposta.text();
-
-      /*
-       * Arquivos JWS possuem três partes:
-       * header.payload.signature
-       *
-       * O payload contém os dados JSON
-       * divulgados pelo TSE.
-       */
-
-      const partes =
-        texto.split(".");
-
-      if (partes.length < 2) {
-
-        console.log(
-          `Formato JWS inválido: ${uf}`
-        );
-
-        continue;
-
-      }
-
-      const payload =
-        partes[1]
-          .replace(/-/g, "+")
-          .replace(/_/g, "/");
-
-      const json =
-        Buffer.from(
-          payload,
-          "base64"
-        ).toString("utf8");
-
-      const dados =
-        JSON.parse(json);
-
-      resultados.push({
-        uf: uf.toUpperCase(),
-        dados
-      });
 
     }
 
@@ -88,10 +114,16 @@ export default async function handler(req, res) {
         "Tribunal Superior Eleitoral",
 
       eleicao:
-        "Presidente - 1º Turno",
+        "Eleições 2026",
+
+      turno:
+        "1º turno",
 
       codigoEleicao:
         "6257",
+
+      cargo:
+        "Presidente da República",
 
       resultados
 
@@ -100,13 +132,15 @@ export default async function handler(req, res) {
   } catch (erro) {
 
     console.error(
-      "Erro ao consultar resultados do TSE:",
+      "Erro geral ao consultar TSE:",
       erro
     );
 
     return res.status(500).json({
 
       sucesso: false,
+
+      disponivel: false,
 
       fonte:
         "Tribunal Superior Eleitoral",
