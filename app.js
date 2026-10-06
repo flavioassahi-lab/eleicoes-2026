@@ -1,3 +1,6 @@
+const CANDIDATO_VERMELHO = "Lula";
+const CANDIDATO_AZUL = "Flávio Bolsonaro";
+
 const estados = [
 
   { uf: "AC", nome: "Acre", vermelho: 54, azul: 46, apurado: 38 },
@@ -31,15 +34,22 @@ const estados = [
 ];
 
 function renderEstados(lista = estados) {
+
   const container = document.getElementById("states");
+
   if (!container) return;
 
   container.innerHTML = "";
 
   lista.forEach(estado => {
-    const lider = estado.vermelho > estado.azul ? "C1" : "C2";
+
+    const lider =
+      estado.vermelho > estado.azul
+        ? CANDIDATO_VERMELHO
+        : CANDIDATO_AZUL;
 
     const card = document.createElement("div");
+
     card.className = "state";
 
     card.innerHTML = `
@@ -54,36 +64,55 @@ function renderEstados(lista = estados) {
       </div>
 
       <small>
-        ${estado.vermelho}% × ${estado.azul}%
+        ${CANDIDATO_VERMELHO}: ${estado.vermelho}%
+        ×
+        ${CANDIDATO_AZUL}: ${estado.azul}%
         · ${estado.apurado}% apurado
       </small>
     `;
 
     container.appendChild(card);
+
   });
+
 }
 
+
 function atualizarEstado(uf) {
-  const estado = estados.find(item => item.uf === uf);
-  const info = document.getElementById("stateInfo");
+
+  const estado =
+    estados.find(item => item.uf === uf);
+
+  const info =
+    document.getElementById("stateInfo");
 
   if (!estado || !info) return;
 
   const lider =
     estado.vermelho > estado.azul
-      ? "Candidato 1"
-      : "Candidato 2";
+      ? CANDIDATO_VERMELHO
+      : CANDIDATO_AZUL;
 
   const porcentagem =
-    Math.max(estado.vermelho, estado.azul);
+    Math.max(
+      estado.vermelho,
+      estado.azul
+    );
 
   const diferenca =
-    Math.abs(estado.vermelho - estado.azul);
+    Math.abs(
+      estado.vermelho -
+      estado.azul
+    );
 
   info.innerHTML = `
-    <small>${estado.uf} · ${estado.nome}</small>
+    <small>
+      ${estado.uf} · ${estado.nome}
+    </small>
 
-    <strong>${lider} lidera</strong>
+    <strong>
+      ${lider} lidera
+    </strong>
 
     <span>
       ${estado.apurado}% das seções apuradas
@@ -94,64 +123,91 @@ function atualizarEstado(uf) {
     </div>
 
     <span>
-      Candidato 1: ${estado.vermelho}%
+      ${CANDIDATO_VERMELHO}: ${estado.vermelho}%
       ·
-      Candidato 2: ${estado.azul}%
+      ${CANDIDATO_AZUL}: ${estado.azul}%
     </span>
 
     <span>
-      Vantagem: ${diferenca} ponto(s) percentuais
+      Diferença: ${diferenca} ponto(s) percentuais
     </span>
   `;
+
 }
 
+
 function conectarMapa() {
-  const objeto = document.getElementById("mapSvg");
+
+  const objeto =
+    document.getElementById("mapSvg");
 
   if (!objeto) return;
 
-  objeto.addEventListener("load", function() {
+  objeto.addEventListener(
+    "load",
+    function() {
 
-    const svg = objeto.contentDocument;
+      const svg =
+        objeto.contentDocument;
 
-    if (!svg) return;
+      if (!svg) return;
 
-    estados.forEach(estado => {
+      estados.forEach(estado => {
 
-      const elemento =
-        svg.getElementById(estado.uf);
+        const elemento =
+          svg.getElementById(
+            estado.uf
+          );
 
-      if (!elemento) return;
+        if (!elemento) return;
 
-      const lider =
-        estado.vermelho > estado.azul
-          ? "red"
-          : "blue";
+        const lider =
+          estado.vermelho >
+          estado.azul
+            ? "red"
+            : "blue";
 
-      elemento.style.fill =
-        lider === "red"
-          ? "#dc2626"
-          : "#2563eb";
+        elemento.style.fill =
+          lider === "red"
+            ? "#dc2626"
+            : "#2563eb";
 
-      elemento.style.cursor = "pointer";
-      elemento.style.transition = "opacity 0.2s";
+        elemento.style.cursor =
+          "pointer";
 
-      elemento.addEventListener("mouseenter", function() {
-        this.style.opacity = "0.7";
+        elemento.style.transition =
+          "opacity 0.2s";
+
+        elemento.addEventListener(
+          "mouseenter",
+          function() {
+            this.style.opacity = "0.7";
+          }
+        );
+
+        elemento.addEventListener(
+          "mouseleave",
+          function() {
+            this.style.opacity = "1";
+          }
+        );
+
+        elemento.addEventListener(
+          "click",
+          function() {
+            atualizarEstado(
+              estado.uf
+            );
+          }
+        );
+
       });
 
-      elemento.addEventListener("mouseleave", function() {
-        this.style.opacity = "1";
-      });
+    }
+  );
 
-      elemento.addEventListener("click", function() {
-        atualizarEstado(estado.uf);
-      });
-
-    });
-
-  });
 }
+
 
 function configurarOrdenacao() {
 
@@ -160,53 +216,64 @@ function configurarOrdenacao() {
 
   if (!select) return;
 
-  select.addEventListener("change", function() {
+  select.addEventListener(
+    "change",
+    function() {
 
-    let lista = [...estados];
+      let lista =
+        [...estados];
 
-    if (this.value === "name") {
+      if (this.value === "name") {
 
-      lista.sort((a, b) =>
-        a.nome.localeCompare(
-          b.nome,
-          "pt-BR"
-        )
-      );
+        lista.sort(
+          (a, b) =>
+            a.nome.localeCompare(
+              b.nome,
+              "pt-BR"
+            )
+        );
+
+      }
+
+      if (this.value === "margin") {
+
+        lista.sort(
+          (a, b) => {
+
+            const margemA =
+              Math.abs(
+                a.vermelho -
+                a.azul
+              );
+
+            const margemB =
+              Math.abs(
+                b.vermelho -
+                b.azul
+              );
+
+            return margemB - margemA;
+
+          }
+        );
+
+      }
+
+      if (this.value === "counted") {
+
+        lista.sort(
+          (a, b) =>
+            b.apurado -
+            a.apurado
+        );
+
+      }
+
+      renderEstados(lista);
 
     }
+  );
 
-    if (this.value === "margin") {
-
-      lista.sort((a, b) => {
-
-        const margemA =
-          Math.abs(
-            a.vermelho - a.azul
-          );
-
-        const margemB =
-          Math.abs(
-            b.vermelho - b.azul
-          );
-
-        return margemB - margemA;
-
-      });
-
-    }
-
-    if (this.value === "counted") {
-
-      lista.sort(
-        (a, b) =>
-          b.apurado - a.apurado
-      );
-
-    }
-
-    renderEstados(lista);
-
-  });
 }
 
 
@@ -215,36 +282,45 @@ async function atualizarPainelComTSE() {
   try {
 
     const resposta =
-      await fetch("/api/resultados");
+      await fetch(
+        "/api/resultados"
+      );
 
     const resultado =
       await resposta.json();
 
-    const redBar =
-      document.getElementById("redBar");
-
-    const blueBar =
-      document.getElementById("blueBar");
-
-    const diferenca =
-      document.getElementById("difference");
-
-    const contado =
-      document.getElementById("counted");
-
-
-    if (!resultado.sucesso) {
+    if (!resultado.sucesso)
       return;
-    }
-
 
     if (!resultado.disponivel) {
 
+      const redBar =
+        document.getElementById(
+          "redBar"
+        );
+
+      const blueBar =
+        document.getElementById(
+          "blueBar"
+        );
+
+      const diferenca =
+        document.getElementById(
+          "difference"
+        );
+
+      const contado =
+        document.getElementById(
+          "counted"
+        );
+
       if (redBar)
-        redBar.style.width = "0%";
+        redBar.style.width =
+          "0%";
 
       if (blueBar)
-        blueBar.style.width = "0%";
+        blueBar.style.width =
+          "0%";
 
       if (diferenca)
         diferenca.textContent =
@@ -260,13 +336,6 @@ async function atualizarPainelComTSE() {
 
       return;
     }
-
-
-    /*
-      Quando o TSE disponibilizar os dados,
-      esta parte será usada para preencher
-      automaticamente o painel.
-    */
 
     console.log(
       "Dados oficiais recebidos:",
@@ -291,29 +360,36 @@ function criarStatusAtualizacao(
 ) {
 
   const painel =
-    document.querySelector(".result-card");
+    document.querySelector(
+      ".result-card"
+    );
 
   if (!painel) return;
 
-
   const existente =
-    document.getElementById("demoUpdate");
+    document.getElementById(
+      "demoUpdate"
+    );
 
   if (existente) {
 
     existente.innerHTML = `
-      <strong style="color:#c2410c;margin-right:6px;">
+      <strong
+        style="color:#c2410c;margin-right:6px;"
+      >
         TSE
       </strong>
       ${mensagem}
     `;
 
     return;
+
   }
 
-
   const status =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   status.id =
     "demoUpdate";
@@ -333,16 +409,18 @@ function criarStatusAtualizacao(
   status.style.color =
     "#6b7280";
 
-
   status.innerHTML = `
-    <strong style="color:#c2410c;margin-right:6px;">
+    <strong
+      style="color:#c2410c;margin-right:6px;"
+    >
       TSE
     </strong>
     ${mensagem}
   `;
 
-
-  painel.appendChild(status);
+  painel.appendChild(
+    status
+  );
 
 }
 
@@ -350,33 +428,40 @@ function criarStatusAtualizacao(
 function atualizarPainelDemo() {
 
   const redBar =
-    document.getElementById("redBar");
+    document.getElementById(
+      "redBar"
+    );
 
   const blueBar =
-    document.getElementById("blueBar");
+    document.getElementById(
+      "blueBar"
+    );
 
   if (redBar)
-    redBar.style.width = "52.4%";
+    redBar.style.width =
+      "52.4%";
 
   if (blueBar)
-    blueBar.style.width = "47.6%";
-
+    blueBar.style.width =
+      "47.6%";
 
   const diferenca =
-    document.getElementById("difference");
+    document.getElementById(
+      "difference"
+    );
 
   if (diferenca)
     diferenca.textContent =
       "4.418.358 votos";
 
-
   const contado =
-    document.getElementById("counted");
+    document.getElementById(
+      "counted"
+    );
 
   if (contado)
     contado.textContent =
       "42,8%";
-
 
   criarStatusAtualizacao();
 
@@ -391,16 +476,7 @@ async function iniciar() {
 
   configurarOrdenacao();
 
-  /*
-    Mantém a demonstração visual até
-    que o TSE disponibilize os resultados.
-  */
-
   atualizarPainelDemo();
-
-  /*
-    Consulta a API oficial.
-  */
 
   await atualizarPainelComTSE();
 
