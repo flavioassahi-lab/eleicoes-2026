@@ -2,40 +2,113 @@ const CANDIDATO_VERMELHO = "Lula";
 const CANDIDATO_AZUL = "Flávio Bolsonaro";
 
 const estados = [
-
-  { uf: "AC", nome: "Acre", vermelho: 54, azul: 46, apurado: 38 },
-  { uf: "AL", nome: "Alagoas", vermelho: 49, azul: 51, apurado: 44 },
-  { uf: "AP", nome: "Amapá", vermelho: 47, azul: 53, apurado: 35 },
-  { uf: "AM", nome: "Amazonas", vermelho: 51, azul: 49, apurado: 41 },
-  { uf: "BA", nome: "Bahia", vermelho: 45, azul: 55, apurado: 51 },
-  { uf: "CE", nome: "Ceará", vermelho: 44, azul: 56, apurado: 49 },
-  { uf: "DF", nome: "Distrito Federal", vermelho: 52, azul: 48, apurado: 47 },
-  { uf: "ES", nome: "Espírito Santo", vermelho: 53, azul: 47, apurado: 43 },
-  { uf: "GO", nome: "Goiás", vermelho: 57, azul: 43, apurado: 52 },
-  { uf: "MA", nome: "Maranhão", vermelho: 43, azul: 57, apurado: 46 },
-  { uf: "MT", nome: "Mato Grosso", vermelho: 61, azul: 39, apurado: 55 },
-  { uf: "MS", nome: "Mato Grosso do Sul", vermelho: 59, azul: 41, apurado: 51 },
-  { uf: "MG", nome: "Minas Gerais", vermelho: 54, azul: 46, apurado: 78 },
-  { uf: "PA", nome: "Pará", vermelho: 48, azul: 52, apurado: 42 },
-  { uf: "PB", nome: "Paraíba", vermelho: 46, azul: 54, apurado: 50 },
-  { uf: "PR", nome: "Paraná", vermelho: 58, azul: 42, apurado: 60 },
-  { uf: "PE", nome: "Pernambuco", vermelho: 44, azul: 56, apurado: 48 },
-  { uf: "PI", nome: "Piauí", vermelho: 42, azul: 58, apurado: 45 },
-  { uf: "RJ", nome: "Rio de Janeiro", vermelho: 58, azul: 42, apurado: 64 },
-  { uf: "RN", nome: "Rio Grande do Norte", vermelho: 45, azul: 55, apurado: 43 },
-  { uf: "RS", nome: "Rio Grande do Sul", vermelho: 55, azul: 45, apurado: 67 },
-  { uf: "RO", nome: "Rondônia", vermelho: 57, azul: 43, apurado: 39 },
-  { uf: "RR", nome: "Roraima", vermelho: 60, azul: 40, apurado: 34 },
-  { uf: "SC", nome: "Santa Catarina", vermelho: 62, azul: 38, apurado: 58 },
-  { uf: "SP", nome: "São Paulo", vermelho: 49, azul: 51, apurado: 81 },
-  { uf: "SE", nome: "Sergipe", vermelho: 47, azul: 53, apurado: 40 },
-  { uf: "TO", nome: "Tocantins", vermelho: 51, azul: 49, apurado: 37 }
-
+  { uf: "AC", nome: "Acre" },
+  { uf: "AL", nome: "Alagoas" },
+  { uf: "AP", nome: "Amapá" },
+  { uf: "AM", nome: "Amazonas" },
+  { uf: "BA", nome: "Bahia" },
+  { uf: "CE", nome: "Ceará" },
+  { uf: "DF", nome: "Distrito Federal" },
+  { uf: "ES", nome: "Espírito Santo" },
+  { uf: "GO", nome: "Goiás" },
+  { uf: "MA", nome: "Maranhão" },
+  { uf: "MT", nome: "Mato Grosso" },
+  { uf: "MS", nome: "Mato Grosso do Sul" },
+  { uf: "MG", nome: "Minas Gerais" },
+  { uf: "PA", nome: "Pará" },
+  { uf: "PB", nome: "Paraíba" },
+  { uf: "PR", nome: "Paraná" },
+  { uf: "PE", nome: "Pernambuco" },
+  { uf: "PI", nome: "Piauí" },
+  { uf: "RJ", nome: "Rio de Janeiro" },
+  { uf: "RN", nome: "Rio Grande do Norte" },
+  { uf: "RS", nome: "Rio Grande do Sul" },
+  { uf: "RO", nome: "Rondônia" },
+  { uf: "RR", nome: "Roraima" },
+  { uf: "SC", nome: "Santa Catarina" },
+  { uf: "SP", nome: "São Paulo" },
+  { uf: "SE", nome: "Sergipe" },
+  { uf: "TO", nome: "Tocantins" }
 ];
+
+
+/*
+=========================================================
+PAINEL NACIONAL
+Resultado oficial do 1º turno
+=========================================================
+*/
+
+function atualizarPainelPrimeiroTurno() {
+
+  const redPercentage =
+    document.getElementById("redPercentage");
+
+  const bluePercentage =
+    document.getElementById("bluePercentage");
+
+  const redVotes =
+    document.getElementById("redVotes");
+
+  const blueVotes =
+    document.getElementById("blueVotes");
+
+  const redBar =
+    document.getElementById("redBar");
+
+  const blueBar =
+    document.getElementById("blueBar");
+
+  const diferenca =
+    document.getElementById("difference");
+
+  const contado =
+    document.getElementById("counted");
+
+
+  if (redPercentage)
+    redPercentage.textContent = "45,16%";
+
+  if (bluePercentage)
+    bluePercentage.textContent = "47,03%";
+
+  if (redVotes)
+    redVotes.textContent = "53.876.617 votos";
+
+  if (blueVotes)
+    blueVotes.textContent = "56.104.268 votos";
+
+  if (redBar)
+    redBar.style.width = "45.16%";
+
+  if (blueBar)
+    blueBar.style.width = "47.03%";
+
+  if (diferenca)
+    diferenca.textContent = "2.227.651 votos";
+
+  if (contado)
+    contado.textContent = "99,99%";
+
+
+  criarStatusAtualizacao(
+    "Resultado oficial do 1º turno — 2º turno aguardando apuração"
+  );
+
+}
+
+
+/*
+=========================================================
+ESTADOS
+Sem dados fictícios.
+=========================================================
+*/
 
 function renderEstados(lista = estados) {
 
-  const container = document.getElementById("states");
+  const container =
+    document.getElementById("states");
 
   if (!container) return;
 
@@ -43,32 +116,46 @@ function renderEstados(lista = estados) {
 
   lista.forEach(estado => {
 
-    const lider =
-      estado.vermelho > estado.azul
-        ? CANDIDATO_VERMELHO
-        : CANDIDATO_AZUL;
-
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
 
     card.className = "state";
 
     card.innerHTML = `
+
       <div class="state-name">
-        <span>${estado.uf} · ${estado.nome}</span>
-        <span>${lider}</span>
+
+        <span>
+          ${estado.uf} · ${estado.nome}
+        </span>
+
+        <span>
+          Aguardando dados
+        </span>
+
       </div>
+
 
       <div class="state-bar">
-        <div class="red" style="width:${estado.vermelho}%"></div>
-        <div class="blue" style="width:${estado.azul}%"></div>
+
+        <div
+          class="red"
+          style="width:50%;opacity:.15;"
+        ></div>
+
+        <div
+          class="blue"
+          style="width:50%;opacity:.15;"
+        ></div>
+
       </div>
 
+
       <small>
-        ${CANDIDATO_VERMELHO}: ${estado.vermelho}%
-        ×
-        ${CANDIDATO_AZUL}: ${estado.azul}%
-        · ${estado.apurado}% apurado
+        Resultado estadual oficial do TSE
+        aguardando carregamento.
       </small>
+
     `;
 
     container.appendChild(card);
@@ -76,6 +163,13 @@ function renderEstados(lista = estados) {
   });
 
 }
+
+
+/*
+=========================================================
+INFORMAÇÕES DO ESTADO
+=========================================================
+*/
 
 function atualizarEstado(uf) {
 
@@ -87,52 +181,43 @@ function atualizarEstado(uf) {
 
   if (!estado || !info) return;
 
-  const lider =
-    estado.vermelho > estado.azul
-      ? CANDIDATO_VERMELHO
-      : CANDIDATO_AZUL;
-
-  const porcentagem =
-    Math.max(
-      estado.vermelho,
-      estado.azul
-    );
-
-  const diferenca =
-    Math.abs(
-      estado.vermelho -
-      estado.azul
-    );
-
   info.innerHTML = `
+
     <small>
       ${estado.uf} · ${estado.nome}
     </small>
 
     <strong>
-      ${lider} lidera
+      Dados oficiais
     </strong>
 
     <span>
-      ${estado.apurado}% das seções apuradas
+      Resultado estadual do 1º turno.
     </span>
 
     <div class="state-percent">
-      ${porcentagem}%
+      —
     </div>
 
     <span>
-      ${CANDIDATO_VERMELHO}: ${estado.vermelho}%
-      ·
-      ${CANDIDATO_AZUL}: ${estado.azul}%
+      ${CANDIDATO_VERMELHO}: aguardando dados
     </span>
 
     <span>
-      Diferença: ${diferenca} ponto(s) percentuais
+      ${CANDIDATO_AZUL}: aguardando dados
     </span>
+
   `;
 
 }
+
+
+/*
+=========================================================
+MAPA
+Sem vencedor fictício.
+=========================================================
+*/
 
 function conectarMapa() {
 
@@ -153,22 +238,16 @@ function conectarMapa() {
       estados.forEach(estado => {
 
         const elemento =
-          svg.getElementById(
-            estado.uf
-          );
+          svg.getElementById(estado.uf);
 
         if (!elemento) return;
 
-        const lider =
-          estado.vermelho >
-          estado.azul
-            ? "red"
-            : "blue";
+        /*
+        Remove qualquer definição de
+        vencedor fictício.
+        */
 
-        elemento.style.fill =
-          lider === "red"
-            ? "#dc2626"
-            : "#2563eb";
+        elemento.style.fill = "#cbd5e1";
 
         elemento.style.cursor =
           "pointer";
@@ -176,26 +255,35 @@ function conectarMapa() {
         elemento.style.transition =
           "opacity 0.2s";
 
+
         elemento.addEventListener(
           "mouseenter",
           function() {
+
             this.style.opacity = "0.7";
+
           }
         );
+
 
         elemento.addEventListener(
           "mouseleave",
           function() {
+
             this.style.opacity = "1";
+
           }
         );
+
 
         elemento.addEventListener(
           "click",
           function() {
+
             atualizarEstado(
               estado.uf
             );
+
           }
         );
 
@@ -205,6 +293,13 @@ function conectarMapa() {
   );
 
 }
+
+
+/*
+=========================================================
+ORDENAÇÃO
+=========================================================
+*/
 
 function configurarOrdenacao() {
 
@@ -217,7 +312,7 @@ function configurarOrdenacao() {
     "change",
     function() {
 
-      let lista =
+      const lista =
         [...estados];
 
       if (this.value === "name") {
@@ -232,40 +327,6 @@ function configurarOrdenacao() {
 
       }
 
-      if (this.value === "margin") {
-
-        lista.sort(
-          (a, b) => {
-
-            const margemA =
-              Math.abs(
-                a.vermelho -
-                a.azul
-              );
-
-            const margemB =
-              Math.abs(
-                b.vermelho -
-                b.azul
-              );
-
-            return margemB - margemA;
-
-          }
-        );
-
-      }
-
-      if (this.value === "counted") {
-
-        lista.sort(
-          (a, b) =>
-            b.apurado -
-            a.apurado
-        );
-
-      }
-
       renderEstados(lista);
 
     }
@@ -276,168 +337,12 @@ function configurarOrdenacao() {
 
 /*
 =========================================================
-PAINEL NACIONAL — 1º TURNO
-Dados oficiais utilizados temporariamente
-enquanto o 2º turno ainda não possui apuração.
+STATUS
 =========================================================
 */
 
-function atualizarPainelPrimeiroTurno() {
-
-  const redPercentage =
-    document.getElementById(
-      "redPercentage"
-    );
-
-  const bluePercentage =
-    document.getElementById(
-      "bluePercentage"
-    );
-
-  const redVotes =
-    document.getElementById(
-      "redVotes"
-    );
-
-  const blueVotes =
-    document.getElementById(
-      "blueVotes"
-    );
-
-  const redBar =
-    document.getElementById(
-      "redBar"
-    );
-
-  const blueBar =
-    document.getElementById(
-      "blueBar"
-    );
-
-  const diferenca =
-    document.getElementById(
-      "difference"
-    );
-
-  const contado =
-    document.getElementById(
-      "counted"
-    );
-
-
-  if (redPercentage)
-    redPercentage.textContent =
-      "45,16%";
-
-  if (bluePercentage)
-    bluePercentage.textContent =
-      "47,03%";
-
-
-  if (redVotes)
-    redVotes.textContent =
-      "53.876.617 votos";
-
-  if (blueVotes)
-    blueVotes.textContent =
-      "56.104.268 votos";
-
-
-  if (redBar)
-    redBar.style.width =
-      "45.16%";
-
-  if (blueBar)
-    blueBar.style.width =
-      "47.03%";
-
-
-  if (diferenca)
-    diferenca.textContent =
-      "2.227.651 votos";
-
-
-  if (contado)
-    contado.textContent =
-      "99,99%";
-
-
-  criarStatusAtualizacao(
-    "Resultado oficial do 1º turno — 2º turno aguardando apuração"
-  );
-
-}
-
-async function atualizarPainelComTSE() {
-
-  try {
-
-    const resposta =
-      await fetch(
-        "/api/resultados"
-      );
-
-    const resultado =
-      await resposta.json();
-
-
-    if (!resultado.sucesso)
-      return;
-
-
-    if (!resultado.disponivel) {
-
-      /*
-      O 2º turno ainda não possui
-      resultados publicados.
-
-      Mantemos o resultado oficial
-      do 1º turno no painel.
-      */
-
-      atualizarPainelPrimeiroTurno();
-
-      return;
-
-    }
-
-
-    console.log(
-      "Dados oficiais do 2º turno recebidos:",
-      resultado.dados
-    );
-
-
-    /*
-    Quando o TSE publicar os dados
-    do 2º turno, faremos aqui a
-    substituição automática do
-    resultado do 1º turno.
-    */
-
-  } catch (erro) {
-
-    console.error(
-      "Erro ao consultar API:",
-      erro
-    );
-
-    /*
-    Se a consulta falhar,
-    continuamos mostrando os
-    números oficiais do 1º turno.
-    */
-
-    atualizarPainelPrimeiroTurno();
-
-  }
-
-}
-
-
 function criarStatusAtualizacao(
-  mensagem =
-    "Resultado oficial do 1º turno"
+  mensagem
 ) {
 
   const painel =
@@ -457,12 +362,18 @@ function criarStatusAtualizacao(
   if (existente) {
 
     existente.innerHTML = `
+
       <strong
-        style="color:#c2410c;margin-right:6px;"
+        style="
+          color:#c2410c;
+          margin-right:6px;
+        "
       >
         TSE
       </strong>
+
       ${mensagem}
+
     `;
 
     return;
@@ -495,12 +406,18 @@ function criarStatusAtualizacao(
 
 
   status.innerHTML = `
+
     <strong
-      style="color:#c2410c;margin-right:6px;"
+      style="
+        color:#c2410c;
+        margin-right:6px;
+      "
     >
       TSE
     </strong>
+
     ${mensagem}
+
   `;
 
 
@@ -511,7 +428,77 @@ function criarStatusAtualizacao(
 }
 
 
-async function iniciar() {
+/*
+=========================================================
+API
+=========================================================
+*/
+
+async function atualizarPainelComTSE() {
+
+  try {
+
+    const resposta =
+      await fetch(
+        "/api/resultados"
+      );
+
+    const resultado =
+      await resposta.json();
+
+
+    if (!resultado.sucesso) {
+
+      criarStatusAtualizacao(
+        "Não foi possível consultar os dados oficiais do TSE."
+      );
+
+      return;
+
+    }
+
+
+    if (!resultado.disponivel) {
+
+      criarStatusAtualizacao(
+        "Resultado oficial do 1º turno — 2º turno aguardando apuração."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "Dados oficiais recebidos:",
+      resultado
+    );
+
+
+  } catch (erro) {
+
+    console.error(
+      "Erro ao consultar API:",
+      erro
+    );
+
+
+    criarStatusAtualizacao(
+      "Aguardando atualização dos dados oficiais do TSE."
+    );
+
+  }
+
+}
+
+
+/*
+=========================================================
+INICIALIZAÇÃO
+=========================================================
+*/
+
+function iniciar() {
 
   renderEstados();
 
@@ -519,15 +506,9 @@ async function iniciar() {
 
   configurarOrdenacao();
 
-  /*
-  Mostra imediatamente o resultado
-  oficial do 1º turno enquanto o
-  2º turno ainda não está disponível.
-  */
-
   atualizarPainelPrimeiroTurno();
 
-  await atualizarPainelComTSE();
+  atualizarPainelComTSE();
 
 }
 
