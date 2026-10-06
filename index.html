@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +9,7 @@
 
   <meta
     name="description"
-    content="Acompanhe a apuração das eleições presidenciais de 2026 em tempo real."
+    content="Acompanhe a apuração das eleições presidenciais de 2026, estado por estado."
   >
 
   <link rel="stylesheet" href="style.css">
@@ -52,7 +53,7 @@
   </p>
 
   <div class="demo">
-    DEMONSTRAÇÃO — dados fictícios
+    DEMONSTRAÇÃO — DADOS FICTÍCIOS
   </div>
 
 </section>
@@ -116,7 +117,6 @@
   <div class="vote-bar">
 
     <div id="redBar"></div>
-
     <div id="blueBar"></div>
 
   </div>
@@ -152,21 +152,23 @@
   </div>
 
 
-  <div class="map">
+  <div class="map-container">
 
-    <div class="map-placeholder">
+    <div id="brazilMap" class="brazil-map">
+      <!-- mapa será inserido pelo JavaScript -->
+    </div>
 
-      <div class="brazil-map">
-        🇧🇷
-      </div>
+    <div id="stateInfo" class="state-info">
+
+      <small>SELECIONE UM ESTADO</small>
 
       <strong>
-        MAPA DO BRASIL
+        Clique em um estado do mapa
       </strong>
 
-      <small>
-        O mapa interativo será conectado aos dados oficiais.
-      </small>
+      <span>
+        Veja a apuração detalhada.
+      </span>
 
     </div>
 
@@ -200,9 +202,19 @@
     </div>
 
     <select id="sort">
-      <option value="name">A–Z</option>
-      <option value="margin">Maior vantagem</option>
-      <option value="counted">Maior apuração</option>
+
+      <option value="name">
+        A–Z
+      </option>
+
+      <option value="margin">
+        Maior vantagem
+      </option>
+
+      <option value="counted">
+        Maior apuração
+      </option>
+
     </select>
 
   </div>
@@ -263,70 +275,4 @@
 
       <b>
         51% × 49%
-      </b>
-
-    </div>
-
-
-    <div class="poll">
-
-      <strong>Instituto B</strong>
-
-      <small>
-        Última pesquisa
-      </small>
-
-      <b>
-        50% × 50%
-      </b>
-
-    </div>
-
-
-    <div class="poll">
-
-      <strong>Instituto C</strong>
-
-      <small>
-        Última pesquisa
-      </small>
-
-      <b>
-        49% × 51%
-      </b>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <strong>
-    ELEIÇÕES 2026
-  </strong>
-
-  <p>
-    Projeto independente de acompanhamento eleitoral.
-  </p>
-
-  <div class="footer-links">
-
-    <a href="#">Metodologia</a>
-    <a href="#">Fontes</a>
-    <a href="#">Privacidade</a>
-    <a href="#">Contato</a>
-
-  </div>
-
-</footer>
-
-
-<script src="app.js"></script>
-
-</body>
-</html>
+```
