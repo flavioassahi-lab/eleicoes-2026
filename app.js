@@ -31,16 +31,13 @@ const estados = [
 ];
 
 
-
 function renderEstados(lista = estados) {
 
-  const container =
-    document.getElementById("states");
+  const container = document.getElementById("states");
 
   if (!container) return;
 
   container.innerHTML = "";
-
 
   lista.forEach(estado => {
 
@@ -49,13 +46,10 @@ function renderEstados(lista = estados) {
         ? "C1"
         : "C2";
 
-
     const card =
       document.createElement("div");
 
-
     card.className = "state";
-
 
     card.innerHTML = `
 
@@ -71,7 +65,6 @@ function renderEstados(lista = estados) {
 
       </div>
 
-
       <div class="state-bar">
 
         <div
@@ -85,7 +78,6 @@ function renderEstados(lista = estados) {
         </div>
 
       </div>
-
 
       <small>
 
@@ -102,7 +94,6 @@ function renderEstados(lista = estados) {
 
     `;
 
-
     container.appendChild(card);
 
   });
@@ -110,27 +101,20 @@ function renderEstados(lista = estados) {
 }
 
 
-
 function atualizarEstado(uf) {
 
   const estado =
-    estados.find(
-      item => item.uf === uf
-    );
-
+    estados.find(item => item.uf === uf);
 
   const info =
     document.getElementById("stateInfo");
 
-
   if (!estado || !info) return;
-
 
   const lider =
     estado.vermelho > estado.azul
       ? "Candidato 1"
       : "Candidato 2";
-
 
   const porcentagem =
     Math.max(
@@ -138,6 +122,11 @@ function atualizarEstado(uf) {
       estado.azul
     );
 
+  const diferenca =
+    Math.abs(
+      estado.vermelho -
+      estado.azul
+    );
 
   info.innerHTML = `
 
@@ -145,35 +134,29 @@ function atualizarEstado(uf) {
       ${estado.uf} · ${estado.nome}
     </small>
 
-
     <strong>
       ${lider} lidera
     </strong>
 
-
     <span>
-      ${estado.apurado}%
-      das seções apuradas
+      ${estado.apurado}% das seções apuradas
     </span>
 
-
     <div class="state-percent">
-
       ${porcentagem}%
-
     </div>
 
-
     <span>
-
       Candidato 1:
       ${estado.vermelho}%
-
       ·
-
       Candidato 2:
       ${estado.azul}%
+    </span>
 
+    <span>
+      Vantagem:
+      ${diferenca} ponto(s) percentuais
     </span>
 
   `;
@@ -181,23 +164,12 @@ function atualizarEstado(uf) {
 }
 
 
-
 function conectarMapa() {
 
   const objeto =
     document.getElementById("mapSvg");
 
-
-  if (!objeto) {
-
-    console.error(
-      "Mapa SVG não encontrado."
-    );
-
-    return;
-
-  }
-
+  if (!objeto) return;
 
   objeto.addEventListener(
     "load",
@@ -206,48 +178,30 @@ function conectarMapa() {
       const svg =
         objeto.contentDocument;
 
-
-      if (!svg) {
-
-        console.error(
-          "Não foi possível acessar o SVG."
-        );
-
-        return;
-
-      }
-
+      if (!svg) return;
 
       estados.forEach(estado => {
 
         const elemento =
-          svg.getElementById(
-            estado.uf
-          );
-
+          svg.getElementById(estado.uf);
 
         if (!elemento) return;
-
 
         const lider =
           estado.vermelho > estado.azul
             ? "red"
             : "blue";
 
-
         elemento.style.fill =
           lider === "red"
             ? "#dc2626"
             : "#2563eb";
 
-
         elemento.style.cursor =
           "pointer";
 
-
         elemento.style.transition =
           "opacity 0.2s";
-
 
         elemento.addEventListener(
           "mouseenter",
@@ -258,7 +212,6 @@ function conectarMapa() {
           }
         );
 
-
         elemento.addEventListener(
           "mouseleave",
           function() {
@@ -267,7 +220,6 @@ function conectarMapa() {
 
           }
         );
-
 
         elemento.addEventListener(
           "click",
@@ -288,27 +240,20 @@ function conectarMapa() {
 }
 
 
-
 function configurarOrdenacao() {
 
   const select =
     document.getElementById("sort");
 
-
   if (!select) return;
-
 
   select.addEventListener(
     "change",
     function() {
 
-      let lista =
-        [...estados];
+      let lista = [...estados];
 
-
-      if (
-        this.value === "name"
-      ) {
+      if (this.value === "name") {
 
         lista.sort(
           (a, b) =>
@@ -320,10 +265,7 @@ function configurarOrdenacao() {
 
       }
 
-
-      if (
-        this.value === "margin"
-      ) {
+      if (this.value === "margin") {
 
         lista.sort(
           (a, b) => {
@@ -334,13 +276,11 @@ function configurarOrdenacao() {
                 a.azul
               );
 
-
             const margemB =
               Math.abs(
                 b.vermelho -
                 b.azul
               );
-
 
             return margemB - margemA;
 
@@ -349,10 +289,7 @@ function configurarOrdenacao() {
 
       }
 
-
-      if (
-        this.value === "counted"
-      ) {
+      if (this.value === "counted") {
 
         lista.sort(
           (a, b) =>
@@ -362,7 +299,6 @@ function configurarOrdenacao() {
 
       }
 
-
       renderEstados(lista);
 
     }
@@ -371,52 +307,118 @@ function configurarOrdenacao() {
 }
 
 
-
-function atualizarBarraPrincipal() {
+function atualizarPainel() {
 
   const redBar =
-    document.getElementById(
-      "redBar"
-    );
-
+    document.getElementById("redBar");
 
   const blueBar =
-    document.getElementById(
-      "blueBar"
-    );
-
+    document.getElementById("blueBar");
 
   if (redBar) {
+    redBar.style.width = "52.4%";
+  }
 
-    redBar.style.width =
-      "52.4%";
+  if (blueBar) {
+    blueBar.style.width = "47.6%";
+  }
+
+
+  const diferenca =
+    document.getElementById("difference");
+
+  if (diferenca) {
+
+    diferenca.textContent =
+      "4.418.358 votos";
 
   }
 
 
-  if (blueBar) {
+  const contado =
+    document.getElementById("counted");
 
-    blueBar.style.width =
-      "47.6%";
+  if (contado) {
+
+    contado.textContent =
+      "42,8%";
 
   }
 
 }
 
+
+function criarStatusAtualizacao() {
+
+  const painel =
+    document.querySelector(".result-card");
+
+  if (!painel) return;
+
+  const existente =
+    document.getElementById(
+      "demoUpdate"
+    );
+
+  if (existente) return;
+
+
+  const status =
+    document.createElement("div");
+
+  status.id =
+    "demoUpdate";
+
+
+  status.style.marginTop =
+    "14px";
+
+  status.style.paddingTop =
+    "12px";
+
+  status.style.borderTop =
+    "1px solid #eee";
+
+  status.style.fontSize =
+    "9px";
+
+  status.style.color =
+    "#6b7280";
+
+  status.innerHTML = `
+
+    <strong
+      style="
+        color:#c2410c;
+        margin-right:6px;
+      "
+    >
+      DEMONSTRAÇÃO
+    </strong>
+
+    Dados fictícios para desenvolvimento
+
+  `;
+
+
+  painel.appendChild(status);
+
+}
 
 
 function iniciar() {
 
   renderEstados();
 
-  atualizarBarraPrincipal();
+  atualizarPainel();
 
   configurarOrdenacao();
 
   conectarMapa();
 
-}
+  criarStatusAtualizacao();
 
+}
 
 
 iniciar();
