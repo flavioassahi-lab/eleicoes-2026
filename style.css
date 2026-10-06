@@ -1,3 +1,21 @@
+.brazil-map {
+  min-height: 430px;
+  border-radius: 14px;
+  background: #f4f6f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brazil-map object {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+}
+
 .map-label {
   pointer-events: auto;
 }
@@ -11,16 +29,25 @@
 
   letter-spacing: -0.2px;
   transition: font-size 0.15s ease;
-
-  fill: #111111 !important;
-
-  paint-order: stroke;
-  stroke: rgba(255, 255, 255, 0.85);
-  stroke-width: 2;
 }
 
 .map-label line {
   pointer-events: none;
   stroke: #111111 !important;
   opacity: 0.65;
+}
+
+.map-state {
+  stroke: white;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: opacity .15s, transform .15s;
+}
+
+.map-state.red {
+  fill: #dc2626;
+}
+
+.map-state.blue {
+  fill: #2563eb;
 }
