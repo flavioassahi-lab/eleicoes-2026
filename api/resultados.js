@@ -6,9 +6,7 @@ export default async function handler(req, res) {
     const resposta = await fetch(url);
 
     if (!resposta.ok) {
-      throw new Error(
-        `TSE respondeu com status ${resposta.status}`
-      );
+      throw new Error(`TSE respondeu com status ${resposta.status}`);
     }
 
     const dados = await resposta.json();
@@ -21,7 +19,6 @@ export default async function handler(req, res) {
     });
 
   } catch (erro) {
-
     console.error("Erro ao consultar TSE:", erro);
 
     res.status(500).json({
