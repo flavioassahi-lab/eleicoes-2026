@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -14,19 +13,16 @@
 
   <meta
     name="description"
-    content="Acompanhe os resultados oficiais das eleições presidenciais de 2026."
+    content="Acompanhe os resultados oficiais da eleição presidencial de 2026."
   >
 
   <link
     rel="stylesheet"
     href="style.css"
   >
-
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -37,7 +33,6 @@
     </div>
 
     <div>
-
       <strong>
         ELEIÇÕES 2026
       </strong>
@@ -45,439 +40,489 @@
       <span>
         2º TURNO
       </span>
-
     </div>
 
   </div>
 
-
   <div class="live">
-
     <span></span>
-
     APURAÇÃO AO VIVO
-
   </div>
 
 </header>
 
 
-
 <main>
 
+  <!-- HERO -->
 
-<section class="hero">
+  <section class="hero">
 
-  <small>
-    ELEIÇÃO PRESIDENCIAL • BRASIL
-  </small>
+    <small>
+      ELEIÇÃO PRESIDENCIAL • BRASIL
+    </small>
 
-  <h1>
+    <h1>
+      Apuração
+      <span>em tempo real</span>
+    </h1>
 
-    Apuração
+    <p>
+      Acompanhe os resultados oficiais
+      da eleição presidencial,
+      estado por estado.
+    </p>
 
-    <span>
-      em tempo real
-    </span>
+    <div class="demo">
+      RESULTADOS OFICIAIS DO 1º TURNO
+    </div>
 
-  </h1>
-
-  <p>
-    Acompanhe os resultados oficiais da
-    eleição presidencial, estado por estado.
-  </p>
-
-
-  <div class="demo">
-    RESULTADOS OFICIAIS DO 1º TURNO
-  </div>
-
-</section>
+  </section>
 
 
+  <!-- RESULTADO NACIONAL -->
 
-<section class="result-card">
+  <section class="result-card">
 
+    <div class="last-update">
 
-  <div class="counted">
+      <span>●</span>
 
-    <div>
+      Última atualização:
 
-      <small>
-        SEÇÕES APURADAS
-      </small>
+      <strong id="lastUpdate">
+        05/10/2026 às 18:54
+      </strong>
 
     </div>
 
 
-    <strong id="counted">
-      99,99%
-    </strong>
+    <div class="counted">
 
-  </div>
+      <div>
+        <small>
+          SEÇÕES APURADAS
+        </small>
+      </div>
+
+      <strong id="counted">
+        100%
+      </strong>
+
+    </div>
 
 
+    <div class="candidates">
 
-  <div class="candidates">
+      <div class="candidate candidate-red">
 
+        <div class="candidate-name">
+          <span></span>
+          Lula
+        </div>
 
-    <div class="candidate candidate-red">
+        <strong id="redPercentage">
+          45,16%
+        </strong>
 
-      <div class="candidate-name">
-
-        <span></span>
-
-        Lula
+        <small id="redVotes">
+          53.876.617 votos
+        </small>
 
       </div>
 
 
-      <strong id="redPercentage">
-        45,16%
-      </strong>
+      <div class="candidate candidate-blue">
 
+        <div class="candidate-name">
+          <span></span>
+          Flávio Bolsonaro
+        </div>
 
-      <small id="redVotes">
-        53.876.617 votos
-      </small>
+        <strong id="bluePercentage">
+          47,03%
+        </strong>
 
-    </div>
-
-
-
-    <div class="candidate candidate-blue">
-
-      <div class="candidate-name">
-
-        <span></span>
-
-        Flávio Bolsonaro
+        <small id="blueVotes">
+          56.104.268 votos
+        </small>
 
       </div>
 
-
-      <strong id="bluePercentage">
-        47,03%
-      </strong>
-
-
-      <small id="blueVotes">
-        56.104.268 votos
-      </small>
-
     </div>
 
-  </div>
 
+    <div class="vote-bar">
 
+      <div id="redBar"></div>
 
-  <div class="vote-bar">
-
-    <div id="redBar"></div>
-
-    <div id="blueBar"></div>
-
-  </div>
-
-
-  <div class="difference">
-
-    <span>
-      Diferença
-    </span>
-
-    <strong id="difference">
-      2.227.651 votos
-    </strong>
-
-  </div>
-
-
-</section>
-
-
-
-<div class="advertisement">
-  ESPAÇO PARA PATROCINADOR
-</div>
-
-
-
-<section class="section">
-
-
-  <div class="section-title">
-
-    <div>
-
-      <small>
-        BRASIL
-      </small>
-
-      <h2>
-        Mapa da apuração
-      </h2>
-
-    </div>
-
-  </div>
-
-
-
-  <div class="map-container">
-
-
-    <div
-      id="brazilMap"
-      class="brazil-map"
-    >
-
-      <object
-        id="mapSvg"
-        data="map.svg"
-        type="image/svg+xml"
-        aria-label="Mapa do Brasil"
-      >
-      </object>
+      <div id="blueBar"></div>
 
     </div>
 
 
-
-    <div
-      id="stateInfo"
-      class="state-info"
-    >
-
-      <small>
-        RESULTADOS ESTADUAIS
-      </small>
-
-      <strong>
-        Selecione um estado
-      </strong>
+    <div class="difference">
 
       <span>
-        Consulte os dados oficiais do TSE.
+        Diferença
+      </span>
+
+      <strong id="difference">
+        2.227.651 votos
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- ALERTAS -->
+
+  <section class="alerts-card">
+
+    <div>
+
+      <small>
+        ACOMPANHE A APURAÇÃO
+      </small>
+
+      <h3>
+        Receba alertas de liderança
+      </h3>
+
+      <p>
+        Escolha acompanhar o Brasil ou
+        um estado e seja avisado quando
+        houver mudança de liderança.
+      </p>
+
+    </div>
+
+
+    <div class="alerts-controls">
+
+      <select id="alertState">
+
+        <option value="BR">
+          Brasil
+        </option>
+
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espírito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+
+      </select>
+
+
+      <button id="enableAlerts">
+        🔔 Ativar alertas
+      </button>
+
+    </div>
+
+
+    <div id="alertStatus"></div>
+
+  </section>
+
+
+  <!-- ANÚNCIO -->
+
+  <div class="advertisement">
+    ESPAÇO PARA PATROCINADOR
+  </div>
+
+
+  <!-- MAPA -->
+
+  <section class="section">
+
+    <div class="section-title">
+
+      <div>
+
+        <small>
+          BRASIL
+        </small>
+
+        <h2>
+          Mapa da apuração
+        </h2>
+
+      </div>
+
+    </div>
+
+
+    <div class="map-container">
+
+      <div
+        id="brazilMap"
+        class="brazil-map"
+      >
+
+        <object
+          id="mapSvg"
+          data="map.svg"
+          type="image/svg+xml"
+          aria-label="Mapa do Brasil"
+        ></object>
+
+      </div>
+
+
+      <div
+        id="stateInfo"
+        class="state-info"
+      >
+
+        <small>
+          RESULTADOS ESTADUAIS
+        </small>
+
+        <strong>
+          Selecione um estado
+        </strong>
+
+        <span>
+          Consulte os dados oficiais do TSE.
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="legend">
+
+      <span>
+        <i class="red"></i>
+        Lula
+      </span>
+
+      <span>
+        <i class="blue"></i>
+        Flávio Bolsonaro
       </span>
 
     </div>
 
-
-  </div>
-
+  </section>
 
 
-  <div class="legend">
+  <!-- POR ESTADO -->
 
-    <span>
+  <section class="section">
 
-      <i class="red"></i>
+    <div class="section-title">
 
-      Lula
+      <div>
 
-    </span>
+        <small>
+          RESULTADOS OFICIAIS
+        </small>
 
+        <h2>
+          Por estado
+        </h2>
 
-    <span>
-
-      <i class="blue"></i>
-
-      Flávio Bolsonaro
-
-    </span>
-
-  </div>
+      </div>
 
 
-</section>
+      <select id="sort">
 
+        <option value="name">
+          A–Z
+        </option>
 
-
-<section class="section">
-
-
-  <div class="section-title">
-
-
-    <div>
-
-      <small>
-        RESULTADOS OFICIAIS
-      </small>
-
-      <h2>
-        Por estado
-      </h2>
+      </select>
 
     </div>
 
 
+    <div
+      id="states"
+      class="states"
+    ></div>
 
-    <select id="sort">
-
-      <option value="name">
-        A–Z
-      </option>
-
-    </select>
+  </section>
 
 
+  <!-- ANÚNCIO -->
+
+  <div class="advertisement">
+    ESPAÇO PARA PATROCINADOR
   </div>
 
 
+  <!-- EVOLUÇÃO -->
 
-  <div
-    id="states"
-    class="states"
-  ></div>
+  <section class="section">
 
+    <div class="section-title">
 
-</section>
+      <div>
 
+        <small>
+          EVOLUÇÃO
+        </small>
 
+        <h2>
+          Apuração ao longo do tempo
+        </h2>
 
-<div class="advertisement">
-  ESPAÇO PARA PATROCINADOR
-</div>
-
-
-
-<section class="section">
-
-
-  <div class="section-title">
-
-
-    <div>
-
-      <small>
-        EVOLUÇÃO
-      </small>
-
-      <h2>
-        Apuração ao longo do tempo
-      </h2>
+      </div>
 
     </div>
 
 
-  </div>
+    <div class="chart">
 
-
-
-  <div class="chart">
-
-    <div class="chart-empty">
-
-      A evolução da apuração será exibida
-      durante a divulgação dos resultados.
+      <div class="chart-empty">
+        A evolução da apuração será exibida
+        durante a divulgação dos resultados.
+      </div>
 
     </div>
 
-  </div>
+  </section>
 
 
-</section>
+  <!-- PESQUISAS -->
 
+  <section class="section">
 
+    <div class="section-title">
 
-<section class="section">
+      <div>
 
+        <small>
+          PESQUISAS
+        </small>
 
-  <div class="section-title">
+        <h2>
+          Pesquisas × Resultado
+        </h2>
 
-
-    <div>
-
-      <small>
-        PESQUISAS
-      </small>
-
-      <h2>
-        Pesquisas × Resultado
-      </h2>
+      </div>
 
     </div>
 
 
-  </div>
+    <div class="polls">
 
 
+      <div class="poll">
 
-  <div class="polls">
+        <strong>
+          Datafolha
+        </strong>
+
+        <small>
+          2 de outubro · votos válidos
+        </small>
+
+        <b>
+          Lula 45% · Flávio 40%
+        </b>
+
+      </div>
 
 
-    <div class="poll">
+      <div class="poll">
+
+        <strong>
+          Datafolha
+        </strong>
+
+        <small>
+          3 de outubro · votos válidos
+        </small>
+
+        <b>
+          Lula 45% · Flávio 42%
+        </b>
+
+      </div>
+
+
+      <div class="poll">
+
+        <strong>
+          Resultado oficial
+        </strong>
+
+        <small>
+          1º turno · TSE
+        </small>
+
+        <b>
+          Lula 45,16% · Flávio 47,03%
+        </b>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="poll-explanation">
 
       <strong>
-        Aguardando dados
+        Por que houve diferença?
       </strong>
 
-      <small>
-        Pesquisas eleitorais
-      </small>
-
-      <b>
-        —
-      </b>
+      <p>
+        Pesquisas eleitorais representam
+        um retrato das intenções de voto
+        no momento em que são realizadas.
+        Elas estão sujeitas à margem de erro,
+        ao período de coleta e às características
+        da metodologia utilizada. Na reta final,
+        a disputa estava muito próxima e ainda
+        havia eleitores que poderiam mudar de voto,
+        o que ajuda a explicar diferenças entre
+        os levantamentos e o resultado das urnas.
+      </p>
 
     </div>
 
-
-
-    <div class="poll">
-
-      <strong>
-        Aguardando dados
-      </strong>
-
-      <small>
-        Pesquisas eleitorais
-      </small>
-
-      <b>
-        —
-      </b>
-
-    </div>
-
-
-
-    <div class="poll">
-
-      <strong>
-        Aguardando dados
-      </strong>
-
-      <small>
-        Pesquisas eleitorais
-      </small>
-
-      <b>
-        —
-      </b>
-
-    </div>
-
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
 
+<!-- RODAPÉ -->
 
 <footer>
-
 
   <strong>
     ELEIÇÕES 2026
   </strong>
-
 
   <p>
     Projeto independente de acompanhamento eleitoral.
@@ -504,13 +549,10 @@
 
   </div>
 
-
 </footer>
 
 
-
 <script src="app.js"></script>
-
 
 </body>
 
