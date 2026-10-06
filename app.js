@@ -86,29 +86,37 @@ function atualizarPainelPrimeiroTurno() {
   const contado =
     document.getElementById("counted");
 
-  if (redPercentage)
+  if (redPercentage) {
     redPercentage.textContent = "45,16%";
+  }
 
-  if (bluePercentage)
+  if (bluePercentage) {
     bluePercentage.textContent = "47,03%";
+  }
 
-  if (redVotes)
+  if (redVotes) {
     redVotes.textContent = "53.876.617 votos";
+  }
 
-  if (blueVotes)
+  if (blueVotes) {
     blueVotes.textContent = "56.104.268 votos";
+  }
 
-  if (redBar)
+  if (redBar) {
     redBar.style.width = "45.16%";
+  }
 
-  if (blueBar)
+  if (blueBar) {
     blueBar.style.width = "47.03%";
+  }
 
-  if (diferenca)
+  if (diferenca) {
     diferenca.textContent = "2.227.651 votos";
+  }
 
-  if (contado)
+  if (contado) {
     contado.textContent = "100%";
+  }
 
   criarStatusAtualizacao(
     "Resultado final oficial do 1º turno — TSE"
@@ -175,9 +183,7 @@ function renderEstados(lista = estados) {
 
 function atualizarEstado(uf) {
   const estado =
-    estados.find(
-      item => item.uf === uf
-    );
+    estados.find(item => item.uf === uf);
 
   const info =
     document.getElementById("stateInfo");
@@ -203,30 +209,26 @@ function atualizarEstado(uf) {
       ${estado.uf} · ${estado.nome}
     </small>
 
-    <strong>${vencedor}</strong>
+    <strong>
+      ${vencedor}
+    </strong>
 
     <span>
       Resultado final do 1º turno
     </span>
 
     <div class="state-percent">
-      ${formatarPercentual(
-        percentualVencedor
-      )}
+      ${formatarPercentual(percentualVencedor)}
     </div>
 
     <span>
       ${CANDIDATO_VERMELHO}:
-      ${formatarPercentual(
-        estado.vermelho
-      )}
+      ${formatarPercentual(estado.vermelho)}
     </span>
 
     <span>
       ${CANDIDATO_AZUL}:
-      ${formatarPercentual(
-        estado.azul
-      )}
+      ${formatarPercentual(estado.azul)}
     </span>
   `;
 }
@@ -262,21 +264,16 @@ function criarRotulosMapa() {
     "map-label-layer"
   );
 
-  const labels = [];
-
   estados.forEach(estado => {
     const elemento =
-      svg.getElementById(
-        estado.uf
-      );
+      svg.getElementById(estado.uf);
 
     if (!elemento) return;
 
     let caixa;
 
     try {
-      caixa =
-        elemento.getBBox();
+      caixa = elemento.getBBox();
     } catch {
       return;
     }
@@ -288,76 +285,14 @@ function criarRotulosMapa() {
       return;
     }
 
-    const percentual =
-      Math.max(
-        estado.azul,
-        estado.vermelho
-      );
+    const x =
+      caixa.x +
+      caixa.width / 2;
 
-    labels.push({
-      estado,
-      x:
-        caixa.x +
-        caixa.width / 2,
-      y:
-        caixa.y +
-        caixa.height / 2,
-      labelX:
-        caixa.x +
-        caixa.width / 2,
-      labelY:
-        caixa.y +
-        caixa.height / 2,
-      percentual,
-      deslocado: false
-    });
-  });
+    const y =
+      caixa.y +
+      caixa.height / 2;
 
-  /*
-   * Evita sobreposição.
-   * Estados próximos têm a etiqueta
-   * deslocada para a direita e para baixo.
-   */
-  for (
-    let i = 0;
-    i < labels.length;
-    i++
-  ) {
-    const atual =
-      labels[i];
-
-    for (
-      let j = 0;
-      j < i;
-      j++
-    ) {
-      const anterior =
-        labels[j];
-
-      const distanciaX =
-        Math.abs(
-          atual.labelX -
-          anterior.labelX
-        );
-
-      const distanciaY =
-        Math.abs(
-          atual.labelY -
-          anterior.labelY
-        );
-
-      if (
-        distanciaX < 32 &&
-        distanciaY < 13
-      ) {
-        atual.labelX += 38;
-        atual.labelY += 20;
-        atual.deslocado = true;
-      }
-    }
-  }
-
-  labels.forEach(label => {
     const grupo =
       svg.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -371,67 +306,11 @@ function criarRotulosMapa() {
 
     grupo.setAttribute(
       "transform",
-      `translate(
-        ${label.labelX}
-        ${label.labelY}
-      )`
+      `translate(${x} ${y})`
     );
 
     grupo.style.cursor =
       "pointer";
-
-    /*
-     * Linha de ligação para etiquetas
-     * que foram deslocadas.
-     */
-    if (label.deslocado) {
-      const linha =
-        svg.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "line"
-        );
-
-      linha.setAttribute(
-        "x1",
-        label.x -
-        label.labelX
-      );
-
-      linha.setAttribute(
-        "y1",
-        label.y -
-        label.labelY
-      );
-
-      linha.setAttribute(
-        "x2",
-        "0"
-      );
-
-      linha.setAttribute(
-        "y2",
-        "0"
-      );
-
-      linha.setAttribute(
-        "stroke",
-        "#111111"
-      );
-
-      linha.setAttribute(
-        "stroke-width",
-        "1"
-      );
-
-      linha.setAttribute(
-        "opacity",
-        "0.65"
-      );
-
-      grupo.appendChild(
-        linha
-      );
-    }
 
     const texto =
       svg.createElementNS(
@@ -480,8 +359,11 @@ function criarRotulosMapa() {
     );
 
     texto.textContent =
-      `${label.estado.uf} ${formatarPercentual(
-        label.percentual
+      `${estado.uf} ${formatarPercentual(
+        Math.max(
+          estado.azul,
+          estado.vermelho
+        )
       )}`;
 
     const titulo =
@@ -491,27 +373,22 @@ function criarRotulosMapa() {
       );
 
     titulo.textContent =
-      `${label.estado.nome}: ` +
+      `${estado.nome}: ` +
       `Lula ${formatarPercentual(
-        label.estado.vermelho
+        estado.vermelho
       )} · ` +
       `Flávio Bolsonaro ${formatarPercentual(
-        label.estado.azul
+        estado.azul
       )}`;
 
-    grupo.appendChild(
-      texto
-    );
-
-    grupo.appendChild(
-      titulo
-    );
+    grupo.appendChild(texto);
+    grupo.appendChild(titulo);
 
     grupo.addEventListener(
       "click",
       function() {
         atualizarEstado(
-          label.estado.uf
+          estado.uf
         );
       }
     );
@@ -548,9 +425,7 @@ function criarRotulosMapa() {
 
 function conectarMapa() {
   const objeto =
-    document.getElementById(
-      "mapSvg"
-    );
+    document.getElementById("mapSvg");
 
   if (!objeto) return;
 
@@ -562,64 +437,59 @@ function conectarMapa() {
 
       if (!svg) return;
 
-      estados.forEach(
-        estado => {
-          const elemento =
-            svg.getElementById(
+      estados.forEach(estado => {
+        const elemento =
+          svg.getElementById(
+            estado.uf
+          );
+
+        if (!elemento) return;
+
+        const cor =
+          calcularCor(estado);
+
+        elemento.setAttribute(
+          "fill",
+          cor
+        );
+
+        elemento.style.setProperty(
+          "fill",
+          cor,
+          "important"
+        );
+
+        elemento.style.cursor =
+          "pointer";
+
+        elemento.style.transition =
+          "opacity .2s";
+
+        elemento.addEventListener(
+          "mouseenter",
+          function() {
+            this.style.opacity =
+              "0.7";
+          }
+        );
+
+        elemento.addEventListener(
+          "mouseleave",
+          function() {
+            this.style.opacity =
+              "1";
+          }
+        );
+
+        elemento.addEventListener(
+          "click",
+          function() {
+            atualizarEstado(
               estado.uf
             );
-
-          if (!elemento)
-            return;
-
-          const cor =
-            calcularCor(
-              estado
-            );
-
-          elemento.setAttribute(
-            "fill",
-            cor
-          );
-
-          elemento.style.setProperty(
-            "fill",
-            cor,
-            "important"
-          );
-
-          elemento.style.cursor =
-            "pointer";
-
-          elemento.style.transition =
-            "opacity .2s";
-
-          elemento.addEventListener(
-            "mouseenter",
-            function() {
-              this.style.opacity =
-                "0.7";
-            }
-          );
-
-          elemento.addEventListener(
-            "mouseleave",
-            function() {
-              this.style.opacity =
-                "1";
-            }
-          );
-
-          elemento.addEventListener(
-            "click",
-            function() {
-              atualizarEstado(
-                estado.uf
-              );
-            }
-          );
-        }
-      );
+          }
+        );
+      });
 
       criarRotulosMapa();
     }
@@ -628,9 +498,7 @@ function conectarMapa() {
 
 function configurarOrdenacao() {
   const select =
-    document.getElementById(
-      "sort"
-    );
+    document.getElementById("sort");
 
   if (!select) return;
 
